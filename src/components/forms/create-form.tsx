@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { formSchema, FormData } from "@/schemas/form"
@@ -25,6 +26,8 @@ export function CreateForm() {
     resolver: zodResolver(formSchema),
   })
 
+  const router = useRouter()
+
   async function onSubmit(data: FormData) {
     const res = await catchAsync(createForm(data), "Form")
 
@@ -34,7 +37,10 @@ export function CreateForm() {
         description: res.error,
         variant: "destructive",
       })
-    else toast(res)
+    else {
+      toast({ title: res.title, description: res.description })
+      router.push(`/dashboard/builder/${res.id}`)
+    }
   }
 
   return (
