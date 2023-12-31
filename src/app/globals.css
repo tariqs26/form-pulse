@@ -72,10 +72,10 @@
   }
 
   h3 {
-    @apply text-2xl font-semibold md:text-3xl;
+    @apply text-xl font-semibold md:text-2xl;
   }
 
   h4 {
-    @apply text-xl font-medium md:text-2xl;
+    @apply text-lg font-medium md:text-xl;
   }
 }
