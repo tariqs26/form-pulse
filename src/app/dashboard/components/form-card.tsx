@@ -50,7 +50,7 @@ export function FormCard({ form }: FormCardProps) {
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button asChild className="mt-2 gap-2">
-          {!form.published ? (
+          {form.published ? (
             <Link href={`/dashboard/forms/${form.id}`}>
               View Form <ArrowRight className="h-4 w-4" />
             </Link>
