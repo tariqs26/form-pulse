@@ -1,3 +1,4 @@
+import type { Form } from "@prisma/client"
 import Link from "next/link"
 import { formatDistance } from "date-fns"
 import {
@@ -12,7 +13,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { View, CalendarRange, ArrowRight, Edit } from "lucide-react"
 
-import type { Form } from "@prisma/client"
 
 type FormCardProps = {
   form: Form
