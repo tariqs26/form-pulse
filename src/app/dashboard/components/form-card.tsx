@@ -13,7 +13,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { View, CalendarRange, ArrowRight, Edit } from "lucide-react"
 
-
 type FormCardProps = {
   form: Form
 }
@@ -31,7 +30,6 @@ export function FormCard({ form }: FormCardProps) {
           )}
         </CardTitle>
         <CardDescription>
-          {" "}
           {formatDistance(form.createdAt, new Date(), {
             addSuffix: true,
           })}
