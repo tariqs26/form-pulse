@@ -1,11 +1,11 @@
 import { Suspense } from "react"
 import { getUserFormStats, getForms } from "@/actions/form"
-import { Separator } from "@/components/ui/separator"
 import { MousePointerClick, View, CalendarRange, Activity } from "lucide-react"
+import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
+import { StatCard } from "./components/stat-card"
 import { CreateFormButton } from "@/components/create-form-button"
 import { FormCard } from "./components/form-card"
-import { StatCard } from "./components/stat-card"
 
 export default function DashboardPage() {
   return (
@@ -82,14 +82,9 @@ function StatsCards(props: StatsCardsProps) {
 function FormCardsSkeleton() {
   return (
     <>
-      {Array(4)
-        .fill(null)
-        .map((_, i) => (
-          <Skeleton
-            key={i}
-            className="h-48 w-full border-2 border-primary/20"
-          />
-        ))}
+      {[1, 2, 3, 4].map((_, i) => (
+        <Skeleton key={i} className="h-48 w-full border-2 border-primary/20" />
+      ))}
     </>
   )
 }
