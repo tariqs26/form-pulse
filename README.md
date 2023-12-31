@@ -15,17 +15,11 @@ Form Pulse is a web application that allows users to create and share forms with
 
 ```bash
 npm i
-
 # or
-
 yarn install
-
 # or
-
 pnpm install
-
 # or
-
 bun install
 ```
 
