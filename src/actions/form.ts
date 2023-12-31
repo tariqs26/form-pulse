@@ -40,7 +40,7 @@ export async function getUserFormStats() {
 export async function createForm(data: FormData) {
   const user = await getUserOrThrow()
 
-  await db.form.create({
+  const form = await db.form.create({
     data: {
       ...data,
       userId: user.id,
@@ -48,7 +48,23 @@ export async function createForm(data: FormData) {
   })
 
   return {
+    id: form.id,
     title: "Success",
     description: "Form created successfully",
   }
+}
+
+export async function getForms() {
+  const user = await getUserOrThrow()
+
+  const forms = await db.form.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+  })
+
+  return forms
 }
