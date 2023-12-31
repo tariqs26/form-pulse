@@ -26,7 +26,7 @@ CREATE TABLE "FormSubmission" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Form_userId_key" ON "Form"("userId");
+CREATE UNIQUE INDEX "Form_userId_name_key" ON "Form"("userId", "name");
 
 -- AddForeignKey
 ALTER TABLE "FormSubmission" ADD CONSTRAINT "FormSubmission_formId_fkey" FOREIGN KEY ("formId") REFERENCES "Form"("id") ON DELETE CASCADE ON UPDATE CASCADE;

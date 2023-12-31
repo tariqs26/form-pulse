@@ -10,7 +10,7 @@ datasource db {
 
 model Form {
   id          Int      @id @default(autoincrement())
-  userId      String   @unique
+  userId      String
   published   Boolean  @default(false)
   name        String
   description String   @default("")
@@ -23,11 +23,13 @@ model Form {
 
   shareId         String           @default(uuid())
   formSubmissions FormSubmission[]
+
+  @@unique([userId, name])
 }
 
 model FormSubmission {
   id        Int      @id @default(autoincrement())
-  content   Json  
+  content   Json
   createdAt DateTime @default(now())
   form      Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
   formId    Int
