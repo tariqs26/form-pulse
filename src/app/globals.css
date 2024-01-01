@@ -52,6 +52,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -77,5 +78,15 @@
 
   h4 {
     @apply text-lg font-medium md:text-xl;
+  }
+}
+
+@layer utilities {
+  .logo-gradient {
+    @apply bg-gradient-to-r from-indigo-500 to-cyan-500;
+  }
+  
+  .logo-gradient-dark {
+    @apply bg-gradient-to-r from-indigo-400 to-cyan-400;
   }
 }
