@@ -1,6 +1,6 @@
 import { UserButton } from "@clerk/nextjs"
-import { Logo } from "./logo"
-import { ThemeSwitcher } from "./theme-switcher"
+import { Logo } from "../logo"
+import { ThemeSwitcher } from "../theme-switcher"
 
 export function Navbar() {
   return (

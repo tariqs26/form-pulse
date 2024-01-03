@@ -7,11 +7,11 @@ import {
   CardTitle,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { View, CalendarRange, ArrowRight, Edit } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 type FormCardProps = {
   form: Form
@@ -19,7 +19,7 @@ type FormCardProps = {
 
 export function FormCard({ form }: FormCardProps) {
   return (
-    <Card key={form.id} className="border-2">
+    <Card key={form.id} className="flex flex-col border shadow-sm">
       <CardHeader>
         <CardTitle className="flex items-center justify-between gap-2">
           <span className="truncate">{form.name}</span>
@@ -29,25 +29,30 @@ export function FormCard({ form }: FormCardProps) {
             <Badge variant="destructive">Draft</Badge>
           )}
         </CardTitle>
-        <CardDescription>
-          {formatDistance(form.createdAt, new Date(), {
+        <div className="text-sm text-muted-foreground">
+          {formatDistance(form.updatedAt, new Date(), {
             addSuffix: true,
           })}
-          {form.published && (
-            <section className="flex items-center gap-2">
-              <CalendarRange className="text-muted-foreground" />
-              {form.submissions}
-              <View className="text-muted-foreground" />
-              {form.visits}
-            </section>
-          )}
-        </CardDescription>
+        </div>
       </CardHeader>
-      <CardContent className="h-5 truncate text-sm text-muted-foreground">
+      <CardContent className="flex-grow truncate text-muted-foreground">
         {form.description || "No description"}
       </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button asChild className="mt-2 gap-2">
+      <CardFooter
+        className={cn(
+          "flex items-center justify-end",
+          form.published && "justify-between",
+        )}
+      >
+        {form.published && (
+          <section className="flex items-center gap-2">
+            <CalendarRange className="text-muted-foreground" />
+            {form.submissions}
+            <View className="text-muted-foreground" />
+            {form.visits}
+          </section>
+        )}
+        <Button asChild className="gap-2">
           {form.published ? (
             <Link href={`/dashboard/forms/${form.id}`}>
               View Form <ArrowRight className="h-4 w-4" />
