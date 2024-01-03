@@ -3,6 +3,7 @@
 import db from "@/lib/db"
 import { FormData } from "@/schemas/form"
 import { currentUser } from "@clerk/nextjs"
+import type { FormElementInstance } from "@/types/form-builder"
 
 async function getUserOrThrow() {
   const user = await currentUser()
@@ -67,4 +68,54 @@ export async function getForms() {
   })
 
   return forms
+}
+
+export async function getFormById(id: number) {
+  const user = await getUserOrThrow()
+
+  const form = await db.form.findUniqueOrThrow({
+    where: { id, userId: user.id },
+  })
+
+  return form
+}
+
+export async function updateFormContent(
+  id: number,
+  content: FormElementInstance[],
+) {
+  const user = await getUserOrThrow()
+
+  const form = await db.form.update({
+    where: { id, userId: user.id },
+    data: {
+      content,
+    },
+  })
+
+  return form
+}
+
+export async function publishForm(id: number) {
+  const user = await getUserOrThrow()
+
+  const form = await db.form.update({
+    where: { id, userId: user.id },
+    data: {
+      published: true,
+    },
+  })
+
+  return form
+
+}
+
+export async function deleteForm(id: number) {
+  const user = await getUserOrThrow()
+
+  const form = await db.form.delete({
+    where: { id, userId: user.id },
+  })
+
+  return form
 }
