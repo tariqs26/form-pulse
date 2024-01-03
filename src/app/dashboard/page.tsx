@@ -3,13 +3,13 @@ import { getUserFormStats, getForms } from "@/actions/form"
 import { MousePointerClick, View, CalendarRange, Activity } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
-import { StatCard } from "./components/stat-card"
-import { CreateFormButton } from "@/components/create-form-button"
-import { FormCard } from "./components/form-card"
+import { StatCard } from "../../components/dashboard/stat-card"
+import { CreateFormButton } from "@/components/dashboard/create-form-button"
+import { FormCard } from "../../components/dashboard/form-card"
 
 export default function DashboardPage() {
   return (
-    <section className="container pt-4">
+    <section className="container py-4">
       <Suspense fallback={<StatsCards loading={true} />}>
         <CardStatsWrapper />
       </Suspense>
@@ -31,15 +31,10 @@ async function CardStatsWrapper() {
   return <StatsCards data={stats} loading={false} />
 }
 
-type StatsCardsProps = {
-  data?: Awaited<ReturnType<typeof getUserFormStats>>
-  loading: boolean
-}
+type FormStats = Awaited<ReturnType<typeof getUserFormStats>>
 
-function StatsCards(props: StatsCardsProps) {
-  const { data, loading } = props
-
-  const stats = [
+export function formStats(data?: FormStats) {
+  return [
     {
       title: "Total Submissions",
       icon: <CalendarRange className="text-blue-600" />,
@@ -69,6 +64,17 @@ function StatsCards(props: StatsCardsProps) {
       className: "shadow-red-600",
     },
   ]
+}
+
+type StatsCardsProps = {
+  data?: FormStats
+  loading: boolean
+}
+
+function StatsCards(props: StatsCardsProps) {
+  const { data, loading } = props
+
+  const stats = formStats(data)
 
   return (
     <section className="grid grid-cols-1 gap-4 pt-8 md:grid-cols-2 lg:grid-cols-4">
@@ -83,7 +89,7 @@ function FormCardsSkeleton() {
   return (
     <>
       {[1, 2, 3, 4].map((_, i) => (
-        <Skeleton key={i} className="h-48 w-full border-2 border-primary/20" />
+        <Skeleton key={i} className="h-48 w-full border border-primary/20" />
       ))}
     </>
   )
