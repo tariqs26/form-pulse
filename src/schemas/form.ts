@@ -1,8 +1,8 @@
-import * as Z from "zod"
+import { z } from "zod"
 
-export const formSchema = Z.object({
-  name: Z.string().min(4),
-  description: Z.string().optional(),
+export const formSchema = z.object({
+  name: z.string().min(4),
+  description: z.string().optional(),
 })
 
-export type FormData = Z.infer<typeof formSchema>
+export type FormData = z.infer<typeof formSchema>
