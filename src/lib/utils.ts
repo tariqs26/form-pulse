@@ -6,6 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function generateId() {
+  return Math.floor(Math.random() * 1000000000).toString(16);
+}
+
 function canInstanceCheck(value: unknown): boolean {
   return (
     typeof value === "object" &&
