@@ -32,7 +32,7 @@ export function FormBuilder({ form }: FormBuilderProps) {
 
   return (
     <DndContext sensors={sensors}>
-      <main className="flex flex-grow flex-col">
+      <main className="flex flex-grow flex-col overflow-x-hidden">
         <FormBuilderHeader {...form} />
         <Designer />
       </main>
