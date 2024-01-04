@@ -1,9 +1,9 @@
-import { useDroppable, useDndMonitor } from "@dnd-kit/core"
+import { useDndMonitor } from "@dnd-kit/core"
 import { useDesigner } from "@/hooks/use-designer"
 import { formElements, type FormElementType } from "@/types/form-builder"
-import { cn, generateId } from "@/lib/utils"
+import { generateId } from "@/lib/utils"
 import { DesignerSideBar } from "./sidebar/designer-side-bar"
-import { DesignerElementWrapper } from "./designer-element-wrapper"
+import { DropArea } from "./designer-drop-area"
 
 export function Designer() {
   const {
@@ -13,13 +13,6 @@ export function Designer() {
     selectedElement,
     setSelectedElement,
   } = useDesigner()
-
-  const droppable = useDroppable({
-    id: "designer-drop-area",
-    data: {
-      isDesignerDropArea: true,
-    },
-  })
 
   useDndMonitor({
     onDragEnd: (event) => {
@@ -106,38 +99,14 @@ export function Designer() {
 
   return (
     <section className="bg-graph relative flex h-52 flex-grow items-center justify-center overflow-y-auto">
-      <div className="flex h-full flex-1">
+      <div className="flex h-full flex-1 overflow-x-auto">
         <div
-          className="w-full p-4"
+          className="w-full overflow-x-auto p-4"
           onClick={() => {
             if (selectedElement) setSelectedElement(null)
           }}
         >
-          <div
-            ref={droppable.setNodeRef}
-            className={cn(
-              "m-auto flex h-full max-w-4xl flex-1 flex-grow flex-col items-center justify-start overflow-y-auto rounded-xl bg-background",
-              droppable.isOver && "ring-4",
-            )}
-          >
-            {!elements.length &&
-              (droppable.isOver ? (
-                <div className="w-full p-4">
-                  <div className="h-28 rounded-md bg-primary/20"></div>
-                </div>
-              ) : (
-                <p className="flex flex-grow items-center text-3xl font-bold text-muted-foreground">
-                  Drop here
-                </p>
-              ))}
-            {elements.length > 0 && (
-              <div className="flex w-full flex-col gap-2 p-4">
-                {elements.map((element) => (
-                  <DesignerElementWrapper key={element.id} {...element} />
-                ))}
-              </div>
-            )}
-          </div>
+          <DropArea elements={elements} />
         </div>
         <DesignerSideBar />
       </div>
