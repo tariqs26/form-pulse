@@ -54,7 +54,7 @@ export function FormCard({ form }: FormCardProps) {
         )}
         <Button asChild className="gap-2">
           {form.published ? (
-            <Link href={`/dashboard/forms/${form.id}`}>
+            <Link href={`/dashboard/details/${form.id}`}>
               View Form <ArrowRight className="h-4 w-4" />
             </Link>
           ) : (

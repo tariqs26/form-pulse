@@ -53,7 +53,7 @@ export function FormPublishedCard({
               </Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href={`/dashboard/forms/${formId}`} className="gap-2">
+              <Link href={`/dashboard/details/${formId}`} className="gap-2">
                 Form Details <MoveRight />
               </Link>
             </Button>
