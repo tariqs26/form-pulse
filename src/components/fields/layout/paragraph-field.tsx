@@ -11,7 +11,7 @@ import type {
   FormElementInstance,
 } from "@/types/form-builder"
 
-import { Text } from "lucide-react"
+import { Pilcrow} from "lucide-react"
 import { Label } from "../../ui/label"
 import {
   Form,
@@ -47,7 +47,7 @@ export const paragraphFieldFormElement: FormElement = {
     extraAttributes,
   }),
   designerButton: {
-    icon: Text,
+    icon: Pilcrow,
     label: "Paragraph Field",
   },
   designerComponent: DesignerComponent,
