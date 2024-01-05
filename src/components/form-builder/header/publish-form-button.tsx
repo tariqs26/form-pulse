@@ -70,7 +70,7 @@ export function PublishFormButton({ formId }: { formId: number }) {
               startTransition(publish)
             }}
           >
-            Publish {loading && <Spinner />}
+            Publish {loading && <Spinner className="border-primary-foreground border-t-transparent ml-2"/>}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
