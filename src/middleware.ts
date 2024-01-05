@@ -2,11 +2,11 @@ import { authMiddleware } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 
 export default authMiddleware({
-  publicRoutes: ["/"],
+  publicRoutes: ["/", "/submit"],
   afterAuth(auth, req, _) {
-    // redirect from landing page to dashboard when logged in
-    if (auth.userId && req.nextUrl.pathname === "/") {
-      const url = new URL("/dashboard", req.url)
+    if (auth.userId === null && req.nextUrl.pathname.startsWith("/dashboard")) {
+      const url = new URL("/sign-in", req.url)
+      url.searchParams.set("redirect_url", req.nextUrl.pathname)
       return NextResponse.redirect(url)
     }
     return NextResponse.next()
