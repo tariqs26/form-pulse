@@ -3,6 +3,7 @@ import { Button } from "../../ui/button"
 import { ScanEye } from "lucide-react"
 import { Dialog, DialogTrigger, DialogContent } from "../../ui/dialog"
 import { formElements } from "@/types/form-builder"
+import { FormPreviewContainer } from "@/components/form-preview-container"
 
 export function PreviewDialogButton() {
   const { elements } = useDesigner()
@@ -22,14 +23,14 @@ export function PreviewDialogButton() {
           </p>
         </header>
         <section className="bg-graph flex flex-grow items-center justify-center overflow-y-auto p-4">
-          <div className="flex max-w-[620px] flex-grow flex-col gap-4 self-stretch overflow-y-auto rounded-xl bg-background p-6">
+          <FormPreviewContainer>
             {elements.map((element) => {
               const FormComponent = formElements[element.type].formComponent
               return (
                 <FormComponent key={element.id} elementInstance={element} />
               )
             })}
-          </div>
+          </FormPreviewContainer>
         </section>
       </DialogContent>
     </Dialog>
