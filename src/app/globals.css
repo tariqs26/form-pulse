@@ -114,8 +114,16 @@
     @apply border-border bg-transparent text-foreground;
   }
 
+  .clerk-card .cl-formFieldInfoText {
+    @apply text-muted-foreground;
+  }
+
   .clerk-card .cl-footerActionText {
     @apply text-muted-foreground;
+  }
+
+  .clerk-card .cl-internal-b3fm6y {
+    @apply hidden;
   }
 }
 
