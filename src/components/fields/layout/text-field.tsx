@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -9,11 +9,12 @@ import type {
   FormElementType,
   FormElement,
   FormElementInstance,
+  SubmitValue,
 } from "@/types/form-builder"
 
 import { ALargeSmall } from "lucide-react"
-import { Label } from "../ui/label"
-import { Input } from "../ui/input"
+import { Label } from "../../ui/label"
+import { Input } from "../../ui/input"
 import {
   Form,
   FormControl,
@@ -22,8 +23,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form"
-import { Switch } from "../ui/switch"
+} from "../../ui/form"
+import { Switch } from "../../ui/switch"
+import { cn } from "@/lib/utils"
 
 const type: FormElementType = "textField"
 
@@ -43,6 +45,10 @@ const propertiesSchema = z.object({
 
 type Properties = z.infer<typeof propertiesSchema>
 
+type CustomInstance = FormElementInstance & {
+  extraAttributes: typeof extraAttributes
+}
+
 export const textFieldFormElement: FormElement = {
   type,
   construct: (id: string) => ({
@@ -57,10 +63,12 @@ export const textFieldFormElement: FormElement = {
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
-}
 
-type CustomInstance = FormElementInstance & {
-  extraAttributes: typeof extraAttributes
+  validate: (elementInstance: FormElementInstance, currentValue: string) => {
+    const element = elementInstance as CustomInstance
+    if (element.extraAttributes.required) return currentValue.length > 0
+    return true
+  },
 }
 
 function DesignerComponent({
@@ -72,12 +80,17 @@ function DesignerComponent({
 
   const { label, helperText, required, placeHolder } = element.extraAttributes
   return (
-    <div className="grid gap-2">
+    <div className="grid w-full gap-2">
       <Label>
         {label}
         {required && "*"}
       </Label>
-      <Input readOnly disabled placeholder={placeHolder} />
+      <Input
+        readOnly
+        disabled
+        placeholder={placeHolder}
+        className="pointer-events-none"
+      />
       {helperText && (
         <p className="text-sm text-muted-foreground">{helperText}</p>
       )}
@@ -202,19 +215,47 @@ function PropertiesComponent({
 
 function FormComponent({
   elementInstance,
+  submitValue,
+  isInvalid,
+  defaultValue,
 }: {
   elementInstance: FormElementInstance
+  submitValue?: SubmitValue
+  isInvalid?: boolean
+  defaultValue?: string
 }) {
   const element = elementInstance as CustomInstance
+
+  const [value, setValue] = useState(defaultValue ?? "")
+
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    setError(isInvalid === true)
+  }, [isInvalid])
 
   const { label, helperText, required, placeHolder } = element.extraAttributes
   return (
     <div className="grid gap-2">
-      <Label>
+      <Label className={cn(error && "text-destructive")}>
         {label}
         {required && "*"}
       </Label>
-      <Input placeholder={placeHolder} />
+      <Input
+        placeholder={placeHolder}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={() => {
+          if (!submitValue) return
+          const valid = textFieldFormElement.validate(element, value)
+          setError(!valid)
+          if (!valid) return
+          submitValue(element.id, value)
+        }}
+        value={value}
+        className={cn(
+          error && "border-destructive focus-visible:ring-destructive",
+        )}
+      />
       {helperText && (
         <p className="text-sm text-muted-foreground">{helperText}</p>
       )}

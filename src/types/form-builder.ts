@@ -1,10 +1,19 @@
-import { textFieldFormElement } from "@/components/fields/text-field"
+import { textFieldFormElement } from "@/components/fields/layout/text-field"
+import { subTitleFieldFormElement } from "@/components/fields/layout/sub-title-field"
+import { paragraphFieldFormElement } from "@/components/fields/layout/paragraph-field"
+import { separatorFieldFormElement } from "@/components/fields/layout/separator-field"
+import { spacerFieldFormElement } from "@/components/fields/layout/spacer-field"
+import { titleFieldFormElement } from "@/components/fields/form/title-field"
 
-export type FormElementType = "textField"
+export type FormElementType =
+  | "titleField"
+  | "subTitleField"
+  | "paragraphField"
+  | "separatorField"
+  | "spacerField"
+  | "textField"
 
-type FormComponent = React.FC<{
-  elementInstance: FormElementInstance
-}>
+export type SubmitValue = (key: string, value: string) => void
 
 export type FormElement = {
   type: FormElementType
@@ -16,9 +25,22 @@ export type FormElement = {
     label: string
   }
 
-  designerComponent: FormComponent
-  propertiesComponent: FormComponent
-  formComponent: FormComponent
+  designerComponent: React.FC<{
+    elementInstance: FormElementInstance
+  }>
+
+  propertiesComponent: React.FC<{
+    elementInstance: FormElementInstance
+  }>
+
+  formComponent: React.FC<{
+    elementInstance: FormElementInstance
+    submitValue?: SubmitValue
+    defaultValue?: string
+    isInvalid?: boolean
+  }>
+
+  validate(formElement: FormElementInstance, currentValue: string): boolean
 }
 
 export type FormElementInstance = {
@@ -33,4 +55,9 @@ export type FormElements = {
 
 export const formElements: FormElements = {
   textField: textFieldFormElement,
+  titleField: titleFieldFormElement,
+  subTitleField: subTitleFieldFormElement,
+  paragraphField: paragraphFieldFormElement,
+  separatorField: separatorFieldFormElement,
+  spacerField: spacerFieldFormElement,
 }
