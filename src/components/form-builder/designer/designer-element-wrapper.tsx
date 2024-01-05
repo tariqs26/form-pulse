@@ -7,7 +7,7 @@ import { Button } from "../../ui/button"
 import { Trash2 } from "lucide-react"
 
 export function DesignerElementWrapper(element: FormElementInstance) {
-  const { removeElement, setSelectedElement } = useDesigner()
+  const { removeElement, setSelectedElement, selectedElement } = useDesigner()
 
   const [isMouseOver, setIsMouseOver] = useState(false)
 
@@ -46,7 +46,9 @@ export function DesignerElementWrapper(element: FormElementInstance) {
 
   return (
     <div
-      className="relative flex flex-col overflow-hidden rounded-md text-foreground ring-1 ring-inset ring-primary/20 hover:cursor-pointer"
+      className={cn("relative flex flex-col overflow-hidden rounded-md text-foreground ring-1 ring-inset ring-primary/20 hover:cursor-pointer",
+        selectedElement?.id === element.id && "ring-2 ring-primary/50"
+      )}
       ref={draggable.setNodeRef}
       {...draggable.listeners}
       {...draggable.attributes}
