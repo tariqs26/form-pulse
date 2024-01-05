@@ -11,7 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { formatDistance } from "date-fns"
+import { format, formatDistance } from "date-fns"
+import { Badge } from "@/components/ui/badge"
+import { Checkbox } from "@/components/ui/checkbox"
 
 type Props = {
   params: {
@@ -45,9 +47,7 @@ export default async function DetailsPage({ params }: Props) {
           data={{ visits, submissions, submissionRate, bounceRate }}
         />
       </div>
-      <div className="container pt-10">
-        <SubmissionsTable form={form} />
-      </div>
+      <SubmissionsTable form={form} />
     </section>
   )
 }
@@ -75,6 +75,11 @@ async function SubmissionsTable({
   for (const element of formElements) {
     switch (element.type) {
       case "textField":
+      case "textAreaField":
+      case "numberField":
+      case "dateField":
+      case "selectField":
+      case "checkboxField":
         columns.push({
           id: element.id,
           label: element.extraAttributes?.label,
@@ -92,9 +97,9 @@ async function SubmissionsTable({
   })
 
   return (
-    <>
+    <div className="container overflow-x-auto pt-10">
       <h2 className="mb-4">Submissions</h2>
-      <div className="rounded-md border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -126,13 +131,20 @@ async function SubmissionsTable({
           </TableBody>
         </Table>
       </div>
-    </>
+    </div>
   )
 }
 
 function RowCell({ type, value }: { type: FormElementType; value: string }) {
+  let node: React.ReactNode = value
   switch (type) {
-    case "textField":
-      return <TableCell>{value}</TableCell>
+    case "dateField":
+      const date = new Date(value).toLocaleDateString()
+      node = <Badge variant="outline">{format(date, "dd/MM/yyyyy")}</Badge>
+      break
+    case "checkboxField":
+      node = <Checkbox checked={value === "true"} disabled />
+      break
   }
+  return <TableCell>{node}</TableCell>
 }
