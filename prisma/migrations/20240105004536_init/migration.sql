@@ -26,6 +26,9 @@ CREATE TABLE "FormSubmission" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Form_shareId_key" ON "Form"("shareId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Form_userId_name_key" ON "Form"("userId", "name");
 
 -- AddForeignKey
