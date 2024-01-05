@@ -81,6 +81,44 @@
   }
 }
 
+@layer components {
+  .clerk-card {
+    @apply border-border bg-card;
+  }
+
+  .clerk-card .cl-headerTitle {
+    @apply text-foreground;
+  }
+
+  .clerk-card .cl-headerSubtitle {
+    @apply text-muted-foreground;
+  }
+
+  .clerk-card .cl-socialButtonsBlockButton {
+    @apply bg-secondary text-secondary-foreground ring-border hover:bg-secondary/80;
+  }
+
+  .clerk-card .cl-dividerLine {
+    @apply bg-border;
+  }
+
+  .clerk-card .cl-dividerText {
+    @apply text-muted-foreground;
+  }
+
+  .clerk-card .cl-formFieldLabel {
+    @apply text-foreground;
+  }
+
+  .clerk-card .cl-formFieldInput {
+    @apply border-border bg-transparent text-foreground;
+  }
+
+  .clerk-card .cl-footerActionText {
+    @apply text-muted-foreground;
+  }
+}
+
 @layer utilities {
   .logo-gradient {
     @apply bg-gradient-to-r from-indigo-500 to-cyan-500;
