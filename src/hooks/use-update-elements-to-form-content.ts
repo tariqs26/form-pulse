@@ -4,7 +4,7 @@ import { useDesigner } from "./use-designer"
 import type { FormElementInstance } from "@/types/form-builder"
 
 export function useUpdateElementsToFormContent(form: Form) {
-  const { setElements } = useDesigner()
+  const { setElements, setSelectedElement } = useDesigner()
 
   const [loading, setLoading] = useState(true)
 
@@ -14,9 +14,10 @@ export function useUpdateElementsToFormContent(form: Form) {
       const content = form.content as FormElementInstance[]
       setElements(content)
     }
+    setSelectedElement(null)
     const loadingTimeout = setTimeout(() => setLoading(false), 200)
     return () => clearTimeout(loadingTimeout)
-  }, [form, setElements, loading, setLoading])
+  }, [loading, form, setElements, setSelectedElement, setLoading])
 
   return loading
 }
