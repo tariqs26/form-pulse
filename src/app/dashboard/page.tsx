@@ -31,10 +31,15 @@ async function CardStatsWrapper() {
   return <StatsCards data={stats} loading={false} />
 }
 
-type FormStats = Awaited<ReturnType<typeof getUserFormStats>>
+type StatsCardsProps = {
+  data?: Awaited<ReturnType<typeof getUserFormStats>>
+  loading: boolean
+}
 
-export function formStats(data?: FormStats) {
-  return [
+export function StatsCards(props: StatsCardsProps) {
+  const { data, loading } = props
+
+  const stats = [
     {
       title: "Total Submissions",
       icon: <CalendarRange className="text-blue-600" />,
@@ -64,17 +69,6 @@ export function formStats(data?: FormStats) {
       className: "shadow-red-600",
     },
   ]
-}
-
-type StatsCardsProps = {
-  data?: FormStats
-  loading: boolean
-}
-
-function StatsCards(props: StatsCardsProps) {
-  const { data, loading } = props
-
-  const stats = formStats(data)
 
   return (
     <section className="grid grid-cols-1 gap-4 pt-8 md:grid-cols-2 lg:grid-cols-4">
