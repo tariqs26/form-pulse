@@ -58,14 +58,14 @@ export function StatsCards(props: StatsCardsProps) {
       title: "Submission Rate",
       icon: <MousePointerClick className="text-orange-600" />,
       helperText: "Visits that resulted in a submission",
-      value: data?.submissionRate + "%",
+      value: data?.submissionRate.toFixed(2) + "%",
       className: "shadow-orange-600",
     },
     {
       title: "Bounce Rate",
       icon: <Activity className="text-red-600" />,
       helperText: "Visits that leave without interacting",
-      value: data?.bounceRate + "%",
+      value: data?.bounceRate.toFixed(2) + "%",
       className: "shadow-red-600",
     },
   ]
