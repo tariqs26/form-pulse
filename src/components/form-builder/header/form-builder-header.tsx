@@ -10,7 +10,7 @@ export function FormBuilderHeader(form: Form) {
         Form:
         <span className="ml-2 text-muted-foreground">{form.name}</span>
       </h4>
-      <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex flex-wrap items-center gap-2">
         <PreviewDialogButton />
         {!form.published && (
           <>
