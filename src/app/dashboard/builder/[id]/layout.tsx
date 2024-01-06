@@ -1,3 +1,3 @@
 export default function BuilderLayout({ children }: LayoutProps) {
-  return <div className="mx-auto flex flex-grow">{children}</div>
+  return <div className="flex flex-grow overflow-x-hidden">{children}</div>
 }

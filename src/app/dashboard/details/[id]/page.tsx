@@ -31,15 +31,20 @@ export default async function DetailsPage({ params }: Props) {
   const bounceRate = 100 - submissionRate
 
   return (
-    <section className="border-b py-10">
-      <div className="container flex justify-between">
-        <h1 className="truncate">{form.name}</h1>
-        <VisitButton shareId={form.shareId} />
-      </div>
-      <div className="border-b py-4">
+    <section className="pb-10">
+      <div className="space-y-4 border-b py-8">
+        <div className="container flex items-center justify-between gap-2">
+          <h1 className="truncate">{form.name}</h1>
+          <VisitButton shareId={form.shareId} />
+        </div>
         <div className="container flex items-center justify-between gap-2">
           <ShareLink shareId={form.shareId} />
         </div>
+        {form.description && (
+          <div className="container">
+            <p className="text-muted-foreground">{form.description}</p>
+          </div>
+        )}
       </div>
       <div className="container">
         <StatsCards
@@ -47,7 +52,16 @@ export default async function DetailsPage({ params }: Props) {
           data={{ visits, submissions, submissionRate, bounceRate }}
         />
       </div>
-      <SubmissionsTable form={form} />
+      <div className="container pt-10">
+        <h2 className="mb-4">Submissions</h2>
+        {form.submissions > 0 ? (
+          <SubmissionsTable form={form} />
+        ) : (
+          <p className="text-muted-foreground">
+            No submissions yet. Share your form to start receiving submissions.
+          </p>
+        )}
+      </div>
     </section>
   )
 }
@@ -59,18 +73,20 @@ async function SubmissionsTable({
 }) {
   const formElements = form.content as FormElementInstance[]
 
+  type Column = {
+    id: string
+    label: string
+    required: boolean
+    type: FormElementType
+  }
+
   type Row = {
     [key: string]: string
   } & {
     submittedAt: Date
   }
 
-  const columns: {
-    id: string
-    label: string
-    required: boolean
-    type: FormElementType
-  }[] = []
+  const columns: Column[] = []
 
   for (const element of formElements) {
     switch (element.type) {
@@ -86,51 +102,46 @@ async function SubmissionsTable({
           required: element.extraAttributes?.required,
           type: element.type,
         })
-        break
     }
   }
 
-  const rows: Row[] = []
-  form.formSubmissions.forEach((submission) => {
+  const rows: Row[] = form.formSubmissions.map((submission) => {
     const content = submission.content as Object
-    rows.push({ ...content, submittedAt: submission.createdAt } as Row)
+    return { ...content, submittedAt: submission.createdAt } as Row
   })
 
   return (
-    <div className="container overflow-x-auto pt-10">
-      <h2 className="mb-4">Submissions</h2>
-      <div className="overflow-x-auto rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {columns.map((column) => (
-                <TableHead key={column.id}>{column.label}</TableHead>
-              ))}
-              <TableHead className="text-right text-muted-foreground">
-                Submitted At
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow key={index}>
-                {columns.map((column) => (
-                  <RowCell
-                    key={column.id}
-                    type={column.type}
-                    value={row[column.id]}
-                  />
-                ))}
-                <TableCell className="text-right text-muted-foreground">
-                  {formatDistance(row.submittedAt, new Date(), {
-                    addSuffix: true,
-                  })}
-                </TableCell>
-              </TableRow>
+    <div className="rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {columns.map((column) => (
+              <TableHead key={column.id}>{column.label}</TableHead>
             ))}
-          </TableBody>
-        </Table>
-      </div>
+            <TableHead className="text-right text-muted-foreground">
+              Submitted At
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {rows.map((row, index) => (
+            <TableRow key={index}>
+              {columns.map((column) => (
+                <RowCell
+                  key={column.id}
+                  type={column.type}
+                  value={row[column.id]}
+                />
+              ))}
+              <TableCell className="text-right text-muted-foreground">
+                {formatDistance(row.submittedAt, new Date(), {
+                  addSuffix: true,
+                })}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   )
 }
