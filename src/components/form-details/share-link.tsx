@@ -20,7 +20,7 @@ export function ShareLink({ shareId }: ShareLinkProps) {
     <div className="flex flex-grow items-center gap-4">
       <Input value={shareUrl} readOnly />
       <Button
-        className="min-w-44 max-w-full flex-grow"
+        className="min-w-44"
         onClick={() => {
           navigator.clipboard.writeText(shareUrl)
           toast({
