@@ -16,10 +16,7 @@ export async function createForm(data: FormData) {
   const user = await getUserOrThrow()
 
   const form = await db.form.create({
-    data: {
-      ...data,
-      userId: user.id,
-    },
+    data: { ...data, userId: user.id },
   })
 
   return {
@@ -32,13 +29,8 @@ export async function getUserFormStats() {
   const user = await getUserOrThrow()
 
   const { _sum } = await db.form.aggregate({
-    where: {
-      userId: user.id,
-    },
-    _sum: {
-      visits: true,
-      submissions: true,
-    },
+    where: { userId: user.id },
+    _sum: { visits: true, submissions: true },
   })
 
   const visits = _sum.visits || 0
@@ -58,39 +50,25 @@ export async function getUserFormStats() {
 export async function getForms() {
   const user = await getUserOrThrow()
 
-  const forms = await db.form.findMany({
-    where: {
-      userId: user.id,
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
+  return db.form.findMany({
+    where: { userId: user.id },
+    orderBy: { updatedAt: "desc" },
   })
-
-  return forms
 }
 
 export async function getFormById(id: number) {
   const user = await getUserOrThrow()
 
-  const form = await db.form.findUniqueOrThrow({
+  return db.form.findUniqueOrThrow({
     where: { id, userId: user.id },
   })
-
-  return form
 }
 
 export async function getFormContentByShareId(shareId: string) {
   const form = await db.form.update({
     where: { shareId },
-    select: {
-      content: true,
-    },
-    data: {
-      visits: {
-        increment: 1,
-      },
-    },
+    select: { content: true },
+    data: { visits: { increment: 1 } },
   })
 
   return form.content as FormElementInstance[]
@@ -98,13 +76,11 @@ export async function getFormContentByShareId(shareId: string) {
 
 export async function getFormWithSubmissions(id: number) {
   const user = await getUserOrThrow()
-  const form = await db.form.findUniqueOrThrow({
+
+  return db.form.findUniqueOrThrow({
     where: { id, userId: user.id },
-    include: {
-      formSubmissions: true,
-    },
+    include: { formSubmissions: true },
   })
-  return form
 }
 
 export async function updateFormContent(
@@ -126,37 +102,29 @@ export async function updateFormContent(
 export async function publishForm(id: number) {
   const user = await getUserOrThrow()
 
-  const form = await db.form.update({
+  return db.form.update({
     where: { id, userId: user.id },
     data: { published: true },
   })
-
-  return form
 }
 
 export async function submitForm(
   shareId: string,
   content: Record<string, any>,
 ) {
-  const submission = await db.form.update({
+  return db.form.update({
     where: { shareId, published: true },
     data: {
       submissions: { increment: 1 },
-      formSubmissions: {
-        create: { content },
-      },
+      formSubmissions: { create: { content } },
     },
   })
-
-  return submission
 }
 
 export async function deleteForm(id: number) {
   const user = await getUserOrThrow()
 
-  const form = await db.form.delete({
+  return db.form.delete({
     where: { id, userId: user.id },
   })
-
-  return form
 }
