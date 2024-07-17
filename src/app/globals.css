@@ -104,6 +104,10 @@
     @apply text-muted-foreground;
   }
 
+  .clerk-card .cl-alertText {
+    @apply text-destructive;
+  }
+
   .clerk-card .cl-socialButtonsBlockButton {
     @apply bg-secondary text-secondary-foreground ring-border hover:bg-secondary/80;
   }
