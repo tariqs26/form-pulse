@@ -1,18 +1,18 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import db from "@/lib/db"
-import { FormData } from "@/schemas/form"
 import { currentUser } from "@clerk/nextjs"
+import db from "@/lib/db"
+import type { FormData } from "@/schemas/form"
 import type { FormElementInstance } from "@/types/form-builder"
 
-async function getUserOrThrow() {
+export const getUserOrThrow = async () => {
   const user = await currentUser()
   if (!user) throw Error("User not found")
   return user
 }
 
-export async function createForm(data: FormData) {
+export const createForm = async (data: FormData) => {
   const user = await getUserOrThrow()
 
   const form = await db.form.create({
@@ -25,7 +25,7 @@ export async function createForm(data: FormData) {
     description: "Form created successfully",
   }
 }
-export async function getUserFormStats() {
+export const getUserFormStats = async () => {
   const user = await getUserOrThrow()
 
   const { _sum } = await db.form.aggregate({
@@ -47,7 +47,7 @@ export async function getUserFormStats() {
   }
 }
 
-export async function getForms() {
+export const getForms = async () => {
   const user = await getUserOrThrow()
 
   return db.form.findMany({
@@ -56,7 +56,7 @@ export async function getForms() {
   })
 }
 
-export async function getFormById(id: number) {
+export const getFormById = async (id: number) => {
   const user = await getUserOrThrow()
 
   return db.form.findUniqueOrThrow({
@@ -64,7 +64,7 @@ export async function getFormById(id: number) {
   })
 }
 
-export async function getFormContentByShareId(shareId: string) {
+export const getFormContentByShareId = async (shareId: string) => {
   const form = await db.form.update({
     where: { shareId },
     select: { content: true },
@@ -74,7 +74,7 @@ export async function getFormContentByShareId(shareId: string) {
   return form.content as FormElementInstance[]
 }
 
-export async function getFormWithSubmissions(id: number) {
+export const getFormWithSubmissions = async (id: number) => {
   const user = await getUserOrThrow()
 
   return db.form.findUniqueOrThrow({
@@ -83,10 +83,10 @@ export async function getFormWithSubmissions(id: number) {
   })
 }
 
-export async function updateFormContent(
+export const updateFormContent = async (
   id: number,
   content: FormElementInstance[],
-) {
+) => {
   const user = await getUserOrThrow()
 
   const form = await db.form.update({
@@ -99,7 +99,7 @@ export async function updateFormContent(
   return form
 }
 
-export async function publishForm(id: number) {
+export const publishForm = async (id: number) => {
   const user = await getUserOrThrow()
 
   return db.form.update({
@@ -108,23 +108,19 @@ export async function publishForm(id: number) {
   })
 }
 
-export async function submitForm(
+export const submitForm = async (
   shareId: string,
   content: Record<string, any>,
-) {
-  return db.form.update({
+) =>
+  db.form.update({
     where: { shareId, published: true },
     data: {
       submissions: { increment: 1 },
       formSubmissions: { create: { content } },
     },
   })
-}
-
-export async function deleteForm(id: number) {
+export const deleteForm = async (id: number) => {
   const user = await getUserOrThrow()
 
-  return db.form.delete({
-    where: { id, userId: user.id },
-  })
+  return db.form.delete({ where: { id, userId: user.id } })
 }

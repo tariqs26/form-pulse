@@ -7,7 +7,7 @@ type SideBarButtonProps = {
   formElement: FormElement
 }
 
-export function SideBarButton({ formElement }: SideBarButtonProps) {
+export const SideBarButton = ({ formElement }: SideBarButtonProps) => {
   const { label, icon: Icon } = formElement.designerButton
   const draggable = useDraggable({
     id: `designer-btn-${formElement.type}`,

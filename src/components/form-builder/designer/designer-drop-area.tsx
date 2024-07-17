@@ -22,7 +22,7 @@ export function DropArea({ elements }: { elements: FormElementInstance[] }) {
       {!elements.length &&
         (droppable.isOver ? (
           <div className="w-full p-4">
-            <div className="h-28 rounded-md bg-primary/20"></div>
+            <div className="h-28 rounded-md bg-primary/20" />
           </div>
         ) : (
           <p className="flex flex-grow items-center p-4 text-3xl font-bold text-muted-foreground">

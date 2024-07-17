@@ -1,9 +1,9 @@
-import { useDesigner } from "@/hooks/use-designer"
-import { formElements } from "@/types/form-builder"
 import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useDesigner } from "@/hooks/use-designer"
+import { formElements } from "@/types/form-builder"
 
-export function FormPropertiesSidebar() {
+export const FormPropertiesSidebar = () => {
   const { selectedElement, setSelectedElement } = useDesigner()
 
   if (!selectedElement) return null

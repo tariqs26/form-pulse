@@ -1,6 +1,6 @@
 "use client"
 
-import { type Form } from "@prisma/client"
+import type { Form } from "@prisma/client"
 import { DndContext } from "@dnd-kit/core"
 import { useFormBuilderSensors } from "@/hooks/use-form-builder-sensors"
 import { useUpdateElementsToFormContent } from "@/hooks/use-update-elements-to-form-content"

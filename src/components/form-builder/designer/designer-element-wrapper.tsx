@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { useDroppable, useDraggable } from "@dnd-kit/core"
-import { useDesigner } from "@/hooks/use-designer"
-import { formElements, type FormElementInstance } from "@/types/form-builder"
-import { cn } from "@/lib/utils"
-import { Button } from "../../ui/button"
+import { useDraggable, useDroppable } from "@dnd-kit/core"
 import { Trash2 } from "lucide-react"
+import { useDesigner } from "@/hooks/use-designer"
+import { cn } from "@/lib/utils"
+import { type FormElementInstance, formElements } from "@/types/form-builder"
+import { Button } from "../../ui/button"
 
 export function DesignerElementWrapper(element: FormElementInstance) {
   const { removeElement, setSelectedElement, selectedElement } = useDesigner()
@@ -17,7 +17,7 @@ export function DesignerElementWrapper(element: FormElementInstance) {
   }
 
   const topHalf = useDroppable({
-    id: element.id + "-top",
+    id: `${element.id}-top`,
     data: {
       isTopHalfDesignerElement: true,
       ...sharedData,
@@ -25,7 +25,7 @@ export function DesignerElementWrapper(element: FormElementInstance) {
   })
 
   const bottomHalf = useDroppable({
-    id: element.id + "-bottom",
+    id: `${element.id}-bottom`,
     data: {
       isBottomHalfDesignerElement: true,
       ...sharedData,
@@ -33,7 +33,7 @@ export function DesignerElementWrapper(element: FormElementInstance) {
   })
 
   const draggable = useDraggable({
-    id: element.id + "-drag-handler",
+    id: `${element.id}-drag-handler`,
     data: {
       isDesignerElement: true,
       ...sharedData,
@@ -46,8 +46,9 @@ export function DesignerElementWrapper(element: FormElementInstance) {
 
   return (
     <div
-      className={cn("relative flex flex-col overflow-hidden rounded-md text-foreground ring-1 ring-inset ring-primary/20 hover:cursor-pointer",
-        selectedElement?.id === element.id && "ring-2 ring-primary/50"
+      className={cn(
+        "relative flex flex-col overflow-hidden rounded-md text-foreground ring-1 ring-inset ring-primary/20 hover:cursor-pointer",
+        selectedElement?.id === element.id && "ring-2 ring-primary/50",
       )}
       ref={draggable.setNodeRef}
       {...draggable.listeners}

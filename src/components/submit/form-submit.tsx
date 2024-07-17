@@ -1,10 +1,10 @@
 "use client"
 
-import { FormElementInstance, formElements } from "@/types/form-builder"
+import { useRef, useCallback, useState, useTransition } from "react"
+import { MousePointerClick, Loader } from "lucide-react"
+import { type FormElementInstance, formElements } from "@/types/form-builder"
 import { FormPreviewContainer } from "../form-preview-container"
 import { Button } from "../ui/button"
-import { MousePointerClick, Loader } from "lucide-react"
-import { useRef, useCallback, useState, useTransition } from "react"
 import { toast } from "@/hooks/use-toast"
 import { catchAsync } from "@/lib/utils"
 import { submitForm } from "@/actions/form"
@@ -14,7 +14,7 @@ type FormSubmitProps = {
   formShareId: string
 }
 
-export function FormSubmit({ formContent, formShareId }: FormSubmitProps) {
+export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
   const formValues = useRef<Record<string, string>>({})
   const formErrors = useRef<Record<string, boolean>>({})
   const [key, setKey] = useState(new Date().getTime())
@@ -30,9 +30,7 @@ export function FormSubmit({ formContent, formShareId }: FormSubmitProps) {
 
       if (!valid) formErrors.current[field.id] = true
     }
-    if (Object.keys(formErrors.current).length > 0) return false
-
-    return true
+    return Object.keys(formErrors.current).length <= 0
   }, [formContent])
 
   const submitValue = (id: string, value: string) => {

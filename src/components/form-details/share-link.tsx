@@ -10,7 +10,7 @@ type ShareLinkProps = {
   shareId: string
 }
 
-export function ShareLink({ shareId }: ShareLinkProps) {
+export const ShareLink = ({ shareId }: ShareLinkProps) => {
   const mounted = useMounted()
 
   if (!mounted) return null

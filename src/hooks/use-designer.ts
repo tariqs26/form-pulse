@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { DesignerContext } from "@/components/context/designer-context"
 
-export function useDesigner() {
+export const useDesigner = () => {
   const context = useContext(DesignerContext)
 
   if (!context)

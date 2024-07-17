@@ -1,11 +1,12 @@
 import { Suspense } from "react"
-import { getUserFormStats, getForms } from "@/actions/form"
-import { MousePointerClick, View, CalendarRange, Activity } from "lucide-react"
+import { Activity, CalendarRange, MousePointerClick, View } from "lucide-react"
+
+import { getForms, getUserFormStats } from "@/actions/form"
+import { CreateFormButton } from "@/components/dashboard/create-form-button"
+import { FormCard } from "@/components/dashboard/form-card"
+import { StatCard } from "@/components/dashboard/stat-card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
-import { StatCard } from "../../components/dashboard/stat-card"
-import { CreateFormButton } from "@/components/dashboard/create-form-button"
-import { FormCard } from "../../components/dashboard/form-card"
 
 export default function DashboardPage() {
   return (
@@ -58,14 +59,14 @@ export function StatsCards(props: StatsCardsProps) {
       title: "Submission Rate",
       icon: <MousePointerClick className="text-orange-600" />,
       helperText: "Visits that resulted in a submission",
-      value: data?.submissionRate.toFixed(2) + "%",
+      value: `${data?.submissionRate.toFixed(2)}%`,
       className: "shadow-orange-600",
     },
     {
       title: "Bounce Rate",
       icon: <Activity className="text-red-600" />,
       helperText: "Visits that leave without interacting",
-      value: data?.bounceRate.toFixed(2) + "%",
+      value: `${data?.bounceRate.toFixed(2)}%`,
       className: "shadow-red-600",
     },
   ]
@@ -82,8 +83,8 @@ export function StatsCards(props: StatsCardsProps) {
 function FormCardsSkeleton() {
   return (
     <>
-      {[1, 2, 3, 4].map((_, i) => (
-        <Skeleton key={i} className="h-48 w-full border border-primary/20" />
+      {[1, 2, 3, 4].map((num, i) => (
+        <Skeleton key={num} className="h-48 w-full border border-primary/20" />
       ))}
     </>
   )

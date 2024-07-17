@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import { Form } from "@prisma/client"
-import { useDesigner } from "./use-designer"
+import { useEffect, useState } from "react"
+import type { Form } from "@prisma/client"
 import type { FormElementInstance } from "@/types/form-builder"
+import { useDesigner } from "./use-designer"
 
-export function useUpdateElementsToFormContent(form: Form) {
+export const useUpdateElementsToFormContent = (form: Form) => {
   const { setElements, setSelectedElement } = useDesigner()
 
   const [loading, setLoading] = useState(true)
@@ -17,7 +17,7 @@ export function useUpdateElementsToFormContent(form: Form) {
     setSelectedElement(null)
     const loadingTimeout = setTimeout(() => setLoading(false), 200)
     return () => clearTimeout(loadingTimeout)
-  }, [loading, form, setElements, setSelectedElement, setLoading])
+  }, [loading, form, setElements, setSelectedElement])
 
   return loading
 }

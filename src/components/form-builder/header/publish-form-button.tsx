@@ -1,28 +1,29 @@
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
-import { publishForm } from "@/actions/form"
-import { Button } from "../../ui/button"
 import { ArrowUpToLine } from "lucide-react"
+
+import { publishForm } from "@/actions/form"
+import { toast } from "@/hooks/use-toast"
+import { catchAsync } from "@/lib/utils"
 import {
   AlertDialog,
-  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "../../ui/alert-dialog"
+import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
-import { catchAsync } from "@/lib/utils"
-import { toast } from "@/hooks/use-toast"
 
-export function PublishFormButton({ formId }: { formId: number }) {
+export const PublishFormButton = ({ formId }: { formId: number }) => {
   const [loading, startTransition] = useTransition()
   const router = useRouter()
 
-  async function publish() {
+  const publish = async () => {
     const res = await catchAsync(publishForm(formId))
 
     if ("error" in res)
@@ -70,7 +71,10 @@ export function PublishFormButton({ formId }: { formId: number }) {
               startTransition(publish)
             }}
           >
-            Publish {loading && <Spinner className="border-primary-foreground border-t-transparent ml-2"/>}
+            Publish{" "}
+            {loading && (
+              <Spinner className="ml-2 border-primary-foreground border-t-transparent" />
+            )}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

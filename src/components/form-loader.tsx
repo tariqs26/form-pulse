@@ -1,9 +1,7 @@
 import { Spinner } from "@/components/ui/spinner"
 
-export function FormLoader() {
-  return (
-    <div className="flex flex-grow items-center justify-center">
-      <Spinner className="h-12 w-12" />
-    </div>
-  )
-}
+export const FormLoader = () => (
+  <div className="flex flex-grow items-center justify-center">
+    <Spinner className="h-12 w-12" />
+  </div>
+)

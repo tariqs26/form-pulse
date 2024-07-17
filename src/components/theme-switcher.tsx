@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useMounted } from "@/hooks/use-mounted"
 
-export function ThemeSwitcher() {
+export const ThemeSwitcher = () => {
   const { setTheme } = useTheme()
   const mounted = useMounted()
 

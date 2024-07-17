@@ -1,8 +1,9 @@
+import { format, formatDistance } from "date-fns"
 import { getFormWithSubmissions } from "@/actions/form"
 import { ShareLink } from "@/components/form-details/share-link"
 import { VisitButton } from "@/components/form-details/visit-button"
-import { StatsCards } from "../../page"
-import { FormElementInstance, FormElementType } from "@/types/form-builder"
+import { Badge } from "@/components/ui/badge"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Table,
   TableBody,
@@ -11,9 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { format, formatDistance } from "date-fns"
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
+import type { FormElementInstance, FormElementType } from "@/types/form-builder"
+import { StatsCards } from "../../page"
 
 type Props = {
   params: {
@@ -106,7 +106,7 @@ async function SubmissionsTable({
   }
 
   const rows: Row[] = form.formSubmissions.map((submission) => {
-    const content = submission.content as Object
+    const content = submission.content as Record<string, any>
     return { ...content, submittedAt: submission.createdAt } as Row
   })
 
@@ -149,10 +149,11 @@ async function SubmissionsTable({
 function RowCell({ type, value }: { type: FormElementType; value: string }) {
   let node: React.ReactNode = value
   switch (type) {
-    case "dateField":
+    case "dateField": {
       const date = new Date(value).toLocaleDateString()
       node = <Badge variant="outline">{format(date, "dd/MM/yyyyy")}</Badge>
       break
+    }
     case "checkboxField":
       node = <Checkbox checked={value === "true"} disabled />
       break

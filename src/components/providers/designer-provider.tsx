@@ -4,7 +4,7 @@ import { useState } from "react"
 import type { FormElementInstance } from "@/types/form-builder"
 import { DesignerContext } from "../context/designer-context"
 
-export function DesignerProvider({ children }: LayoutProps) {
+export const DesignerProvider = ({ children }: LayoutProps) => {
   const [elements, setElements] = useState<FormElementInstance[]>([])
   const [selectedElement, setSelectedElement] =
     useState<FormElementInstance | null>(null)

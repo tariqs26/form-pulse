@@ -3,9 +3,11 @@
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { formSchema, FormData } from "@/schemas/form"
+import { Loader } from "lucide-react"
+
 import { createForm } from "@/actions/form"
 import { catchAsync } from "@/lib/utils"
+import { type FormData, formSchema } from "@/schemas/form"
 
 import {
   Form,
@@ -15,20 +17,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { toast } from "@/hooks/use-toast"
+import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
-import { Button } from "../ui/button"
-import { Loader } from "lucide-react"
-import { toast } from "@/hooks/use-toast"
 
-export function CreateForm() {
+export const CreateForm = () => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   })
 
   const router = useRouter()
 
-  async function onSubmit(data: FormData) {
+  const onSubmit = async (data: FormData) => {
     const res = await catchAsync(createForm(data), "Form")
 
     if ("error" in res)

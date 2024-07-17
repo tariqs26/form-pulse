@@ -7,7 +7,7 @@ import { SideBarButtonDragOverlay } from "./designer/sidebar/side-bar-button"
 /**
  * This component is responsible for rendering the drag overlay of the currently dragged item.
  */
-export function DragOverlayWrapper() {
+export const DragOverlayWrapper = () => {
   const { elements } = useDesigner()
   const [draggedItem, setDraggedItem] = useState<Active | null>(null)
   useDndMonitor({

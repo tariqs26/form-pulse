@@ -100,14 +100,15 @@ export function Designer() {
   return (
     <section className="bg-graph relative flex h-52 flex-grow items-center justify-center overflow-y-auto">
       <div className="flex h-full flex-1 overflow-x-auto">
-        <div
+        <button
+          type="button"
           className="w-full overflow-x-auto p-4"
           onClick={() => {
             if (selectedElement) setSelectedElement(null)
           }}
         >
           <DropArea elements={elements} />
-        </div>
+        </button>
         <DesignerSideBar />
       </div>
     </section>

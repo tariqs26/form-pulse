@@ -2,31 +2,25 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { Prisma } from "@prisma/client"
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
-export function generateId() {
-  return Math.floor(Math.random() * 1000000000).toString(16);
-}
+export const generateId = () =>
+  Math.floor(Math.random() * 1000000000).toString(16)
 
-function canInstanceCheck(value: unknown): boolean {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "prototype" in value &&
-    typeof value.prototype == "function"
-  )
-}
+const canInstanceCheck = (value: unknown) =>
+  typeof value === "object" &&
+  value !== null &&
+  "prototype" in value &&
+  typeof value.prototype === "function"
 
-export async function catchAsync<T>(
+export const catchAsync = async <T>(
   fn: Promise<T>,
   model: string | undefined = undefined,
-): Promise<T | { error: string }> {
+): Promise<T | { error: string }> => {
   try {
     return await fn
   } catch (error) {
-    let message
+    let message: string | undefined
     if (error instanceof Error) message = error.message
 
     if (
@@ -36,17 +30,17 @@ export async function catchAsync<T>(
     ) {
       switch (error.code) {
         case "P2001":
-          message = `${model && model + " with "}${(
+          message = `${model && `${model} with `}${(
             error.meta?.target as unknown[]
           ).at(-1)} not found`
           break
         case "P2002":
-          message = `${model && model + " with "}${
+          message = `${model && `${model} with `}${
             (error.meta?.target as unknown[])[0]
           } already exists`
           break
         case "P2023":
-          message = `Invalid ${model && model + " "}id`
+          message = `Invalid ${model && `${model} `}id`
           break
       }
     }

@@ -8,7 +8,7 @@ type VisitButtonProps = {
   shareId: string
 }
 
-export function VisitButton({ shareId }: VisitButtonProps) {
+export const VisitButton = ({ shareId }: VisitButtonProps) => {
   const mounted = useMounted()
 
   if (!mounted) return null

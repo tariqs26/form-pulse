@@ -1,12 +1,12 @@
 import {
-  useSensor,
   MouseSensor,
   TouchSensor,
-  type DndContextProps,
+  useSensor,
   useSensors,
+  type DndContextProps,
 } from "@dnd-kit/core"
 
-export function useFormBuilderSensors() {
+export const useFormBuilderSensors = () => {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10, // 10px

@@ -7,7 +7,7 @@ import { Button } from "../../ui/button"
 import { Save } from "lucide-react"
 import { Spinner } from "../../ui/spinner"
 
-export function SaveFormButton({ formId }: { formId: number }) {
+export const SaveFormButton = ({ formId }: { formId: number }) => {
   const { elements } = useDesigner()
   const [loading, startTransition] = useTransition()
 
