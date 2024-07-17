@@ -66,7 +66,7 @@ function DesignerComponent({
 
   const { text } = element.extraAttributes
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-2 text-left">
       <Label className="text-muted-foreground">Paragraph Field</Label>
       <p>{text}</p>
     </div>

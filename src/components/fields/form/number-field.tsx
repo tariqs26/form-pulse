@@ -81,7 +81,7 @@ function DesignerComponent({
 
   const { label, helperText, required, placeHolder } = element.extraAttributes
   return (
-    <div className="grid w-full gap-2">
+    <div className="grid w-full gap-2 text-left">
       <Label>
         {label}
         {required && "*"}

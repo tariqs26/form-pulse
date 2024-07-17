@@ -68,7 +68,7 @@ function DesignerComponent({
   return (
     <div className="grid w-full place-items-center gap-2">
       <Label className="text-muted-foreground">Spacer Field: {height}px</Label>
-      <AlignVerticalSpaceAround className="h-8 w-8" />
+      <AlignVerticalSpaceAround className="size-6" />
     </div>
   )
 }
