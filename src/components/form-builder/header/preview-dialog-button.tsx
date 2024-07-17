@@ -19,7 +19,7 @@ export const PreviewDialogButton = () => {
         <header className="border-b px-4 py-2">
           <p className="text-lg font-bold">Form Preview</p>
           <p className="text-sm text-muted-foreground">
-            This is how your form will look like to your users
+            This is how your form will look like to users.
           </p>
         </header>
         <section className="bg-graph flex flex-grow items-center justify-center overflow-y-auto p-4">
