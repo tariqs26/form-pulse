@@ -1,9 +1,10 @@
 import Link from "next/link"
-import { Logo } from "@/components/logo"
 import { currentUser } from "@clerk/nextjs"
-import { Button } from "@/components/ui/button"
-import { Replace, FormInput, AreaChart, LayoutDashboard } from "lucide-react"
+import { AreaChart, FormInput, LayoutDashboard, Replace } from "lucide-react"
+
+import { Logo } from "@/components/logo"
 import { ThemeSwitcher } from "@/components/theme-switcher"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"

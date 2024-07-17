@@ -1,14 +1,16 @@
 "use client"
 
-import type { Form } from "@prisma/client"
 import { DndContext } from "@dnd-kit/core"
+import type { Form } from "@prisma/client"
+
 import { useFormBuilderSensors } from "@/hooks/use-form-builder-sensors"
 import { useUpdateElementsToFormContent } from "@/hooks/use-update-elements-to-form-content"
+
 import { Spinner } from "../ui/spinner"
-import { FormPublishedCard } from "./form-published-card"
-import { FormBuilderHeader } from "./header/form-builder-header"
 import { Designer } from "./designer/designer"
 import { DragOverlayWrapper } from "./drag-overlay-wrapper"
+import { FormPublishedCard } from "./form-published-card"
+import { FormBuilderHeader } from "./header/form-builder-header"
 
 type FormBuilderProps = {
   form: Form

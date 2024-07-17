@@ -9,6 +9,7 @@ import { createForm } from "@/actions/form"
 import { catchAsync } from "@/lib/utils"
 import { type FormData, formSchema } from "@/schemas/form"
 
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -17,10 +18,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/hooks/use-toast"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
 
 export const CreateForm = () => {
   const form = useForm<FormData>({

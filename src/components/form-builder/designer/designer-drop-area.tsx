@@ -1,7 +1,7 @@
-import type { FormElementInstance } from "@/types/form-builder"
 import { useDroppable } from "@dnd-kit/core"
-import { DesignerElementWrapper } from "./designer-element-wrapper"
 import { cn } from "@/lib/utils"
+import type { FormElementInstance } from "@/types/form-builder"
+import { DesignerElementWrapper } from "./designer-element-wrapper"
 
 export function DropArea({ elements }: { elements: FormElementInstance[] }) {
   const droppable = useDroppable({

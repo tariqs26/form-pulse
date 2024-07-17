@@ -1,6 +1,6 @@
 import { formElements } from "@/types/form-builder"
-import { SideBarButton } from "./side-bar-button"
 import { Separator } from "@/components/ui/separator"
+import { SideBarButton } from "./side-bar-button"
 
 export const FormElementsSidebar = () => (
   <>

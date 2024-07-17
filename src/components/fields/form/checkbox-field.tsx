@@ -3,18 +3,19 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { CheckSquare } from "lucide-react"
 import { z } from "zod"
+
 import { useDesigner } from "@/hooks/use-designer"
+import { cn } from "@/lib/utils"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
-import { CheckSquare } from "lucide-react"
-import { Label } from "../../ui/label"
-import { Input } from "../../ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -23,10 +24,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form"
-import { Switch } from "../../ui/switch"
-import { cn } from "@/lib/utils"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 
 const type: FormElementType = "checkboxField"
 

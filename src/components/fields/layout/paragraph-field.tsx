@@ -3,16 +3,16 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Pilcrow } from "lucide-react"
 import { z } from "zod"
+
 import { useDesigner } from "@/hooks/use-designer"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
 } from "@/types/form-builder"
 
-import { Pilcrow} from "lucide-react"
-import { Label } from "../../ui/label"
 import {
   Form,
   FormControl,
@@ -20,8 +20,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form"
-import { Textarea } from "../../ui/textarea"
+} from "@/components/ui/form"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 
 const type: FormElementType = "paragraphField"
 

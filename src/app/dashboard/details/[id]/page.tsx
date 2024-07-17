@@ -1,5 +1,7 @@
 import { format, formatDistance } from "date-fns"
 import { getFormWithSubmissions } from "@/actions/form"
+import type { FormElementInstance, FormElementType } from "@/types/form-builder"
+
 import { ShareLink } from "@/components/form-details/share-link"
 import { VisitButton } from "@/components/form-details/visit-button"
 import { Badge } from "@/components/ui/badge"
@@ -12,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import type { FormElementInstance, FormElementType } from "@/types/form-builder"
 import { StatsCards } from "../../page"
 
 type Props = {

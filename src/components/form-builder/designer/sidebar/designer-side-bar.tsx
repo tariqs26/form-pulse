@@ -1,6 +1,6 @@
 import { useDesigner } from "@/hooks/use-designer"
-import { FormPropertiesSidebar } from "./form-properties-sidebar"
 import { FormElementsSidebar } from "./form-elements-sidebar"
+import { FormPropertiesSidebar } from "./form-properties-sidebar"
 
 export const DesignerSideBar = () => {
   const { selectedElement } = useDesigner()

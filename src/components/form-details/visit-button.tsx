@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "../ui/button"
 import { useMounted } from "@/hooks/use-mounted"
+import { Button } from "../ui/button"
 
 type VisitButtonProps = {
   shareId: string

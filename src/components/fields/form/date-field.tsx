@@ -3,20 +3,21 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { useDesigner } from "@/hooks/use-designer"
 import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+import { z } from "zod"
+
+import { useDesigner } from "@/hooks/use-designer"
+import { cn } from "@/lib/utils"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
-import { cn } from "@/lib/utils"
 
-import { CalendarIcon } from "lucide-react"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
   Form,
   FormControl,
@@ -26,14 +27,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Calendar } from "@/components/ui/calendar"
+import { Switch } from "@/components/ui/switch"
 
 const type: FormElementType = "dateField"
 

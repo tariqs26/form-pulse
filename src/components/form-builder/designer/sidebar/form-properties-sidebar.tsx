@@ -1,7 +1,7 @@
 import { X } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { useDesigner } from "@/hooks/use-designer"
 import { formElements } from "@/types/form-builder"
+import { Button } from "@/components/ui/button"
 
 export const FormPropertiesSidebar = () => {
   const { selectedElement, setSelectedElement } = useDesigner()

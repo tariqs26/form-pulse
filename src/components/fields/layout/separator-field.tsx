@@ -1,13 +1,13 @@
 "use client"
 
+import { SeparatorHorizontal } from "lucide-react"
+import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
 } from "@/types/form-builder"
-import { SeparatorHorizontal } from "lucide-react"
-import { Label } from "../../ui/label"
-import { Separator } from "../../ui/separator"
 
 const type: FormElementType = "separatorField"
 

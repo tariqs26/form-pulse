@@ -3,18 +3,19 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ListChecks, Plus, X } from "lucide-react"
 import { z } from "zod"
+
 import { useDesigner } from "@/hooks/use-designer"
+import { cn } from "@/lib/utils"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
-import { ListChecks, Plus, X } from "lucide-react"
-import { Label } from "../../ui/label"
-import { Input } from "../../ui/input"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -23,9 +24,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form"
-import { Switch } from "../../ui/switch"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -34,7 +35,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
 import { toast } from "@/hooks/use-toast"
 
 const type: FormElementType = "selectField"

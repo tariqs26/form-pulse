@@ -1,9 +1,9 @@
 import { ScanEye } from "lucide-react"
+import { useDesigner } from "@/hooks/use-designer"
+import { formElements } from "@/types/form-builder"
 import { FormPreviewContainer } from "@/components/form-preview-container"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useDesigner } from "@/hooks/use-designer"
-import { formElements } from "@/types/form-builder"
 
 export const PreviewDialogButton = () => {
   const { elements } = useDesigner()

@@ -1,9 +1,9 @@
 import { useDndMonitor } from "@dnd-kit/core"
 import { useDesigner } from "@/hooks/use-designer"
-import { formElements, type FormElementType } from "@/types/form-builder"
 import { generateId } from "@/lib/utils"
-import { DesignerSideBar } from "./sidebar/designer-side-bar"
+import { formElements, type FormElementType } from "@/types/form-builder"
 import { DropArea } from "./designer-drop-area"
+import { DesignerSideBar } from "./sidebar/designer-side-bar"
 
 export function Designer() {
   const {

@@ -3,16 +3,16 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { AlignVerticalSpaceAround } from "lucide-react"
 import { z } from "zod"
+
 import { useDesigner } from "@/hooks/use-designer"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
 } from "@/types/form-builder"
 
-import { AlignVerticalSpaceAround } from "lucide-react"
-import { Label } from "../../ui/label"
 import {
   Form,
   FormControl,
@@ -20,8 +20,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form"
-import { Slider } from "../../ui/slider"
+} from "@/components/ui/form"
+import { Label } from "@/components/ui/label"
+import { Slider } from "@/components/ui/slider"
 
 const type: FormElementType = "spacerField"
 

@@ -3,17 +3,16 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Heading1 } from "lucide-react"
 import { z } from "zod"
+
 import { useDesigner } from "@/hooks/use-designer"
 import type {
-  FormElementType,
   FormElement,
   FormElementInstance,
+  FormElementType,
 } from "@/types/form-builder"
 
-import { Heading1 } from "lucide-react"
-import { Label } from "../../ui/label"
-import { Input } from "../../ui/input"
 import {
   Form,
   FormControl,
@@ -22,6 +21,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../../ui/form"
+import { Input } from "../../ui/input"
+import { Label } from "../../ui/label"
 
 const type: FormElementType = "titleField"
 

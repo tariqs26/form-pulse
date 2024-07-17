@@ -1,10 +1,10 @@
 "use client"
 
-import { Button } from "../ui/button"
-import { useMounted } from "@/hooks/use-mounted"
-import { Input } from "../ui/input"
 import { Share } from "lucide-react"
+import { useMounted } from "@/hooks/use-mounted"
 import { toast } from "@/hooks/use-toast"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 
 type ShareLinkProps = {
   shareId: string
