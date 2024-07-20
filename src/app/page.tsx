@@ -85,7 +85,7 @@ function Hero() {
 
 function Features() {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
       <FeatureCard
         title="Drag-and-Drop Editor"
         description="Craft beautiful forms with our user-friendly drag-and-drop editor."
@@ -93,13 +93,8 @@ function Features() {
       />
       <FeatureCard
         title="Powerful Form Features"
-        description="Integrate 6 advanced form features to enhance user interaction and data collection."
+        description="Integrate a variety of input and layout fields to enhance user interaction and data collection."
         icon={<FormInput />}
-      />
-      <FeatureCard
-        title="Versatile Layouts"
-        description="Choose from 5 professionally designed layouts to suit your needs."
-        icon={<LayoutDashboard />}
       />
       <FeatureCard
         title="Analytics Dashboard"
