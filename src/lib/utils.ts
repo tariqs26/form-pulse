@@ -30,21 +30,18 @@ export const catchAsync = async <T>(
     ) {
       switch (error.code) {
         case "P2001":
-          message = `${model && `${model} with `}${(
-            error.meta?.target as unknown[]
-          ).at(-1)} not found`
+          message = `${model} with ${(error.meta?.target as unknown[]).at(
+            -1
+          )} not found`
           break
         case "P2002":
-          message = `${model && `${model} with `}${
+          message = `${model} with ${
             (error.meta?.target as unknown[])[0]
           } already exists`
-          break
-        case "P2023":
-          message = `Invalid ${model && `${model} `}id`
           break
       }
     }
 
-    return { error: message || "Something went wrong, please try again later" }
+    return { error: message ?? "Something went wrong, please try again later" }
   }
 }
