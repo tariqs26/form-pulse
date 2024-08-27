@@ -119,6 +119,7 @@ export const submitForm = async (
       formSubmissions: { create: { content } },
     },
   })
+
 export const deleteForm = async (id: number) => {
   const user = await getUserOrThrow()
 
