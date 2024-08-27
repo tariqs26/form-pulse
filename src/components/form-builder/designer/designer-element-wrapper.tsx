@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils"
 import { type FormElementInstance, formElements } from "@/types/form-builder"
 import { Button } from "../../ui/button"
 
-export function DesignerElementWrapper(element: FormElementInstance) {
+export const DesignerElementWrapper = (
+  element: Readonly<FormElementInstance>
+) => {
   const { removeElement, setSelectedElement, selectedElement } = useDesigner()
 
   const [isMouseOver, setIsMouseOver] = useState(false)

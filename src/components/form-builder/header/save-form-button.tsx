@@ -9,7 +9,7 @@ import { catchAsync } from "@/lib/utils"
 import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
 
-export const SaveFormButton = ({ formId }: { formId: number }) => {
+export const SaveFormButton = ({ formId }: Readonly<{ formId: number }>) => {
   const { elements } = useDesigner()
   const [loading, startTransition] = useTransition()
 

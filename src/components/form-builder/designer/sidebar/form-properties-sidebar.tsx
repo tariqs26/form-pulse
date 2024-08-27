@@ -8,6 +8,7 @@ export const FormPropertiesSidebar = () => {
 
   if (!selectedElement) return null
   const PropertiesForm = formElements[selectedElement.type].propertiesComponent
+
   return (
     <>
       <div className="flex items-center justify-between">

@@ -20,7 +20,7 @@ import {
 import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
 
-export const PublishFormButton = ({ formId }: { formId: number }) => {
+export const PublishFormButton = ({ formId }: Readonly<{ formId: number }>) => {
   const [loading, startTransition] = useTransition()
   const router = useRouter()
 

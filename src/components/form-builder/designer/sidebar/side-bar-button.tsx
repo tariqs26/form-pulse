@@ -3,9 +3,7 @@ import { cn } from "@/lib/utils"
 import type { FormElement } from "@/types/form-builder"
 import { Button } from "@/components/ui/button"
 
-type SideBarButtonProps = {
-  formElement: FormElement
-}
+type SideBarButtonProps = Readonly<{ formElement: FormElement }>
 
 export const SideBarButton = ({ formElement }: SideBarButtonProps) => {
   const { label, icon: Icon } = formElement.designerButton
@@ -16,6 +14,7 @@ export const SideBarButton = ({ formElement }: SideBarButtonProps) => {
       isDesignerButton: true,
     },
   })
+
   return (
     <Button
       ref={draggable.setNodeRef}
@@ -33,7 +32,9 @@ export const SideBarButton = ({ formElement }: SideBarButtonProps) => {
   )
 }
 
-export function SideBarButtonDragOverlay({ formElement }: SideBarButtonProps) {
+export const SideBarButtonDragOverlay = ({
+  formElement,
+}: SideBarButtonProps) => {
   const { label, icon: Icon } = formElement.designerButton
 
   return (

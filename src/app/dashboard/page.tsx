@@ -37,7 +37,7 @@ type StatsCardsProps = Readonly<{
   loading: boolean
 }>
 
-export function StatsCards(props: StatsCardsProps) {
+export const StatsCards = (props: StatsCardsProps) => {
   const { data, loading } = props
 
   const stats = [
@@ -80,15 +80,13 @@ export function StatsCards(props: StatsCardsProps) {
   )
 }
 
-function FormCardsSkeleton() {
-  return (
-    <>
-      {[1, 2, 3, 4].map((num, i) => (
-        <Skeleton key={num} className="h-48 w-full border border-primary/20" />
-      ))}
-    </>
-  )
-}
+const FormCardsSkeleton = () => (
+  <>
+    {[1, 2, 3, 4].map((num, i) => (
+      <Skeleton key={num} className="h-48 w-full border border-primary/20" />
+    ))}
+  </>
+)
 
 async function FormCards() {
   const forms = await getForms()

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import type { FormElementInstance } from "@/types/form-builder"
 import { DesignerContext } from "../context/designer-context"
 
@@ -34,18 +34,21 @@ export const DesignerProvider = ({ children }: LayoutProps) => {
     )
   }
 
+  const value = useMemo(
+    () => ({
+      elements,
+      setElements,
+      addElement,
+      updateElement,
+      removeElement,
+      selectedElement,
+      setSelectedElement,
+    }),
+    [elements, selectedElement]
+  )
+
   return (
-    <DesignerContext.Provider
-      value={{
-        elements,
-        setElements,
-        addElement,
-        updateElement,
-        removeElement,
-        selectedElement,
-        setSelectedElement,
-      }}
-    >
+    <DesignerContext.Provider value={value}>
       {children}
     </DesignerContext.Provider>
   )

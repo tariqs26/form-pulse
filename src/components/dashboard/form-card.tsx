@@ -14,9 +14,7 @@ import {
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
-type FormCardProps = {
-  form: Form
-}
+type FormCardProps = Readonly<{ form: Form }>
 
 export const FormCard = ({ form }: FormCardProps) => (
   <Card key={form.id} className="flex flex-col border shadow-sm">

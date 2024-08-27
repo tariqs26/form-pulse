@@ -86,6 +86,7 @@ function DesignerComponent({
   const element = elementInstance as CustomInstance
 
   const { label, helperText, required } = element.extraAttributes
+
   return (
     <div className="grid w-full gap-2 text-left">
       <Label>

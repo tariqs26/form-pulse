@@ -65,6 +65,7 @@ function DesignerComponent({
   const element = elementInstance as CustomInstance
 
   const { title } = element.extraAttributes
+
   return (
     <div className="grid gap-2 text-left">
       <Label className="text-muted-foreground">Title Field</Label>

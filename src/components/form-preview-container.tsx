@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-type FormPreviewContainerProps = React.HTMLAttributes<HTMLDivElement>
+type FormPreviewContainerProps = Readonly<React.HTMLAttributes<HTMLDivElement>>
 
 export const FormPreviewContainer = ({
   className,

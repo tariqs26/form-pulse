@@ -143,8 +143,14 @@ async function SubmissionsTable({
   )
 }
 
-function RowCell({ type, value }: { type: FormElementType; value: string }) {
+type RowCellProps = Readonly<{
+  type: FormElementType
+  value: string
+}>
+
+const RowCell = ({ type, value }: RowCellProps) => {
   let node: React.ReactNode = value
+
   switch (type) {
     case "dateField": {
       const date = new Date(value).toLocaleDateString()
@@ -155,5 +161,6 @@ function RowCell({ type, value }: { type: FormElementType; value: string }) {
       node = <Checkbox checked={value === "true"} disabled />
       break
   }
+
   return <TableCell>{node}</TableCell>
 }

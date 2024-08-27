@@ -12,11 +12,9 @@ import { DragOverlayWrapper } from "./drag-overlay-wrapper"
 import { FormPublishedCard } from "./form-published-card"
 import { FormBuilderHeader } from "./header/form-builder-header"
 
-type FormBuilderProps = {
-  form: Form
-}
+type FormBuilderProps = Readonly<{ form: Form }>
 
-export function FormBuilder({ form }: FormBuilderProps) {
+export const FormBuilder = ({ form }: FormBuilderProps) => {
   const sensors = useFormBuilderSensors()
   const loading = useUpdateElementsToFormContent(form)
 

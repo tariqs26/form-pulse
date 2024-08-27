@@ -6,10 +6,10 @@ import { toast } from "@/hooks/use-toast"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
-type FormPublishedCardProps = {
+type FormPublishedCardProps = Readonly<{
   shareUrl: string
   formId: number
-}
+}>
 
 export const FormPublishedCard = ({
   shareUrl,

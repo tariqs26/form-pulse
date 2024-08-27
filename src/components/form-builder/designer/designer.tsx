@@ -5,7 +5,7 @@ import { formElements, type FormElementType } from "@/types/form-builder"
 import { DropArea } from "./designer-drop-area"
 import { DesignerSideBar } from "./sidebar/designer-side-bar"
 
-export function Designer() {
+export const Designer = () => {
   const {
     elements,
     addElement,

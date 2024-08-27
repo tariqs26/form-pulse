@@ -1,14 +1,10 @@
 import Link from "next/link"
 import { Button } from "./ui/button"
 
-type FormErrorProps = Readonly<
-  ErrorProps & {
-    link?: {
-      href: string
-      text: string
-    }
-  }
->
+type FormErrorProps = ErrorProps &
+  Readonly<{
+    link?: { href: string; text: string }
+  }>
 
 export const FormError = ({
   error,

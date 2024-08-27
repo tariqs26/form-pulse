@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 export const PreviewDialogButton = () => {
   const { elements } = useDesigner()
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -26,6 +27,7 @@ export const PreviewDialogButton = () => {
           <FormPreviewContainer>
             {elements.map((element) => {
               const FormComponent = formElements[element.type].formComponent
+
               return (
                 <FormComponent key={element.id} elementInstance={element} />
               )

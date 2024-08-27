@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-type StatCardProps = {
+type StatCardProps = Readonly<{
   stat: {
     title: string
     icon: React.ReactNode
@@ -10,7 +10,7 @@ type StatCardProps = {
     className: string
   }
   loading: boolean
-}
+}>
 
 export const StatCard = ({ stat, loading }: StatCardProps) => (
   <Card key={stat.title} className={`${stat.className} shadow-sm`}>

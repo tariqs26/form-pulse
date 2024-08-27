@@ -65,6 +65,7 @@ function DesignerComponent({
   const element = elementInstance as CustomInstance
 
   const { height } = element.extraAttributes
+
   return (
     <div className="grid w-full place-items-center gap-2">
       <Label className="text-muted-foreground">Spacer Field: {height}px</Label>

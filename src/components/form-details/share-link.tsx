@@ -6,9 +6,7 @@ import { toast } from "@/hooks/use-toast"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
-type ShareLinkProps = {
-  shareId: string
-}
+type ShareLinkProps = Readonly<{ shareId: string }>
 
 export const ShareLink = ({ shareId }: ShareLinkProps) => {
   const mounted = useMounted()
@@ -16,6 +14,7 @@ export const ShareLink = ({ shareId }: ShareLinkProps) => {
   if (!mounted) return null
 
   const shareUrl = `${window.location.origin}/submit/${shareId}`
+
   return (
     <div className="flex flex-grow items-center gap-4">
       <Input value={shareUrl} readOnly />

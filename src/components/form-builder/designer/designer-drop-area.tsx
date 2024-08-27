@@ -3,12 +3,12 @@ import { cn } from "@/lib/utils"
 import type { FormElementInstance } from "@/types/form-builder"
 import { DesignerElementWrapper } from "./designer-element-wrapper"
 
-export function DropArea({ elements }: { elements: FormElementInstance[] }) {
+export const DropArea = ({
+  elements,
+}: Readonly<{ elements: FormElementInstance[] }>) => {
   const droppable = useDroppable({
     id: "designer-drop-area",
-    data: {
-      isDesignerDropArea: true,
-    },
+    data: { isDesignerDropArea: true },
   })
 
   return (

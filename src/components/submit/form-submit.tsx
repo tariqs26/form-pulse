@@ -11,10 +11,10 @@ import { type FormElementInstance, formElements } from "@/types/form-builder"
 import { FormPreviewContainer } from "../form-preview-container"
 import { Button } from "../ui/button"
 
-type FormSubmitProps = {
+type FormSubmitProps = Readonly<{
   formContent: FormElementInstance[]
   formShareId: string
-}
+}>
 
 export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
   const formValues = useRef<Record<string, string>>({})
@@ -72,7 +72,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
     }
   }
 
-  if (submitted) {
+  if (submitted)
     return (
       <div className="flex flex-grow items-center justify-center p-8">
         <FormPreviewContainer
@@ -86,7 +86,6 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
         </FormPreviewContainer>
       </div>
     )
-  }
 
   return (
     <div className="flex flex-grow items-center justify-center p-8">
@@ -96,6 +95,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
       >
         {formContent.map((element) => {
           const FormComponent = formElements[element.type].formComponent
+
           return (
             <FormComponent
               key={element.id}
