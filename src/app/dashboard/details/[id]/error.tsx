@@ -2,6 +2,6 @@
 
 import { FormError } from "@/components/form-error"
 
-export default function Error(props: ErrorProps) {
+export default function DetailsErrorPage(props: ErrorProps) {
   return <FormError {...props} />
 }
