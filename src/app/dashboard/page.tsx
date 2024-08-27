@@ -32,10 +32,10 @@ async function CardStatsWrapper() {
   return <StatsCards data={stats} loading={false} />
 }
 
-type StatsCardsProps = {
+type StatsCardsProps = Readonly<{
   data?: Awaited<ReturnType<typeof getUserFormStats>>
   loading: boolean
-}
+}>
 
 export function StatsCards(props: StatsCardsProps) {
   const { data, loading } = props

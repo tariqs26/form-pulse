@@ -54,7 +54,7 @@ export function Designer() {
         const type = active.data?.current?.type as FormElementType
         const elementId = over.data?.current?.elementId
         const elementIndex = elements.findIndex(
-          (element) => element.id === elementId,
+          (element) => element.id === elementId
         )
 
         if (elementIndex === -1) return
@@ -82,7 +82,7 @@ export function Designer() {
 
         const overElementId = over.data?.current?.elementId
         const overElementIndex = elements.findIndex(
-          (element) => element.id === overElementId,
+          (element) => element.id === overElementId
         )
 
         if (overElementIndex === -1) return

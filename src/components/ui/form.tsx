@@ -17,7 +17,7 @@ type FormFieldContextValue<
 }
 
 export const FormFieldContext = createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue,
+  {} as FormFieldContextValue
 )
 
 export const FormField = <
@@ -58,7 +58,7 @@ type FormItemContextValue = {
 }
 
 export const FormItemContext = createContext<FormItemContextValue>(
-  {} as FormItemContextValue,
+  {} as FormItemContextValue
 )
 
 export const FormItem = forwardRef<

@@ -124,7 +124,7 @@ function PropertiesComponent({
   }
 
   function onKeyDown(
-    e: React.KeyboardEvent<HTMLInputElement | HTMLButtonElement>,
+    e: React.KeyboardEvent<HTMLInputElement | HTMLButtonElement>
   ) {
     if (e.key === "Enter") e.currentTarget.blur()
   }
@@ -254,7 +254,7 @@ function FormComponent({
         }}
         value={value}
         className={cn(
-          error && "border-destructive focus-visible:ring-destructive",
+          error && "border-destructive focus-visible:ring-destructive"
         )}
       />
       {helperText && (

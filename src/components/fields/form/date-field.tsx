@@ -133,7 +133,7 @@ function PropertiesComponent({
   function onKeyDown(
     e: React.KeyboardEvent<
       HTMLInputElement | HTMLButtonElement | HTMLDivElement
-    >,
+    >
   ) {
     if (e.key === "Enter") e.currentTarget.blur()
   }
@@ -220,7 +220,7 @@ function FormComponent({
   const element = elementInstance as CustomInstance
 
   const [date, setDate] = useState<Date | undefined>(
-    defaultValue ? new Date(defaultValue) : undefined,
+    defaultValue ? new Date(defaultValue) : undefined
   )
   const [error, setError] = useState(false)
 
@@ -243,7 +243,7 @@ function FormComponent({
             className={cn(
               "w-full justify-start text-left font-normal",
               date === undefined && "text-muted-foreground",
-              error && "border-destructive focus-visible:ring-destructive",
+              error && "border-destructive focus-visible:ring-destructive"
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />

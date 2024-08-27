@@ -15,7 +15,7 @@ const canInstanceCheck = (value: unknown) =>
 
 export const catchAsync = async <T>(
   fn: Promise<T>,
-  model: string | undefined = undefined,
+  model: string | undefined = undefined
 ): Promise<T | { error: string }> => {
   try {
     return await fn

@@ -49,7 +49,7 @@ export function DesignerElementWrapper(element: FormElementInstance) {
     <div
       className={cn(
         "relative flex flex-col overflow-hidden rounded-md text-foreground ring-1 ring-inset ring-primary/20 hover:cursor-pointer",
-        selectedElement?.id === element.id && "ring-2 ring-primary/50",
+        selectedElement?.id === element.id && "ring-2 ring-primary/50"
       )}
       ref={draggable.setNodeRef}
       {...draggable.listeners}
@@ -94,7 +94,7 @@ export function DesignerElementWrapper(element: FormElementInstance) {
       <div
         className={cn(
           "flex items-center rounded-md bg-accent/40 px-4 py-3 opacity-60 transition-all duration-200",
-          isMouseOver && "opacity-30",
+          isMouseOver && "opacity-30"
         )}
       >
         <DesignerElement elementInstance={element} />

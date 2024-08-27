@@ -121,7 +121,7 @@ function PropertiesComponent({
   }
 
   function onKeyDown(
-    e: React.KeyboardEvent<HTMLInputElement | HTMLButtonElement>,
+    e: React.KeyboardEvent<HTMLInputElement | HTMLButtonElement>
   ) {
     if (e.key === "Enter") e.currentTarget.blur()
   }

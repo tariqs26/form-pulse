@@ -85,7 +85,7 @@ export const getFormWithSubmissions = async (id: number) => {
 
 export const updateFormContent = async (
   id: number,
-  content: FormElementInstance[],
+  content: FormElementInstance[]
 ) => {
   const user = await getUserOrThrow()
 
@@ -110,7 +110,7 @@ export const publishForm = async (id: number) => {
 
 export const submitForm = async (
   shareId: string,
-  content: Record<string, any>,
+  content: Record<string, any>
 ) =>
   db.form.update({
     where: { shareId, published: true },

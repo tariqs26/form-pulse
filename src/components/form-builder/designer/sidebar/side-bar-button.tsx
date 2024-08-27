@@ -22,7 +22,7 @@ export const SideBarButton = ({ formElement }: SideBarButtonProps) => {
       variant="outline"
       className={cn(
         "flex h-28 w-28 cursor-grab flex-col gap-2",
-        draggable.isDragging && "ring-2",
+        draggable.isDragging && "ring-2"
       )}
       {...draggable.listeners}
       {...draggable.attributes}

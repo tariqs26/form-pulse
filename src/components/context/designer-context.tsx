@@ -7,7 +7,7 @@ type DesignerContextType = {
   addElement: (index: number, element: FormElementInstance) => void
   updateElement: (
     elementId: string,
-    updatedElement: FormElementInstance,
+    updatedElement: FormElementInstance
   ) => void
   removeElement: (elementId: string) => void
 

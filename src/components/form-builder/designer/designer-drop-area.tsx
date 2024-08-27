@@ -16,7 +16,7 @@ export function DropArea({ elements }: { elements: FormElementInstance[] }) {
       ref={droppable.setNodeRef}
       className={cn(
         "m-auto flex h-full min-w-60 max-w-4xl flex-grow flex-col items-center justify-start overflow-y-auto rounded-xl bg-background",
-        droppable.isOver && "ring-4",
+        droppable.isOver && "ring-4"
       )}
     >
       {!elements.length &&

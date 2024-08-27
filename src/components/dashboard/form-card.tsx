@@ -41,7 +41,7 @@ export const FormCard = ({ form }: FormCardProps) => (
     <CardFooter
       className={cn(
         "flex items-center justify-end",
-        form.published && "justify-between",
+        form.published && "justify-between"
       )}
     >
       {form.published && (

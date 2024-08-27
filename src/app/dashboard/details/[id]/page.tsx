@@ -16,11 +16,7 @@ import {
 } from "@/components/ui/table"
 import { StatsCards } from "../../page"
 
-type Props = {
-  params: {
-    id: string
-  }
-}
+type Props = Readonly<{ params: { id: string } }>
 
 export default async function DetailsPage({ params }: Props) {
   const form = await getFormWithSubmissions(+params.id)

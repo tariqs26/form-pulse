@@ -24,7 +24,7 @@ export const useFormBuilderSensors = () => {
   // Allows delete button and properties trigger to be clicked, because the drag activation constraint distance is 10px
   const sensors: DndContextProps["sensors"] = useSensors(
     mouseSensor,
-    touchSensor,
+    touchSensor
   )
 
   return sensors

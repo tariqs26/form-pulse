@@ -10,7 +10,7 @@ export const Separator = forwardRef<
 >(
   (
     { className, orientation = "horizontal", decorative = true, ...props },
-    ref,
+    ref
   ) => (
     <Root
       ref={ref}
@@ -19,10 +19,10 @@ export const Separator = forwardRef<
       className={cn(
         "shrink-0 bg-border",
         orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
-        className,
+        className
       )}
       {...props}
     />
-  ),
+  )
 )
 Separator.displayName = Root.displayName

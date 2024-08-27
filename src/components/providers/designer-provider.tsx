@@ -19,18 +19,18 @@ export const DesignerProvider = ({ children }: LayoutProps) => {
 
   const updateElement = (
     elementId: string,
-    updatedElement: FormElementInstance,
+    updatedElement: FormElementInstance
   ) => {
     setElements((elements) =>
       elements.map((element) =>
-        element.id === elementId ? updatedElement : element,
-      ),
+        element.id === elementId ? updatedElement : element
+      )
     )
   }
 
   const removeElement = (elementId: string) => {
     setElements((elements) =>
-      elements.filter((element) => element.id !== elementId),
+      elements.filter((element) => element.id !== elementId)
     )
   }
 

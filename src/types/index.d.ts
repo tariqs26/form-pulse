@@ -1,6 +1,6 @@
-type LayoutProps = {
+type LayoutProps = Readonly<{
   children: React.ReactNode
-}
+}>
 
 type ErrorProps = {
   error: Error & { digest?: string }

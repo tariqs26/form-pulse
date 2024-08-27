@@ -54,7 +54,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
 
     const res = await catchAsync(
       submitForm(formShareId, formValues.current),
-      "Form Submission",
+      "Form Submission"
     )
 
     if ("error" in res)
