@@ -215,7 +215,7 @@ function FormComponent({
     setError(isInvalid === true)
   }, [isInvalid])
 
-  const { label, helperText, required, placeHolder } = element.extraAttributes
+  const { label, helperText, required } = element.extraAttributes
 
   const id = `checkbox-${element.id}`
 

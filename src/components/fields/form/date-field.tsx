@@ -228,8 +228,8 @@ function FormComponent({
     setError(isInvalid === true)
   }, [isInvalid])
 
-  const { label, helperText, required, placeHolder, rows } =
-    element.extraAttributes
+  const { label, helperText, required } = element.extraAttributes
+
   return (
     <div className="grid gap-2">
       <Label className={cn(error && "text-destructive")}>
