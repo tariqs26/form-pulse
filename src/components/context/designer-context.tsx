@@ -10,7 +10,6 @@ type DesignerContextType = {
     updatedElement: FormElementInstance
   ) => void
   removeElement: (elementId: string) => void
-
   selectedElement: FormElementInstance | null
   setSelectedElement: Dispatch<SetStateAction<FormElementInstance | null>>
 }
