@@ -26,6 +26,12 @@ export type Field =
   | "subTitle"
   | "title"
 
+export type FormElementInstance = {
+  id: string
+  type: Field
+  extraAttributes?: Record<string, any>
+}
+
 export type SubmitValue = (key: string, value: string) => void
 
 export type FormElement = {
@@ -41,12 +47,6 @@ export type FormElement = {
     isInvalid?: boolean
   }>
   validate(formElement: FormElementInstance, currentValue: string): boolean
-}
-
-export type FormElementInstance = {
-  id: string
-  type: Field
-  extraAttributes?: Record<string, any>
 }
 
 export const formElements: Record<Field, FormElement> = {
