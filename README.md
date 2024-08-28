@@ -1,16 +1,16 @@
 # Form Pulse
 
-Form Pulse is a web application that allows users to create and share forms with others. It is built with Next.js, TypeScript, and Tailwind CSS.
+Full-stack web app for creating and sharing forms, built with Next.js, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- Create forms in a drag-and-drop interface
-  - Layout fields include: Title, SubTitle, Spacer, Separator and Paragraph
-  - Input Fields include: Text, Number, Select, Date, Checkbox, Textarea
-- Share form using a unique URL
-- View form responses in a table
+- **Drag-and-Drop Form Builder:**
+  - Layout fields: Title, SubTitle, Spacer, Separator, Paragraph
+  - Input fields: Text, Number, Select, Date, Checkbox, Textarea
+- **Share Forms:** Generate a unique URL for easy sharing.
+- **View Responses:** Access form submissions in a tabular format.
 
-## Technologies Used
+## Technologies
 
 | Technology                                | Purpose             |
 | ----------------------------------------- | ------------------- |
@@ -29,7 +29,7 @@ Form Pulse is a web application that allows users to create and share forms with
 ### Installation
 
 ```bash
-npm i
+npm install
 ```
 
 ### Environment Variables
@@ -39,7 +39,7 @@ npm i
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 
-# Clerk custom routing
+# Clerk Custom Routing
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
@@ -50,10 +50,13 @@ POSTGRES_PRISMA_URL=
 POSTGRES_URL_NON_POOLING=
 ```
 
-## Available Commands
+## Commands
 
-| Command         | Description                                   |
-| --------------- | --------------------------------------------- |
-| `npm run dev`   | Start the development server (localhost:3000) |
-| `npm run build` | Build the app for production                  |
-| `npm run start` | Run the built app in production mode          |
+| Command          | Description                                   |
+| ---------------- | --------------------------------------------- |
+| `npm run dev`    | Start the development server (localhost:3000) |
+| `npm run lint`   | Lint the project                              |
+| `npm run format` | Format the code                               |
+| `npm run build`  | Build the app for production                  |
+| `npm run start`  | Run the production build                      |
+
