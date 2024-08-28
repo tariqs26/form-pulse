@@ -1,4 +1,4 @@
-# Form Pulse
+# FormPulse
 
 Full-stack web app for creating and sharing forms, built with Next.js, TypeScript, and Tailwind CSS.
 
