@@ -82,7 +82,7 @@ export const StatsCards = (props: StatsCardsProps) => {
 
 const FormCardsSkeleton = () => (
   <>
-    {[1, 2, 3, 4].map((num, i) => (
+    {[1, 2, 3, 4].map((num) => (
       <Skeleton key={num} className="h-48 w-full border border-primary/20" />
     ))}
   </>
