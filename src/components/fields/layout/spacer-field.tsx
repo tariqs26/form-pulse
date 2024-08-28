@@ -26,9 +26,7 @@ import { Slider } from "@/components/ui/slider"
 
 const type: FormElementType = "spacerField"
 
-const extraAttributes = {
-  height: 20,
-}
+const extraAttributes = { height: 20 }
 
 const propertiesSchema = z.object({
   height: z.number().min(5).max(200),
@@ -42,15 +40,8 @@ type CustomInstance = FormElementInstance & {
 
 export const spacerFieldFormElement: FormElement = {
   type,
-  construct: (id: string) => ({
-    id,
-    type,
-    extraAttributes,
-  }),
-  designerButton: {
-    icon: AlignVerticalSpaceAround,
-    label: "Spacer Field",
-  },
+  construct: (id: string) => ({ id, type, extraAttributes }),
+  designerButton: { icon: AlignVerticalSpaceAround, label: "Spacer Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -59,9 +50,9 @@ export const spacerFieldFormElement: FormElement = {
 
 function DesignerComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
 
   const { height } = element.extraAttributes
@@ -76,9 +67,9 @@ function DesignerComponent({
 
 function PropertiesComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -134,9 +125,9 @@ function PropertiesComponent({
 
 function FormComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { height } = element.extraAttributes
   return <div style={{ height, width: "100%" }} />

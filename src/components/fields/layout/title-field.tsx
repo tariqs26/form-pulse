@@ -26,9 +26,7 @@ import { Label } from "../../ui/label"
 
 const type: FormElementType = "titleField"
 
-const extraAttributes = {
-  title: "Title Field",
-}
+const extraAttributes = { title: "Title Field" }
 
 const propertiesSchema = z.object({
   title: z.string().min(2).max(50),
@@ -42,15 +40,8 @@ type CustomInstance = FormElementInstance & {
 
 export const titleFieldFormElement: FormElement = {
   type,
-  construct: (id: string) => ({
-    id,
-    type,
-    extraAttributes,
-  }),
-  designerButton: {
-    icon: Heading1,
-    label: "Title Field",
-  },
+  construct: (id: string) => ({ id, type, extraAttributes }),
+  designerButton: { icon: Heading1, label: "Title Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -59,9 +50,9 @@ export const titleFieldFormElement: FormElement = {
 
 function DesignerComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
 
   const { title } = element.extraAttributes
@@ -76,9 +67,9 @@ function DesignerComponent({
 
 function PropertiesComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -128,9 +119,9 @@ function PropertiesComponent({
 
 function FormComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { title } = element.extraAttributes
   return <h4 className="text-xl">{title}</h4>

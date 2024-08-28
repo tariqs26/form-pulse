@@ -51,19 +51,11 @@ type CustomInstance = FormElementInstance & {
 
 export const checkboxFieldFormElement: FormElement = {
   type,
-  construct: (id: string) => ({
-    id,
-    type,
-    extraAttributes,
-  }),
-  designerButton: {
-    icon: CheckSquare,
-    label: "Checkbox Field",
-  },
+  construct: (id: string) => ({ id, type, extraAttributes }),
+  designerButton: { icon: CheckSquare, label: "Checkbox Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
-
   validate: (elementInstance: FormElementInstance, currentValue: string) => {
     const element = elementInstance as CustomInstance
     if (element.extraAttributes.required) return currentValue === "true"
@@ -73,9 +65,9 @@ export const checkboxFieldFormElement: FormElement = {
 
 function DesignerComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { label, helperText, required } = element.extraAttributes
   const id = `checkbox-${element.id}`
@@ -98,9 +90,9 @@ function DesignerComponent({
 
 function PropertiesComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -199,12 +191,12 @@ function FormComponent({
   submitValue,
   isInvalid,
   defaultValue,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
   submitValue?: SubmitValue
   isInvalid?: boolean
   defaultValue?: string
-}) {
+}>) {
   const element = elementInstance as CustomInstance
 
   const [value, setValue] = useState<boolean>(defaultValue === "true")

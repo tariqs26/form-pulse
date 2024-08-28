@@ -26,9 +26,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 const type: FormElementType = "paragraphField"
 
-const extraAttributes = {
-  text: "Text here",
-}
+const extraAttributes = { text: "Text here" }
 
 const propertiesSchema = z.object({
   text: z.string().min(2).max(500),
@@ -42,15 +40,8 @@ type CustomInstance = FormElementInstance & {
 
 export const paragraphFieldFormElement: FormElement = {
   type,
-  construct: (id: string) => ({
-    id,
-    type,
-    extraAttributes,
-  }),
-  designerButton: {
-    icon: Pilcrow,
-    label: "Paragraph Field",
-  },
+  construct: (id: string) => ({ id, type, extraAttributes }),
+  designerButton: { icon: Pilcrow, label: "Paragraph Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -59,9 +50,9 @@ export const paragraphFieldFormElement: FormElement = {
 
 function DesignerComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
 
   const { text } = element.extraAttributes
@@ -76,9 +67,9 @@ function DesignerComponent({
 
 function PropertiesComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -128,9 +119,9 @@ function PropertiesComponent({
 
 function FormComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { text } = element.extraAttributes
   return <p>{text}</p>

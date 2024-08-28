@@ -52,19 +52,11 @@ type CustomInstance = FormElementInstance & {
 
 export const textFieldFormElement: FormElement = {
   type,
-  construct: (id: string) => ({
-    id,
-    type,
-    extraAttributes,
-  }),
-  designerButton: {
-    icon: ALargeSmall,
-    label: "Text Field",
-  },
+  construct: (id: string) => ({ id, type, extraAttributes }),
+  designerButton: { icon: ALargeSmall, label: "Text Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
-
   validate: (elementInstance: FormElementInstance, currentValue: string) => {
     const element = elementInstance as CustomInstance
     if (element.extraAttributes.required) return currentValue.length > 0
@@ -74,9 +66,9 @@ export const textFieldFormElement: FormElement = {
 
 function DesignerComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
 
   const { label, helperText, required, placeHolder } = element.extraAttributes
@@ -102,9 +94,9 @@ function DesignerComponent({
 
 function PropertiesComponent({
   elementInstance,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
-}) {
+}>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -220,12 +212,12 @@ function FormComponent({
   submitValue,
   isInvalid,
   defaultValue,
-}: {
+}: Readonly<{
   elementInstance: FormElementInstance
   submitValue?: SubmitValue
   isInvalid?: boolean
   defaultValue?: string
-}) {
+}>) {
   const element = elementInstance as CustomInstance
 
   const [value, setValue] = useState(defaultValue ?? "")
