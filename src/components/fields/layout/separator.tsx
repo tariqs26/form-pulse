@@ -4,14 +4,14 @@ import { SeparatorHorizontal } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
 } from "@/types/form-builder"
 
-const type: FormElementType = "separatorField"
+const type: Field = "separator"
 
-export const separatorFieldFormElement: FormElement = {
+export const separatorFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type }),
   designerButton: { icon: SeparatorHorizontal, label: "Separator Field" },

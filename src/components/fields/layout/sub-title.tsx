@@ -2,15 +2,15 @@
 
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Pilcrow } from "lucide-react"
 import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Heading2 } from "lucide-react"
 
 import { useDesigner } from "@/hooks/use-designer"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
 } from "@/types/form-builder"
 
 import {
@@ -21,15 +21,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 
-const type: FormElementType = "paragraphField"
+const type: Field = "subTitle"
 
-const extraAttributes = { text: "Text here" }
+const extraAttributes = { title: "SubTitle Field" }
 
 const propertiesSchema = z.object({
-  text: z.string().min(2).max(500),
+  title: z.string().min(2).max(50),
 })
 
 type Properties = z.infer<typeof propertiesSchema>
@@ -38,10 +38,10 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const paragraphFieldFormElement: FormElement = {
+export const subTitleFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: Pilcrow, label: "Paragraph Field" },
+  designerButton: { icon: Heading2, label: "SubTitle Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -51,12 +51,12 @@ export const paragraphFieldFormElement: FormElement = {
 function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
 
-  const { text } = element.extraAttributes
+  const { title } = element.extraAttributes
 
   return (
     <div className="grid gap-2 text-left">
-      <Label className="text-muted-foreground">Paragraph Field</Label>
-      <p>{text}</p>
+      <Label className="text-muted-foreground">SubTitle Field</Label>
+      <h5 className="text-lg">{title}</h5>
     </div>
   )
 }
@@ -81,7 +81,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
     })
   }
 
-  function onKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") e.currentTarget.blur()
   }
 
@@ -93,12 +93,12 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
       >
         <FormField
           control={form.control}
-          name="text"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Text</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
-                <Textarea {...field} onKeyDown={onKeyDown} rows={5} />
+                <Input {...field} onKeyDown={onKeyDown} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -115,6 +115,6 @@ function FormComponent({
   elementInstance: FormElementInstance
 }>) {
   const element = elementInstance as CustomInstance
-  const { text } = element.extraAttributes
-  return <p>{text}</p>
+  const { title } = element.extraAttributes
+  return <h5 className="text-lg">{title}</h5>
 }

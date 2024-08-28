@@ -1,6 +1,6 @@
 import { format, formatDistance } from "date-fns"
 import { getFormWithSubmissions } from "@/actions/form"
-import type { FormElementInstance, FormElementType } from "@/types/form-builder"
+import type { Field, FormElementInstance } from "@/types/form-builder"
 
 import { ShareLink } from "@/components/form-details/share-link"
 import { VisitButton } from "@/components/form-details/visit-button"
@@ -74,7 +74,7 @@ async function SubmissionsTable({
     id: string
     label: string
     required: boolean
-    type: FormElementType
+    type: Field
   }
 
   type Row = {
@@ -87,12 +87,12 @@ async function SubmissionsTable({
 
   for (const element of formElements) {
     switch (element.type) {
-      case "textField":
-      case "textAreaField":
-      case "numberField":
-      case "dateField":
-      case "selectField":
-      case "checkboxField":
+      case "text":
+      case "textarea":
+      case "number":
+      case "date":
+      case "select":
+      case "checkbox":
         columns.push({
           id: element.id,
           label: element.extraAttributes?.label,
@@ -143,21 +143,18 @@ async function SubmissionsTable({
   )
 }
 
-type RowCellProps = Readonly<{
-  type: FormElementType
-  value: string
-}>
+type RowCellProps = Readonly<{ type: Field; value: string }>
 
 const RowCell = ({ type, value }: RowCellProps) => {
   let node: React.ReactNode = value
 
   switch (type) {
-    case "dateField": {
+    case "date": {
       const date = new Date(value).toLocaleDateString()
       node = <Badge variant="outline">{format(date, "dd/MM/yyyyy")}</Badge>
       break
     }
-    case "checkboxField":
+    case "checkbox":
       node = <Checkbox checked={value === "true"} disabled />
       break
   }

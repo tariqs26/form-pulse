@@ -9,9 +9,9 @@ import { z } from "zod"
 import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
@@ -38,7 +38,7 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { toast } from "@/hooks/use-toast"
 
-const type: FormElementType = "selectField"
+const type: Field = "select"
 
 const extraAttributes = {
   label: "Select Field",
@@ -62,7 +62,7 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const selectFieldFormElement: FormElement = {
+export const selectFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
   designerButton: { icon: ListChecks, label: "Select Field" },
@@ -308,7 +308,7 @@ function FormComponent({
         onValueChange={(value) => {
           setValue(value)
           if (!submitValue) return
-          const valid = selectFieldFormElement.validate(element, value)
+          const valid = selectFormElement.validate(element, value)
           setError(!valid)
           submitValue(element.id, value)
         }}

@@ -3,21 +3,18 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { Text } from "lucide-react"
 import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
 import {
   Form,
   FormControl,
@@ -29,25 +26,26 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
+import { Textarea } from "@/components/ui/textarea"
 
-const type: FormElementType = "dateField"
+const type: Field = "textarea"
 
 const extraAttributes = {
-  label: "Date Field",
-  helperText: "Pick a date",
+  label: "Text Area",
+  placeHolder: "Value here...",
+  helperText: "Helper text",
   required: false,
+  rows: 3,
 }
 
 const propertiesSchema = z.object({
   label: z.string().min(2).max(50),
+  placeHolder: z.string().max(50),
   helperText: z.string().max(200),
   required: z.boolean().default(false),
+  rows: z.number().min(1).max(10),
 })
 
 type Properties = z.infer<typeof propertiesSchema>
@@ -56,10 +54,10 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const dateFieldFormElement: FormElement = {
+export const textareaFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: CalendarIcon, label: "Date Field" },
+  designerButton: { icon: Text, label: "Text Area Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -73,7 +71,7 @@ export const dateFieldFormElement: FormElement = {
 function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
 
-  const { label, helperText, required } = element.extraAttributes
+  const { label, helperText, required, placeHolder } = element.extraAttributes
 
   return (
     <div className="grid w-full gap-2 text-left">
@@ -81,13 +79,12 @@ function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
         {label}
         {required && "*"}
       </Label>
-      <Button
-        variant="outline"
-        className="pointer-events-none w-full justify-start text-left font-normal"
-      >
-        <CalendarIcon className="mr-2 h-4 w-4" />
-        <span>Pick a date</span>
-      </Button>
+      <Textarea
+        readOnly
+        disabled
+        placeholder={placeHolder}
+        className="pointer-events-none"
+      />
       {helperText && (
         <p className="text-sm text-muted-foreground">{helperText}</p>
       )}
@@ -149,6 +146,23 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
         />
         <FormField
           control={form.control}
+          name="placeHolder"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Placeholder</FormLabel>
+              <FormControl>
+                <Input {...field} onKeyDown={onKeyDown} />
+              </FormControl>
+              <FormDescription>
+                The placeholder of the text field. It will be displayed inside
+                the field.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="helperText"
           render={({ field }) => (
             <FormItem>
@@ -186,6 +200,27 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="rows"
+          render={({ field }) => (
+            <FormItem>
+              <div>
+                <FormLabel>Rows ({form.watch("rows")})</FormLabel>
+              </div>
+              <FormControl className="mt-2">
+                <Slider
+                  defaultValue={[field.value]}
+                  min={1}
+                  max={10}
+                  step={1}
+                  onValueChange={(value) => field.onChange(value[0])}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </form>
     </Form>
   )
@@ -204,16 +239,15 @@ function FormComponent({
 }>) {
   const element = elementInstance as CustomInstance
 
-  const [date, setDate] = useState<Date | undefined>(
-    defaultValue ? new Date(defaultValue) : undefined
-  )
+  const [value, setValue] = useState(defaultValue ?? "")
   const [error, setError] = useState(false)
 
   useEffect(() => {
     setError(isInvalid === true)
   }, [isInvalid])
 
-  const { label, helperText, required } = element.extraAttributes
+  const { label, helperText, required, placeHolder, rows } =
+    element.extraAttributes
 
   return (
     <div className="grid gap-2">
@@ -221,37 +255,22 @@ function FormComponent({
         {label}
         {required && "*"}
       </Label>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            className={cn(
-              "w-full justify-start text-left font-normal",
-              date === undefined && "text-muted-foreground",
-              error && "border-destructive focus-visible:ring-destructive"
-            )}
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={(date) => {
-              setDate(date)
-              if (!submitValue) return
-
-              const value = date?.toUTCString() ?? ""
-              const validate = dateFieldFormElement.validate(element, value)
-              setError(!validate)
-              submitValue(element.id, value)
-            }}
-            initialFocus
-          />
-        </PopoverContent>
-      </Popover>
+      <Textarea
+        placeholder={placeHolder}
+        rows={rows}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={() => {
+          if (!submitValue) return
+          const valid = textareaFormElement.validate(element, value)
+          setError(!valid)
+          if (!valid) return
+          submitValue(element.id, value)
+        }}
+        value={value}
+        className={cn(
+          error && "border-destructive focus-visible:ring-destructive"
+        )}
+      />
       {helperText && (
         <p className="text-sm text-muted-foreground">{helperText}</p>
       )}

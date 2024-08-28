@@ -2,7 +2,7 @@ import { useState } from "react"
 import { DragOverlay, useDndMonitor, type Active } from "@dnd-kit/core"
 
 import { useDesigner } from "@/hooks/use-designer"
-import { formElements, type FormElementType } from "@/types/form-builder"
+import { formElements, type Field } from "@/types/form-builder"
 import { SideBarButtonDragOverlay } from "./designer/sidebar/side-bar-button"
 
 /**
@@ -30,7 +30,7 @@ export const DragOverlayWrapper = () => {
   const isSideBarButton = draggedItem.data?.current?.isDesignerButton
 
   if (isSideBarButton) {
-    const type = draggedItem.data?.current?.type as FormElementType
+    const type = draggedItem.data?.current?.type as Field
     node = <SideBarButtonDragOverlay formElement={formElements[type]} />
   }
 

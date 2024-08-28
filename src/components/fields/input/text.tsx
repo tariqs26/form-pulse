@@ -3,15 +3,15 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Hash } from "lucide-react"
+import { ALargeSmall } from "lucide-react"
 import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
@@ -28,11 +28,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 
-const type: FormElementType = "numberField"
+const type: Field = "text"
 
 const extraAttributes = {
-  label: "Number Field",
-  placeHolder: "0",
+  label: "Text Field",
+  placeHolder: "Value here...",
   helperText: "Helper text",
   required: false,
 }
@@ -50,10 +50,10 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const numberFieldFormElement: FormElement = {
+export const textFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: Hash, label: "Number Field" },
+  designerButton: { icon: ALargeSmall, label: "Text Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -78,7 +78,6 @@ function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
       <Input
         readOnly
         disabled
-        type="number"
         placeholder={placeHolder}
         className="pointer-events-none"
       />
@@ -103,10 +102,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   }, [element, form])
 
   function applyChanges(data: Properties) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: data,
-    })
+    updateElement(element.id, { ...element, extraAttributes: data })
   }
 
   function onKeyDown(
@@ -229,12 +225,11 @@ function FormComponent({
         {required && "*"}
       </Label>
       <Input
-        type="number"
         placeholder={placeHolder}
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => {
           if (!submitValue) return
-          const valid = numberFieldFormElement.validate(element, value)
+          const valid = textFormElement.validate(element, value)
           setError(!valid)
           if (!valid) return
           submitValue(element.id, value)

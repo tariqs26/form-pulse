@@ -12,20 +12,20 @@ export const FormElementsSidebar = () => (
       <h6 className="col-span-1 my-2 place-self-start text-sm font-medium text-muted-foreground md:col-span-2">
         Layout elements
       </h6>
-      <SideBarButton formElement={formElements.titleField} />
-      <SideBarButton formElement={formElements.subTitleField} />
-      <SideBarButton formElement={formElements.paragraphField} />
-      <SideBarButton formElement={formElements.separatorField} />
-      <SideBarButton formElement={formElements.spacerField} />
+      <SideBarButton formElement={formElements.title} />
+      <SideBarButton formElement={formElements.subTitle} />
+      <SideBarButton formElement={formElements.paragraph} />
+      <SideBarButton formElement={formElements.separator} />
+      <SideBarButton formElement={formElements.spacer} />
       <h6 className="col-span-1 my-2 place-self-start text-sm font-medium text-muted-foreground md:col-span-2">
         Form elements
       </h6>
-      <SideBarButton formElement={formElements.textField} />
-      <SideBarButton formElement={formElements.textAreaField} />
-      <SideBarButton formElement={formElements.numberField} />
-      <SideBarButton formElement={formElements.dateField} />
-      <SideBarButton formElement={formElements.selectField} />
-      <SideBarButton formElement={formElements.checkboxField} />
+      <SideBarButton formElement={formElements.text} />
+      <SideBarButton formElement={formElements.textarea} />
+      <SideBarButton formElement={formElements.number} />
+      <SideBarButton formElement={formElements.date} />
+      <SideBarButton formElement={formElements.select} />
+      <SideBarButton formElement={formElements.checkbox} />
     </div>
   </>
 )

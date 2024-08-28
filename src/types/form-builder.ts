@@ -1,34 +1,35 @@
-import { subTitleFieldFormElement } from "@/components/fields/layout/sub-title-field"
-import { paragraphFieldFormElement } from "@/components/fields/layout/paragraph-field"
-import { separatorFieldFormElement } from "@/components/fields/layout/separator-field"
-import { spacerFieldFormElement } from "@/components/fields/layout/spacer-field"
-import { titleFieldFormElement } from "@/components/fields/layout/title-field"
-import { textFieldFormElement } from "@/components/fields/form/text-field"
-import { textAreaFieldFormElement } from "@/components/fields/form/text-area-field"
-import { numberFieldFormElement } from "@/components/fields/form/number-field"
-import { dateFieldFormElement } from "@/components/fields/form/date-field"
-import { selectFieldFormElement } from "@/components/fields/form/select-field"
-import { checkboxFieldFormElement } from "@/components/fields/form/checkbox-field"
+import { checkboxFormElement } from "@/components/fields/input/checkbox"
+import { dateFormElement } from "@/components/fields/input/date"
+import { numberFormElement } from "@/components/fields/input/number"
+import { selectFormElement } from "@/components/fields/input/select"
+import { textFormElement } from "@/components/fields/input/text"
+import { textareaFormElement } from "@/components/fields/input/textarea"
 
-export type FormElementType =
+import { paragraphFormElement } from "@/components/fields/layout/paragraph"
+import { separatorFormElement } from "@/components/fields/layout/separator"
+import { spacerFormElement } from "@/components/fields/layout/spacer"
+import { subTitleFormElement } from "@/components/fields/layout/sub-title"
+import { titleFormElement } from "@/components/fields/layout/title"
+
+export type Field =
+  // Input
+  | "checkbox"
+  | "date"
+  | "number"
+  | "select"
+  | "text"
+  | "textarea"
   // Layout
-  | "titleField"
-  | "subTitleField"
-  | "paragraphField"
-  | "separatorField"
-  | "spacerField"
-  // Form
-  | "textField"
-  | "textAreaField"
-  | "numberField"
-  | "dateField"
-  | "selectField"
-  | "checkboxField"
+  | "paragraph"
+  | "separator"
+  | "spacer"
+  | "subTitle"
+  | "title"
 
 export type SubmitValue = (key: string, value: string) => void
 
 export type FormElement = {
-  type: FormElementType
+  type: Field
   construct: (id: string) => FormElementInstance
   designerButton: { icon: React.ElementType; label: string }
   designerComponent: React.FC<FormElementInstance>
@@ -44,21 +45,20 @@ export type FormElement = {
 
 export type FormElementInstance = {
   id: string
-  type: FormElementType
+  type: Field
   extraAttributes?: Record<string, any>
 }
 
-export const formElements: Record<FormElementType, FormElement> = {
-  titleField: titleFieldFormElement,
-  subTitleField: subTitleFieldFormElement,
-  paragraphField: paragraphFieldFormElement,
-  separatorField: separatorFieldFormElement,
-  spacerField: spacerFieldFormElement,
-
-  textField: textFieldFormElement,
-  textAreaField: textAreaFieldFormElement,
-  numberField: numberFieldFormElement,
-  dateField: dateFieldFormElement,
-  selectField: selectFieldFormElement,
-  checkboxField: checkboxFieldFormElement,
+export const formElements: Record<Field, FormElement> = {
+  paragraph: paragraphFormElement,
+  separator: separatorFormElement,
+  spacer: spacerFormElement,
+  subTitle: subTitleFormElement,
+  title: titleFormElement,
+  checkbox: checkboxFormElement,
+  date: dateFormElement,
+  number: numberFormElement,
+  select: selectFormElement,
+  text: textFormElement,
+  textarea: textareaFormElement,
 }

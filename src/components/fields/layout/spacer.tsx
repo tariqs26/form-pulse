@@ -2,15 +2,15 @@
 
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Heading2 } from "lucide-react"
+import { AlignVerticalSpaceAround } from "lucide-react"
+import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
 } from "@/types/form-builder"
 
 import {
@@ -21,15 +21,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Slider } from "@/components/ui/slider"
 
-const type: FormElementType = "subTitleField"
+const type: Field = "spacer"
 
-const extraAttributes = { title: "SubTitle Field" }
+const extraAttributes = { height: 20 }
 
 const propertiesSchema = z.object({
-  title: z.string().min(2).max(50),
+  height: z.number().min(5).max(200),
 })
 
 type Properties = z.infer<typeof propertiesSchema>
@@ -38,10 +38,10 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const subTitleFieldFormElement: FormElement = {
+export const spacerFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: Heading2, label: "SubTitle Field" },
+  designerButton: { icon: AlignVerticalSpaceAround, label: "Spacer Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -51,12 +51,12 @@ export const subTitleFieldFormElement: FormElement = {
 function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
 
-  const { title } = element.extraAttributes
+  const { height } = element.extraAttributes
 
   return (
-    <div className="grid gap-2 text-left">
-      <Label className="text-muted-foreground">SubTitle Field</Label>
-      <h5 className="text-lg">{title}</h5>
+    <div className="grid w-full place-items-center gap-2">
+      <Label className="text-muted-foreground">Spacer Field: {height}px</Label>
+      <AlignVerticalSpaceAround className="size-6" />
     </div>
   )
 }
@@ -93,12 +93,18 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
       >
         <FormField
           control={form.control}
-          name="title"
+          name="height"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input {...field} onKeyDown={onKeyDown} />
+              <FormLabel>Height {form.watch("height")}px</FormLabel>
+              <FormControl className="pt-2">
+                <Slider
+                  defaultValue={[field.value]}
+                  min={5}
+                  max={200}
+                  step={1}
+                  onValueChange={(value) => field.onChange(value[0])}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -115,6 +121,6 @@ function FormComponent({
   elementInstance: FormElementInstance
 }>) {
   const element = elementInstance as CustomInstance
-  const { title } = element.extraAttributes
-  return <h5 className="text-lg">{title}</h5>
+  const { height } = element.extraAttributes
+  return <div style={{ height, width: "100%" }} />
 }

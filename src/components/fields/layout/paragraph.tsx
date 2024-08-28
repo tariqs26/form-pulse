@@ -3,14 +3,14 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { AlignVerticalSpaceAround } from "lucide-react"
+import { Pilcrow } from "lucide-react"
 import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
 } from "@/types/form-builder"
 
 import {
@@ -22,14 +22,14 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
+import { Textarea } from "@/components/ui/textarea"
 
-const type: FormElementType = "spacerField"
+const type: Field = "paragraph"
 
-const extraAttributes = { height: 20 }
+const extraAttributes = { text: "Text here" }
 
 const propertiesSchema = z.object({
-  height: z.number().min(5).max(200),
+  text: z.string().min(2).max(500),
 })
 
 type Properties = z.infer<typeof propertiesSchema>
@@ -38,10 +38,10 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const spacerFieldFormElement: FormElement = {
+export const paragraphFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: AlignVerticalSpaceAround, label: "Spacer Field" },
+  designerButton: { icon: Pilcrow, label: "Paragraph Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -51,12 +51,12 @@ export const spacerFieldFormElement: FormElement = {
 function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
 
-  const { height } = element.extraAttributes
+  const { text } = element.extraAttributes
 
   return (
-    <div className="grid w-full place-items-center gap-2">
-      <Label className="text-muted-foreground">Spacer Field: {height}px</Label>
-      <AlignVerticalSpaceAround className="size-6" />
+    <div className="grid gap-2 text-left">
+      <Label className="text-muted-foreground">Paragraph Field</Label>
+      <p>{text}</p>
     </div>
   )
 }
@@ -81,7 +81,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
     })
   }
 
-  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function onKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter") e.currentTarget.blur()
   }
 
@@ -93,18 +93,12 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
       >
         <FormField
           control={form.control}
-          name="height"
+          name="text"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Height {form.watch("height")}px</FormLabel>
-              <FormControl className="pt-2">
-                <Slider
-                  defaultValue={[field.value]}
-                  min={5}
-                  max={200}
-                  step={1}
-                  onValueChange={(value) => field.onChange(value[0])}
-                />
+              <FormLabel>Text</FormLabel>
+              <FormControl>
+                <Textarea {...field} onKeyDown={onKeyDown} rows={5} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -121,6 +115,6 @@ function FormComponent({
   elementInstance: FormElementInstance
 }>) {
   const element = elementInstance as CustomInstance
-  const { height } = element.extraAttributes
-  return <div style={{ height, width: "100%" }} />
+  const { text } = element.extraAttributes
+  return <p>{text}</p>
 }

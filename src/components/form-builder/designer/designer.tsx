@@ -1,7 +1,7 @@
 import { useDndMonitor } from "@dnd-kit/core"
 import { useDesigner } from "@/hooks/use-designer"
 import { generateId } from "@/lib/utils"
-import { formElements, type FormElementType } from "@/types/form-builder"
+import { formElements, type Field } from "@/types/form-builder"
 import { DropArea } from "./designer-drop-area"
 import { DesignerSideBar } from "./sidebar/designer-side-bar"
 
@@ -30,7 +30,7 @@ export const Designer = () => {
 
       // Case 1
       if (isDroppingDesignerButtonOverDesignerDropArea) {
-        const type = active.data?.current?.type as FormElementType
+        const type = active.data?.current?.type as Field
         const newElement = formElements[type].construct(generateId())
 
         addElement(elements.length, newElement)
@@ -51,7 +51,7 @@ export const Designer = () => {
         isDesignerButton && isDroppingOverDesignerElement
 
       if (isDroppingDesignerButtonOverDesignerElement) {
-        const type = active.data?.current?.type as FormElementType
+        const type = active.data?.current?.type as Field
         const elementId = over.data?.current?.elementId
         const elementIndex = elements.findIndex(
           (element) => element.id === elementId

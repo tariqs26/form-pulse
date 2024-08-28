@@ -8,9 +8,9 @@ import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
 } from "@/types/form-builder"
 
 import {
@@ -24,7 +24,7 @@ import {
 import { Input } from "../../ui/input"
 import { Label } from "../../ui/label"
 
-const type: FormElementType = "titleField"
+const type: Field = "title"
 
 const extraAttributes = { title: "Title Field" }
 
@@ -38,7 +38,7 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const titleFieldFormElement: FormElement = {
+export const titleFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
   designerButton: { icon: Heading1, label: "Title Field" },

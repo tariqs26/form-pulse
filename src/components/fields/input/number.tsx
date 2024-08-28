@@ -3,15 +3,15 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Text } from "lucide-react"
+import { Hash } from "lucide-react"
 import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
@@ -26,18 +26,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
-import { Textarea } from "@/components/ui/textarea"
 
-const type: FormElementType = "textAreaField"
+const type: Field = "number"
 
 const extraAttributes = {
-  label: "Text Area",
-  placeHolder: "Value here...",
+  label: "Number Field",
+  placeHolder: "0",
   helperText: "Helper text",
   required: false,
-  rows: 3,
 }
 
 const propertiesSchema = z.object({
@@ -45,7 +42,6 @@ const propertiesSchema = z.object({
   placeHolder: z.string().max(50),
   helperText: z.string().max(200),
   required: z.boolean().default(false),
-  rows: z.number().min(1).max(10),
 })
 
 type Properties = z.infer<typeof propertiesSchema>
@@ -54,10 +50,10 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const textAreaFieldFormElement: FormElement = {
+export const numberFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: Text, label: "Text Area Field" },
+  designerButton: { icon: Hash, label: "Number Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -79,9 +75,10 @@ function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
         {label}
         {required && "*"}
       </Label>
-      <Textarea
+      <Input
         readOnly
         disabled
+        type="number"
         placeholder={placeHolder}
         className="pointer-events-none"
       />
@@ -113,9 +110,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   }
 
   function onKeyDown(
-    e: React.KeyboardEvent<
-      HTMLInputElement | HTMLButtonElement | HTMLDivElement
-    >
+    e: React.KeyboardEvent<HTMLInputElement | HTMLButtonElement>
   ) {
     if (e.key === "Enter") e.currentTarget.blur()
   }
@@ -200,27 +195,6 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="rows"
-          render={({ field }) => (
-            <FormItem>
-              <div>
-                <FormLabel>Rows ({form.watch("rows")})</FormLabel>
-              </div>
-              <FormControl className="mt-2">
-                <Slider
-                  defaultValue={[field.value]}
-                  min={1}
-                  max={10}
-                  step={1}
-                  onValueChange={(value) => field.onChange(value[0])}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
       </form>
     </Form>
   )
@@ -246,8 +220,7 @@ function FormComponent({
     setError(isInvalid === true)
   }, [isInvalid])
 
-  const { label, helperText, required, placeHolder, rows } =
-    element.extraAttributes
+  const { label, helperText, required, placeHolder } = element.extraAttributes
 
   return (
     <div className="grid gap-2">
@@ -255,13 +228,13 @@ function FormComponent({
         {label}
         {required && "*"}
       </Label>
-      <Textarea
+      <Input
+        type="number"
         placeholder={placeHolder}
-        rows={rows}
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => {
           if (!submitValue) return
-          const valid = textAreaFieldFormElement.validate(element, value)
+          const valid = numberFormElement.validate(element, value)
           setError(!valid)
           if (!valid) return
           submitValue(element.id, value)

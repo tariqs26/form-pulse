@@ -3,18 +3,19 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ALargeSmall } from "lucide-react"
+import { CheckSquare } from "lucide-react"
 import { z } from "zod"
 
 import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
+  Field,
   FormElement,
   FormElementInstance,
-  FormElementType,
   SubmitValue,
 } from "@/types/form-builder"
 
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -28,18 +29,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 
-const type: FormElementType = "textField"
+const type: Field = "checkbox"
 
 const extraAttributes = {
-  label: "Text Field",
-  placeHolder: "Value here...",
+  label: "Checkbox Field",
   helperText: "Helper text",
   required: false,
 }
 
 const propertiesSchema = z.object({
   label: z.string().min(2).max(50),
-  placeHolder: z.string().max(50),
   helperText: z.string().max(200),
   required: z.boolean().default(false),
 })
@@ -50,40 +49,37 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-export const textFieldFormElement: FormElement = {
+export const checkboxFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: ALargeSmall, label: "Text Field" },
+  designerButton: { icon: CheckSquare, label: "Checkbox Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
   validate: (elementInstance: FormElementInstance, currentValue: string) => {
     const element = elementInstance as CustomInstance
-    if (element.extraAttributes.required) return currentValue.length > 0
+    if (element.extraAttributes.required) return currentValue === "true"
     return true
   },
 }
 
 function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
-
-  const { label, helperText, required, placeHolder } = element.extraAttributes
+  const { label, helperText, required } = element.extraAttributes
+  const id = `checkbox-${element.id}`
 
   return (
-    <div className="grid w-full gap-2 text-left">
-      <Label>
-        {label}
-        {required && "*"}
-      </Label>
-      <Input
-        readOnly
-        disabled
-        placeholder={placeHolder}
-        className="pointer-events-none"
-      />
-      {helperText && (
-        <p className="text-sm text-muted-foreground">{helperText}</p>
-      )}
+    <div className="flex items-start gap-2">
+      <Checkbox id={id} disabled={true} className="pointer-events-none" />
+      <div className="grid gap-1.5 leading-none">
+        <Label htmlFor={id}>
+          {label}
+          {required && "*"}
+        </Label>
+        {helperText && (
+          <p className="text-sm text-muted-foreground">{helperText}</p>
+        )}
+      </div>
     </div>
   )
 }
@@ -102,7 +98,10 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   }, [element, form])
 
   function applyChanges(data: Properties) {
-    updateElement(element.id, { ...element, extraAttributes: data })
+    updateElement(element.id, {
+      ...element,
+      extraAttributes: data,
+    })
   }
 
   function onKeyDown(
@@ -130,23 +129,6 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
               <FormDescription>
                 The label of the text field. It will be displayed above the
                 field.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="placeHolder"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Placeholder</FormLabel>
-              <FormControl>
-                <Input {...field} onKeyDown={onKeyDown} />
-              </FormControl>
-              <FormDescription>
-                The placeholder of the text field. It will be displayed inside
-                the field.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -209,39 +191,44 @@ function FormComponent({
 }>) {
   const element = elementInstance as CustomInstance
 
-  const [value, setValue] = useState(defaultValue ?? "")
+  const [value, setValue] = useState<boolean>(defaultValue === "true")
   const [error, setError] = useState(false)
 
   useEffect(() => {
     setError(isInvalid === true)
   }, [isInvalid])
 
-  const { label, helperText, required, placeHolder } = element.extraAttributes
+  const { label, helperText, required } = element.extraAttributes
+
+  const id = `checkbox-${element.id}`
 
   return (
-    <div className="grid gap-2">
-      <Label className={cn(error && "text-destructive")}>
-        {label}
-        {required && "*"}
-      </Label>
-      <Input
-        placeholder={placeHolder}
-        onChange={(e) => setValue(e.target.value)}
-        onBlur={() => {
+    <div className="flex items-start gap-2">
+      <Checkbox
+        id={id}
+        checked={value}
+        className={cn(error && "border-destructive")}
+        onCheckedChange={(checked) => {
+          let value = false
+          if (checked) value = true
+
+          setValue(value)
           if (!submitValue) return
-          const valid = textFieldFormElement.validate(element, value)
+          const stringValue = value.toString()
+          const valid = checkboxFormElement.validate(element, stringValue)
           setError(!valid)
-          if (!valid) return
-          submitValue(element.id, value)
+          submitValue(element.id, stringValue)
         }}
-        value={value}
-        className={cn(
-          error && "border-destructive focus-visible:ring-destructive"
-        )}
       />
-      {helperText && (
-        <p className="text-sm text-muted-foreground">{helperText}</p>
-      )}
+      <div className="grid gap-1.5 leading-none">
+        <Label htmlFor={id} className={cn(error && "text-destructive")}>
+          {label}
+          {required && "*"}
+        </Label>
+        {helperText && (
+          <p className="text-sm text-muted-foreground">{helperText}</p>
+        )}
+      </div>
     </div>
   )
 }
