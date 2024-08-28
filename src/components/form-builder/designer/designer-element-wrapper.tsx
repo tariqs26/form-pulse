@@ -99,7 +99,7 @@ export const DesignerElementWrapper = (
           isMouseOver && "opacity-30"
         )}
       >
-        <DesignerElement elementInstance={element} />
+        <DesignerElement {...element} />
       </div>
       {bottomHalf.isOver && (
         <div className="absolute bottom-0 h-1 w-full rounded-md rounded-t-none bg-ring" />

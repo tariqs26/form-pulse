@@ -23,7 +23,7 @@ export const FormPropertiesSidebar = () => {
           <X className="h-5 w-5" />
         </Button>
       </div>
-      <PropertiesForm elementInstance={selectedElement} />
+      <PropertiesForm {...selectedElement} />
     </>
   )
 }

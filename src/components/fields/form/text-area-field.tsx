@@ -68,11 +68,7 @@ export const textAreaFieldFormElement: FormElement = {
   },
 }
 
-function DesignerComponent({
-  elementInstance,
-}: Readonly<{
-  elementInstance: FormElementInstance
-}>) {
+function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
 
   const { label, helperText, required, placeHolder } = element.extraAttributes
@@ -96,11 +92,7 @@ function DesignerComponent({
   )
 }
 
-function PropertiesComponent({
-  elementInstance,
-}: Readonly<{
-  elementInstance: FormElementInstance
-}>) {
+function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -248,7 +240,6 @@ function FormComponent({
   const element = elementInstance as CustomInstance
 
   const [value, setValue] = useState(defaultValue ?? "")
-
   const [error, setError] = useState(false)
 
   useEffect(() => {

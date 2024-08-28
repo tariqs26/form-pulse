@@ -15,29 +15,17 @@ export const separatorFieldFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type }),
   designerButton: { icon: SeparatorHorizontal, label: "Separator Field" },
-  designerComponent: DesignerComponent,
-  propertiesComponent: PropertiesComponent,
-  formComponent: FormComponent,
-  validate: () => true,
-}
-
-function DesignerComponent(
-  _: Readonly<{ elementInstance: FormElementInstance }>
-) {
-  return (
+  designerComponent: (_: Readonly<FormElementInstance>) => (
     <div className="grid w-full gap-2">
       <Label className="text-muted-foreground">Separator Field</Label>
       <Separator />
     </div>
-  )
-}
-
-function PropertiesComponent(
-  _: Readonly<{ elementInstance: FormElementInstance }>
-) {
-  return <p>No properties available for this element</p>
-}
-
-function FormComponent(_: Readonly<{ elementInstance: FormElementInstance }>) {
-  return <Separator />
+  ),
+  propertiesComponent: (_: Readonly<FormElementInstance>) => (
+    <p>No properties available for this element</p>
+  ),
+  formComponent: (_: Readonly<{ elementInstance: FormElementInstance }>) => (
+    <Separator />
+  ),
+  validate: () => true,
 }

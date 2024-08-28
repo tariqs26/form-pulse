@@ -63,11 +63,7 @@ export const checkboxFieldFormElement: FormElement = {
   },
 }
 
-function DesignerComponent({
-  elementInstance,
-}: Readonly<{
-  elementInstance: FormElementInstance
-}>) {
+function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
   const { label, helperText, required } = element.extraAttributes
   const id = `checkbox-${element.id}`
@@ -88,11 +84,7 @@ function DesignerComponent({
   )
 }
 
-function PropertiesComponent({
-  elementInstance,
-}: Readonly<{
-  elementInstance: FormElementInstance
-}>) {
+function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({
@@ -200,7 +192,6 @@ function FormComponent({
   const element = elementInstance as CustomInstance
 
   const [value, setValue] = useState<boolean>(defaultValue === "true")
-
   const [error, setError] = useState(false)
 
   useEffect(() => {

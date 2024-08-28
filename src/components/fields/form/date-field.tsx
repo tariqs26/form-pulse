@@ -70,11 +70,7 @@ export const dateFieldFormElement: FormElement = {
   },
 }
 
-function DesignerComponent({
-  elementInstance,
-}: Readonly<{
-  elementInstance: FormElementInstance
-}>) {
+function DesignerComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
 
   const { label, helperText, required } = element.extraAttributes
@@ -99,11 +95,7 @@ function DesignerComponent({
   )
 }
 
-function PropertiesComponent({
-  elementInstance,
-}: Readonly<{
-  elementInstance: FormElementInstance
-}>) {
+function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   const element = elementInstance as CustomInstance
   const { updateElement } = useDesigner()
   const form = useForm<Properties>({

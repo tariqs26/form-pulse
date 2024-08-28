@@ -29,29 +29,16 @@ export type SubmitValue = (key: string, value: string) => void
 
 export type FormElement = {
   type: FormElementType
-
   construct: (id: string) => FormElementInstance
-
-  designerButton: {
-    icon: React.ElementType
-    label: string
-  }
-
-  designerComponent: React.FC<{
-    elementInstance: FormElementInstance
-  }>
-
-  propertiesComponent: React.FC<{
-    elementInstance: FormElementInstance
-  }>
-
+  designerButton: { icon: React.ElementType; label: string }
+  designerComponent: React.FC<FormElementInstance>
+  propertiesComponent: React.FC<FormElementInstance>
   formComponent: React.FC<{
     elementInstance: FormElementInstance
     submitValue?: SubmitValue
     defaultValue?: string
     isInvalid?: boolean
   }>
-
   validate(formElement: FormElementInstance, currentValue: string): boolean
 }
 
@@ -61,9 +48,7 @@ export type FormElementInstance = {
   extraAttributes?: Record<string, any>
 }
 
-type FormElements = Record<FormElementType, FormElement>
-
-export const formElements: FormElements = {
+export const formElements: Record<FormElementType, FormElement> = {
   titleField: titleFieldFormElement,
   subTitleField: subTitleFieldFormElement,
   paragraphField: paragraphFieldFormElement,
