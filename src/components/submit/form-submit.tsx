@@ -52,10 +52,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
       return
     }
 
-    const res = await catchAsync(
-      submitForm(formShareId, formValues.current),
-      "Form Submission"
-    )
+    const res = await catchAsync(submitForm(formShareId, formValues.current))
 
     if ("error" in res)
       toast({
