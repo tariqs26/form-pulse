@@ -91,14 +91,16 @@ export const updateFormContent = async (
 ) => {
   const user = await getUserOrThrow()
 
-  const form = await db.form.update({
+  await db.form.update({
     where: { id, userId: user.id },
     data: { content },
   })
 
   revalidatePath(`/dashboard/builder/${id}`)
-
-  return form
+  return {
+    title: "Success",
+    description: "Form saved successfully",
+  }
 }
 
 export const updateFormDetails = async (
@@ -119,10 +121,15 @@ export const updateFormDetails = async (
 export const publishForm = async (id: number) => {
   const user = await getUserOrThrow()
 
-  return db.form.update({
+  await db.form.update({
     where: { id, userId: user.id },
     data: { published: true },
   })
+
+  return {
+    title: "Success",
+    description: "Form published successfully",
+  }
 }
 
 export const submitForm = async (

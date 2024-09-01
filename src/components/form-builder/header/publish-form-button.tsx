@@ -33,12 +33,8 @@ export const PublishFormButton = ({ formId }: Readonly<{ formId: number }>) => {
         description: res.error,
         variant: "destructive",
       })
-    else {
-      toast({
-        title: "Success",
-        description: "Form published successfully",
-      })
-    }
+    else toast(res)
+
     router.refresh()
   }
 

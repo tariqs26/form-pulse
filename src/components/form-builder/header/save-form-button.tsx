@@ -21,11 +21,7 @@ export const SaveFormButton = ({ formId }: Readonly<{ formId: number }>) => {
         description: res.error,
         variant: "destructive",
       })
-    else
-      toast({
-        title: "Success",
-        description: "Form saved successfully",
-      })
+    else toast(res)
   }
 
   return (
