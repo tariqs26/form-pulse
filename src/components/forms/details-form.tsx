@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader } from "lucide-react"
+import type { Form as DbForm } from "@prisma/client"
 
-import { createForm } from "@/actions/form"
+import { createForm, updateFormDetails } from "@/actions/form"
 import { catchAsync } from "@/lib/utils"
 import { type FormData, formSchema } from "@/schemas/form"
 
@@ -21,16 +21,45 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/hooks/use-toast"
+import { Spinner } from "../ui/spinner"
 
-export const CreateForm = () => {
+export const DetailsForm = ({
+  defaultValues,
+  closeModal,
+}:
+  | {
+      defaultValues: Readonly<DbForm>
+      closeModal: () => void
+    }
+  | {
+      defaultValues?: undefined
+      closeModal?: undefined
+    }) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   })
 
   const router = useRouter()
 
   const onSubmit = async (data: FormData) => {
-    const res = await catchAsync(createForm(data), "Form")
+    if (defaultValues) {
+      const res = await catchAsync(updateFormDetails(defaultValues.id, data))
+
+      if ("error" in res)
+        toast({
+          title: "Error",
+          description: res.error,
+          variant: "destructive",
+        })
+      else {
+        toast(res)
+        closeModal()
+      }
+      return
+    }
+
+    const res = await catchAsync(createForm(data))
 
     if ("error" in res)
       toast({
@@ -73,12 +102,11 @@ export const CreateForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? (
-            <Loader className="animate-spin" />
-          ) : (
-            "Save"
-          )}
+        <Button
+          className="w-full"
+          disabled={form.formState.isSubmitting || !form.formState.isDirty}
+        >
+          {form.formState.isSubmitting ? <Spinner /> : "Save"}
         </Button>
       </form>
     </Form>
