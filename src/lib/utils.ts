@@ -1,16 +1,17 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { z } from "zod"
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
 export const generateId = () =>
   Math.floor(Math.random() * 1000000000).toString(16)
 
-const hasErrorMessage = (error: unknown): error is { message: string } =>
-  typeof error === "object" &&
-  error !== null &&
-  "message" in error &&
-  typeof error.message === "string"
+const errorSchema = z.object({
+  name: z.string().optional(),
+  message: z.string().optional(),
+  code: z.string().optional(),
+})
 
 export const catchAsync = async <T>(
   fn: Promise<T>
@@ -18,17 +19,22 @@ export const catchAsync = async <T>(
   try {
     return await fn
   } catch (error) {
-    console.error(error)
-
     let message = "Something went wrong, please try again later"
 
-    if (
-      hasErrorMessage(error) &&
-      error.message.includes(
-        "Unique constraint failed on the fields: (`userId`,`name`)"
+    const { data } = errorSchema.safeParse(error)
+
+    if (data !== undefined) {
+      if (
+        data.message?.includes(
+          "Unique constraint failed on the fields: (`userId`,`name`)"
+        )
       )
-    ) {
-      message = "Form with the same name already exists"
+        message = "Form with the same name already exists"
+      else if (
+        data.message?.includes("Record to update not found") ||
+        data.code === "P2025"
+      )
+        message = "Form not found"
     }
 
     return { error: message }
