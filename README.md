@@ -59,4 +59,3 @@ POSTGRES_URL_NON_POOLING=
 | `npm run format` | Format the code                               |
 | `npm run build`  | Build the app for production                  |
 | `npm run start`  | Run the production build                      |
-
