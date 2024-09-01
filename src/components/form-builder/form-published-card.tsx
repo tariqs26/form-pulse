@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Confetti from "react-confetti"
-import { MoveLeft, MoveRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { toast } from "@/hooks/use-toast"
 import { Button } from "../ui/button"
@@ -23,12 +23,12 @@ export const FormPublishedCard = ({
       recycle={false}
     />
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="max-w-md">
-        <h1 className="mb-10 border-b pb-2 text-center text-3xl text-primary">
+      <div>
+        <h1 className="mb-5 border-b pb-2 text-center text-3xl text-primary">
           ✨✨ Form Published ✨✨
         </h1>
-        <h2 className="text-2xl">Share this form</h2>
-        <h3 className="border-b pb-10 text-xl font-medium text-muted-foreground">
+        <h2 className="text-xl">Share this form</h2>
+        <h3 className="text-lg text-muted-foreground">
           Anyone with the link can view and submit the form
         </h3>
         <div className="my-4 flex w-full flex-col items-center gap-2 border-b pb-4">
@@ -47,14 +47,17 @@ export const FormPublishedCard = ({
           </Button>
         </div>
         <div className="flex justify-between">
-          <Button variant="outline" asChild>
-            <Link href="/dashboard" className="gap-2">
-              <MoveLeft /> Back to Dashboard
+          <Button variant="secondary" asChild>
+            <Link href="/dashboard" className="gap-2 pl-1.5">
+              <ChevronLeft /> Back to Dashboard
             </Link>
           </Button>
-          <Button variant="outline" asChild>
-            <Link href={`/dashboard/details/${formId}`} className="gap-2">
-              Form Details <MoveRight />
+          <Button variant="secondary" asChild>
+            <Link
+              href={`/dashboard/details/${formId}`}
+              className="gap-2 pr-1.5"
+            >
+              Form Details <ChevronRight />
             </Link>
           </Button>
         </div>
