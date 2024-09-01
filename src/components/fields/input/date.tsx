@@ -104,10 +104,6 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
     defaultValues: element.extraAttributes,
   })
 
-  useEffect(() => {
-    form.reset(element.extraAttributes)
-  }, [element, form])
-
   function applyChanges(data: Properties) {
     updateElement(element.id, {
       ...element,

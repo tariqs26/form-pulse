@@ -33,7 +33,7 @@ import { Textarea } from "@/components/ui/textarea"
 const type: Field = "textarea"
 
 const extraAttributes = {
-  label: "Text Area",
+  label: "Textarea",
   placeHolder: "Value here...",
   helperText: "Helper text",
   required: false,
@@ -57,7 +57,7 @@ type CustomInstance = FormElementInstance & {
 export const textareaFormElement: FormElement = {
   type,
   construct: (id: string) => ({ id, type, extraAttributes }),
-  designerButton: { icon: Text, label: "Text Area Field" },
+  designerButton: { icon: Text, label: "Textarea Field" },
   designerComponent: DesignerComponent,
   propertiesComponent: PropertiesComponent,
   formComponent: FormComponent,
@@ -100,10 +100,6 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
     mode: "onBlur",
     defaultValues: element.extraAttributes,
   })
-
-  useEffect(() => {
-    form.reset(element.extraAttributes)
-  }, [element, form])
 
   function applyChanges(data: Properties) {
     updateElement(element.id, {
