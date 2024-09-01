@@ -2,7 +2,7 @@ import { Suspense } from "react"
 import { Activity, CalendarRange, MousePointerClick, View } from "lucide-react"
 
 import { getForms, getUserFormStats } from "@/actions/form"
-import { CreateFormButton } from "@/components/dashboard/create-form-button"
+import { CreateFormDialog } from "@/components/dashboard/create-form-dialog"
 import { FormCard } from "@/components/dashboard/form-card"
 import { StatCard } from "@/components/dashboard/stat-card"
 import { Separator } from "@/components/ui/separator"
@@ -18,7 +18,7 @@ export default function DashboardPage() {
       <h2 className="col-span-2">Your Forms</h2>
       <Separator className="my-6" />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <CreateFormButton />
+        <CreateFormDialog />
         <Suspense fallback={<FormCardsSkeleton />}>
           <FormCards />
         </Suspense>
@@ -94,7 +94,7 @@ async function FormCards() {
   return (
     <>
       {forms.map((form) => (
-        <FormCard key={form.id} form={form} />
+        <FormCard key={form.id} {...form} />
       ))}
     </>
   )
