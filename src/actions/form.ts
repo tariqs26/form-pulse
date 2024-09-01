@@ -19,6 +19,8 @@ export const createForm = async (data: FormData) => {
     data: { ...data, userId: user.id },
   })
 
+  revalidatePath("/dashboard")
+
   return {
     id: form.id,
     title: "Success",
@@ -99,6 +101,21 @@ export const updateFormContent = async (
   return form
 }
 
+export const updateFormDetails = async (
+  id: number,
+  data: Pick<FormData, "name" | "description">
+) => {
+  const user = await getUserOrThrow()
+
+  await db.form.update({
+    where: { id, userId: user.id },
+    data,
+  })
+
+  revalidatePath(`/dashboard/builder/${id}`)
+  return { title: "Success", description: "Form details updated successfully" }
+}
+
 export const publishForm = async (id: number) => {
   const user = await getUserOrThrow()
 
@@ -123,5 +140,8 @@ export const submitForm = async (
 export const deleteForm = async (id: number) => {
   const user = await getUserOrThrow()
 
-  return db.form.delete({ where: { id, userId: user.id } })
+  await db.form.delete({ where: { id, userId: user.id } })
+
+  revalidatePath("/dashboard")
+  return { title: "Success", description: "Form deleted successfully" }
 }
