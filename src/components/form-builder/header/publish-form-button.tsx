@@ -72,10 +72,8 @@ export const PublishFormButton = ({ formId }: Readonly<{ formId: number }>) => {
               startTransition(publish)
             }}
           >
-            Publish{" "}
-            {loading && (
-              <Spinner className="ml-2 border-primary-foreground border-t-transparent" />
-            )}
+            {loading && <Spinner className="mr-2" />}
+            Publish
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
