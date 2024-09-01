@@ -1,5 +1,5 @@
 import { FilePlus } from "lucide-react"
-import { CreateForm } from "../forms/create-form"
+import { DetailsForm } from "../forms/details-form"
 import { Button } from "../ui/button"
 import {
   Dialog,
@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog"
 
-export const CreateFormButton = () => (
+export const CreateFormDialog = () => (
   <Dialog>
     <DialogTrigger asChild>
       <Button
@@ -30,7 +30,7 @@ export const CreateFormButton = () => (
           Create a new form to start collecting responses.
         </DialogDescription>
       </DialogHeader>
-      <CreateForm />
+      <DetailsForm />
     </DialogContent>
   </Dialog>
 )
