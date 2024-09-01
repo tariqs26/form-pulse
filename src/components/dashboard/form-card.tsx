@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { Form } from "@prisma/client"
 import { formatDistance } from "date-fns"
-import { ArrowRight, CalendarRange, Edit, View } from "lucide-react"
+import { CalendarRange, Edit, View } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -13,25 +13,22 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { DeleteFormButton } from "./delete-form-button"
 
-type FormCardProps = Readonly<{ form: Form }>
-
-export const FormCard = ({ form }: FormCardProps) => (
-  <Card key={form.id} className="flex flex-col border shadow-sm">
-    <CardHeader>
+export const FormCard = (form: Readonly<Form>) => (
+  <Card
+    key={form.id}
+    className="flex flex-col overflow-hidden rounded-md border shadow-sm"
+  >
+    <CardHeader className="pb-2">
       <CardTitle className="flex items-center justify-between gap-2">
         <span className="truncate">{form.name}</span>
         {form.published ? (
           <Badge>Published</Badge>
         ) : (
-          <Badge variant="destructive">Draft</Badge>
+          <Badge variant="secondary">Draft</Badge>
         )}
       </CardTitle>
-      <div className="text-sm text-muted-foreground">
-        {formatDistance(form.updatedAt, new Date(), {
-          addSuffix: true,
-        })}
-      </div>
     </CardHeader>
     <CardContent className="flex-grow truncate text-muted-foreground">
       {form.description || "No description"}
@@ -50,17 +47,30 @@ export const FormCard = ({ form }: FormCardProps) => (
           {form.visits}
         </section>
       )}
-      <Button asChild className="gap-2">
-        {form.published ? (
-          <Link href={`/dashboard/details/${form.id}`}>
-            View Form <ArrowRight className="h-4 w-4" />
-          </Link>
-        ) : (
-          <Link href={`/dashboard/builder/${form.id}`}>
-            Edit Form <Edit className="h-4 w-4" />
-          </Link>
-        )}
-      </Button>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          asChild
+          className="h-9 gap-2"
+          variant={form.published ? "default" : "secondary"}
+        >
+          {form.published ? (
+            <Link href={`/dashboard/details/${form.id}`}>
+              <View size={16} /> View
+            </Link>
+          ) : (
+            <Link href={`/dashboard/builder/${form.id}`}>
+              <Edit size={16} /> Edit
+            </Link>
+          )}
+        </Button>
+        <DeleteFormButton formId={form.id} />
+      </div>
+    </CardFooter>
+    <CardFooter className="border-red-500 bg-muted py-2 text-sm text-muted-foreground">
+      Updated{" "}
+      {formatDistance(form.updatedAt, new Date(), {
+        addSuffix: true,
+      })}
     </CardFooter>
   </Card>
 )
