@@ -1,5 +1,8 @@
 import { format, formatDistance } from "date-fns"
+import { z } from "zod"
+
 import { getFormWithSubmissions } from "@/actions/form"
+import { catchAsync } from "@/lib/utils"
 import type { Field, FormElementInstance } from "@/types/form-builder"
 
 import { ShareLink } from "@/components/form-details/share-link"
@@ -16,10 +19,16 @@ import {
 } from "@/components/ui/table"
 import { StatsCards } from "../../page"
 
-type Props = Readonly<{ params: { id: string } }>
+export default async function DetailsPage({
+  params,
+}: Readonly<{ params: { id: string } }>) {
+  const { data, error } = z.coerce.number().safeParse(params.id)
 
-export default async function DetailsPage({ params }: Props) {
-  const form = await getFormWithSubmissions(+params.id)
+  if (error) throw new Error("Invalid form id")
+
+  const form = await catchAsync(getFormWithSubmissions(data))
+
+  if ("error" in form) throw new Error(form.error)
 
   const visits = form.visits
   const submissions = form.submissions
