@@ -130,6 +130,7 @@ export const publishForm = catchAsync(async (id: number) => {
     data: { published: true },
   })
 
+  revalidatePath(`/dashboard/builder/${id}`)
   return {
     title: "Success",
     description: "Form published successfully",
