@@ -19,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { StatsCards } from "../../page"
+import { DeleteSubmissionButton } from "./delete-submission-button"
 
 export const metadata = {
   title: "Form Details",
@@ -94,10 +95,8 @@ async function SubmissionsTable({
   }
 
   type Row = {
-    [key: string]: string
-  } & {
-    submittedAt: Date
-  }
+    content: { [key: string]: string }
+  } & Omit<FormSubmission, "content">
 
   const columns: Column[] = []
 
@@ -120,7 +119,7 @@ async function SubmissionsTable({
 
   const rows: Row[] = form.formSubmissions.map((submission) => {
     const content = submission.content as Record<string, any>
-    return { ...content, submittedAt: submission.createdAt } as Row
+    return { ...submission, content } as Row
   })
 
   return (
@@ -131,25 +130,29 @@ async function SubmissionsTable({
             {columns.map((column) => (
               <TableHead key={column.id}>{column.label}</TableHead>
             ))}
-            <TableHead className="text-right text-muted-foreground">
-              Submitted At
+            <TableHead className="text-right">Submitted</TableHead>
+            <TableHead className="w-[68px] text-right text-muted-foreground">
+              Actions
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={index}>
+          {rows.map((row) => (
+            <TableRow key={row.id}>
               {columns.map((column) => (
                 <RowCell
                   key={column.id}
                   type={column.type}
-                  value={row[column.id]}
+                  value={row.content[column.id]}
                 />
               ))}
               <TableCell className="text-right text-muted-foreground">
-                {formatDistance(row.submittedAt, new Date(), {
+                {formatDistance(row.createdAt, new Date(), {
                   addSuffix: true,
                 })}
+              </TableCell>
+              <TableCell className="flex justify-end">
+                <DeleteSubmissionButton {...row} />
               </TableCell>
             </TableRow>
           ))}

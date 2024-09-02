@@ -162,3 +162,16 @@ export const deleteForm = catchAsync(async (id: number) => {
   revalidatePath("/dashboard")
   return { title: "Success", description: "Form deleted successfully" }
 })
+
+export const deleteFormSubmission = catchAsync(
+  async (formId: number, id: number) => {
+    const user = await getUserOrThrow()
+
+    await db.formSubmission.delete({
+      where: { id, formId, form: { userId: user.id } },
+    })
+
+    revalidatePath(`/dashboard/details/${formId}`)
+    return { title: "Success", description: "Submission deleted successfully" }
+  }
+)
