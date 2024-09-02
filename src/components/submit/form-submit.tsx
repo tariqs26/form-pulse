@@ -27,7 +27,6 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
     for (const field of formContent) {
       const currentValue = formValues.current[field.id] ?? ""
       const valid = formElements[field.type].validate(field, currentValue)
-
       if (!valid) formErrors.current[field.id] = true
     }
     return Object.keys(formErrors.current).length <= 0
