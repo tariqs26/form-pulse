@@ -21,7 +21,7 @@ export const FormBuilderHeader = (form: Readonly<Form>) => (
       <PreviewDialogButton />
       {!form.published && (
         <>
-          <SaveFormButton formId={form.id} />
+          <SaveFormButton {...form} />
           <PublishFormButton formId={form.id} />
         </>
       )}

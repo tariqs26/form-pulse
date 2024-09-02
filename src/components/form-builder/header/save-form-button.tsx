@@ -1,4 +1,5 @@
 import { useTransition } from "react"
+import type { Form } from "@prisma/client"
 import { Save } from "lucide-react"
 
 import { updateFormContent } from "@/actions/form"
@@ -8,12 +9,16 @@ import { toast } from "@/hooks/use-toast"
 import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
 
-export const SaveFormButton = ({ formId }: Readonly<{ formId: number }>) => {
+export const SaveFormButton = ({
+  id,
+  content,
+}: Readonly<Pick<Form, "id" | "content">>) => {
   const { elements } = useDesigner()
   const [loading, startTransition] = useTransition()
 
   const updateForm = async () => {
-    const res = await updateFormContent(formId, elements)
+    const res = await updateFormContent(id, elements)
+
     if ("error" in res)
       toast({
         title: "Error",
@@ -27,7 +32,7 @@ export const SaveFormButton = ({ formId }: Readonly<{ formId: number }>) => {
     <Button
       variant="outline"
       className="gap-2"
-      disabled={loading}
+      disabled={loading || JSON.stringify(content) === JSON.stringify(elements)}
       onClick={() => {
         startTransition(updateForm)
       }}
