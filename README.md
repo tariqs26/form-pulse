@@ -2,6 +2,8 @@
 
 Full-stack web app for creating and sharing forms, built with Next.js, TypeScript, and Tailwind CSS.
 
+![image](https://github.com/user-attachments/assets/98d4bcec-c35a-4b6a-b227-0076cfc0dcae)
+
 ## Features
 
 - **Drag-and-Drop Form Builder:**
