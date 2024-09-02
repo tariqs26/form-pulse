@@ -15,11 +15,12 @@ const errorSchema = z.object({
 
 export const catchAsync = async <T>(
   fn: Promise<T>
-): Promise<T | { error: string }> => {
+): Promise<T | { error: string; status: number }> => {
   try {
     return await fn
   } catch (error) {
     let message = "Something went wrong, please try again later"
+    let status = 500
 
     const { data } = errorSchema.safeParse(error)
 
@@ -28,15 +29,18 @@ export const catchAsync = async <T>(
         data.message?.includes(
           "Unique constraint failed on the fields: (`userId`,`name`)"
         )
-      )
+      ) {
+        status = 409
         message = "Form with the same name already exists"
-      else if (
+      } else if (
         data.message?.includes("Record to update not found") ||
         data.code === "P2025"
-      )
+      ) {
+        status = 404
         message = "Form not found"
+      }
     }
 
-    return { error: message }
+    return { error: message, status }
   }
 }
