@@ -11,7 +11,13 @@ import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = siteConfig
+export const metadata: Metadata = {
+  ...siteConfig,
+  title: {
+    default: siteConfig.title,
+    template: `%s - ${siteConfig.title}`,
+  },
+}
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
