@@ -1,5 +1,7 @@
+import Link from "next/link"
 import type { Form, FormSubmission } from "@prisma/client"
 import { format, formatDistance } from "date-fns"
+import { LayoutDashboard } from "lucide-react"
 import { z } from "zod"
 
 import { getFormWithSubmissions } from "@/actions/form"
@@ -9,6 +11,7 @@ import { ShareLink } from "@/components/form-details/share-link"
 import { VisitButton } from "@/components/form-details/visit-button"
 import { FormError } from "@/components/form-error"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Table,
@@ -44,18 +47,22 @@ export default async function DetailsPage({
 
   return (
     <section className="pb-10">
-      <div className="space-y-4 border-b py-8">
-        <div className="container flex items-center justify-between gap-2">
+      <div className="container space-y-4 border-b py-8">
+        <Button asChild variant="secondary">
+          <Link href="/dashboard">
+            <LayoutDashboard className="mr-2" size={20} />
+            Back to dashboard
+          </Link>
+        </Button>
+        <div className="flex items-center justify-between gap-2">
           <h1 className="truncate">{form.name}</h1>
           <VisitButton shareId={form.shareId} />
         </div>
-        <div className="container flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2">
           <ShareLink shareId={form.shareId} />
         </div>
         {form.description && (
-          <div className="container">
-            <p className="text-muted-foreground">{form.description}</p>
-          </div>
+          <p className="text-muted-foreground">{form.description}</p>
         )}
       </div>
       <div className="container">
