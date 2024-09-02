@@ -31,8 +31,8 @@ export const DetailsForm = ({
       closeModal: () => void
     }
   | {
-      defaultValues?: undefined
-      closeModal?: undefined
+      defaultValues?: never
+      closeModal?: never
     }) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
