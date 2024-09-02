@@ -7,6 +7,7 @@ import type { Field, FormElementInstance } from "@/types/form-builder"
 
 import { ShareLink } from "@/components/form-details/share-link"
 import { VisitButton } from "@/components/form-details/visit-button"
+import { FormError } from "@/components/form-error"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -19,16 +20,20 @@ import {
 } from "@/components/ui/table"
 import { StatsCards } from "../../page"
 
+export const metadata = {
+  title: "Form Details",
+}
+
 export default async function DetailsPage({
   params,
 }: Readonly<{ params: { id: string } }>) {
   const { data, error } = z.coerce.number().safeParse(params.id)
 
-  if (error) throw new Error("Invalid form id")
+  if (error) return <FormError error="Invalid form ID" status={400} />
 
   const form = await catchAsync(getFormWithSubmissions(data))
 
-  if ("error" in form) throw new Error(form.error)
+  if ("error" in form) return <FormError {...form} />
 
   const visits = form.visits
   const submissions = form.submissions
