@@ -7,24 +7,23 @@ Full-stack web app for creating and sharing forms, built with Next.js, TypeScrip
 ## Features
 
 - **Drag-and-Drop Form Builder:**
-  - Layout fields: Title, SubTitle, Spacer, Separator, Paragraph
-  - Input fields: Text, Number, Select, Date, Checkbox, Textarea
+  - Layout fields: paragraph, title, sub-title, spacer, separator,
+  - Input fields: text, number, select, date, checkbox, textarea
 - **Share Forms:** Generate a unique URL for easy sharing.
 - **View Responses:** Access form submissions in a tabular format.
+- **Analytics:** Track form views and submissions.
 
 ## Technologies
 
-| Technology                                | Purpose             |
-| ----------------------------------------- | ------------------- |
-| [Next.js](https://nextjs.org/)            | Frontend Framework  |
-| [Tailwind CSS](https://tailwindcss.com/)  | CSS Framework       |
-| [Radix UI](https://radix-ui.com/)         | Unstyled Components |
-| [Prisma](https://www.prisma.io/)          | ORM                 |
-| [PostgreSQL](https://www.postgresql.org/) | Database            |
-| [Zod](https://github.com/colinhacks/zod)  | Data Validation     |
-| [Clerk](https://clerk.dev/)               | Authentication      |
-| [ESLint](https://eslint.org/)             | Linting             |
-| [Prettier](https://prettier.io/)          | Code Formatting     |
+| Technology                                    | Purpose                    |
+| --------------------------------------------- | -------------------------- |
+| [Next.js](https://nextjs.org/)                | Full-stack React framework |
+| [TypeScript](https://www.typescriptlang.org/) | Language                   |
+| [Clerk](https://clerk.dev/)                   | Authentication             |
+| [Prisma](https://www.prisma.io/)              | ORM                        |
+| [PostgreSQL](https://www.postgresql.org/)     | Database                   |
+| [Tailwind CSS](https://tailwindcss.com/)      | CSS framework              |
+| [Shadcn/ui]( https://ui.shadcn.com/)          | UI components              |
 
 ## Setup
 
