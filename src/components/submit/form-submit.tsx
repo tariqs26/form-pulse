@@ -71,7 +71,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
       <div className="flex flex-grow items-center justify-center p-8">
         <FormPreviewContainer
           key={key}
-          className="self-center border shadow-sm shadow-ring"
+          className="self-center border shadow-lg"
         >
           <h3>Form submitted</h3>
           <p className="text-muted-foreground">
@@ -83,10 +83,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
 
   return (
     <div className="flex flex-grow items-center justify-center p-8">
-      <FormPreviewContainer
-        key={key}
-        className="self-center border shadow-sm shadow-ring"
-      >
+      <FormPreviewContainer key={key} className="self-center border shadow-lg">
         {formContent.map((element) => {
           const FormComponent = formElements[element.type].formComponent
 

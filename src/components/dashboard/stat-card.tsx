@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -13,7 +14,7 @@ type StatCardProps = Readonly<{
 }>
 
 export const StatCard = ({ stat, loading }: StatCardProps) => (
-  <Card key={stat.title} className={`${stat.className} shadow-sm`}>
+  <Card key={stat.title} className={cn(stat.className, "shadow")}>
     <CardHeader className="flex flex-row items-center justify-between pb-2">
       <CardTitle className="text-sm font-medium text-muted-foreground">
         {stat.title}
