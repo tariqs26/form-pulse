@@ -9,10 +9,7 @@ import { toast } from "@/hooks/use-toast"
 import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
 
-export const SaveFormButton = ({
-  id,
-  content,
-}: Readonly<Pick<Form, "id" | "content">>) => {
+export const SaveFormButton = ({ id }: Readonly<Pick<Form, "id">>) => {
   const { elements } = useDesigner()
   const [loading, startTransition] = useTransition()
 
@@ -32,7 +29,7 @@ export const SaveFormButton = ({
     <Button
       variant="outline"
       className="gap-2"
-      disabled={loading || JSON.stringify(content) === JSON.stringify(elements)}
+      disabled={loading}
       onClick={() => {
         startTransition(updateForm)
       }}
