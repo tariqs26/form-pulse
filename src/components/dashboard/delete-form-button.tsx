@@ -5,7 +5,6 @@ import { Trash2 } from "lucide-react"
 
 import { deleteForm } from "@/actions/form"
 import { toast } from "@/hooks/use-toast"
-import { catchAsync } from "@/lib/utils"
 
 import {
   AlertDialog,
@@ -25,7 +24,7 @@ export const DeleteFormButton = ({ formId }: Readonly<{ formId: number }>) => {
   const [loading, startTransition] = useTransition()
 
   const publish = async () => {
-    const res = await catchAsync(deleteForm(formId))
+    const res = await deleteForm(formId)
 
     if ("error" in res)
       toast({

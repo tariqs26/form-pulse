@@ -1,6 +1,5 @@
 import { z } from "zod"
 import { getFormContentByShareId } from "@/actions/form"
-import { catchAsync } from "@/lib/utils"
 import { FormError } from "@/components/form-error"
 import { FormSubmit } from "@/components/submit/form-submit"
 
@@ -19,7 +18,7 @@ export default async function SubmitPage({ params }: Props) {
       <FormError error="Invalid form share link" status={400} link={link} />
     )
 
-  const formContent = await catchAsync(getFormContentByShareId(data))
+  const formContent = await getFormContentByShareId(data)
 
   if ("error" in formContent) return <FormError link={link} {...formContent} />
 

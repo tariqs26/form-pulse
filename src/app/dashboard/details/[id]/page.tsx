@@ -1,8 +1,8 @@
+import type { Form, FormSubmission } from "@prisma/client"
 import { format, formatDistance } from "date-fns"
 import { z } from "zod"
 
 import { getFormWithSubmissions } from "@/actions/form"
-import { catchAsync } from "@/lib/utils"
 import type { Field, FormElementInstance } from "@/types/form-builder"
 
 import { ShareLink } from "@/components/form-details/share-link"
@@ -31,7 +31,7 @@ export default async function DetailsPage({
 
   if (error) return <FormError error="Invalid form ID" status={400} />
 
-  const form = await catchAsync(getFormWithSubmissions(data))
+  const form = await getFormWithSubmissions(data)
 
   if ("error" in form) return <FormError {...form} />
 
@@ -80,7 +80,9 @@ export default async function DetailsPage({
 async function SubmissionsTable({
   form,
 }: {
-  form: Awaited<ReturnType<typeof getFormWithSubmissions>>
+  form: Form & {
+    formSubmissions: FormSubmission[]
+  }
 }) {
   const formElements = form.content as FormElementInstance[]
 

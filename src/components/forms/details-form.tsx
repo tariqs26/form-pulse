@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { Form as DbForm } from "@prisma/client"
 
 import { createForm, updateFormDetails } from "@/actions/form"
-import { catchAsync } from "@/lib/utils"
 import { type FormData, formSchema } from "@/schemas/form"
 
 import { Button } from "@/components/ui/button"
@@ -44,7 +43,7 @@ export const DetailsForm = ({
 
   const onSubmit = async (data: FormData) => {
     if (defaultValues) {
-      const res = await catchAsync(updateFormDetails(defaultValues.id, data))
+      const res = await updateFormDetails(defaultValues.id, data)
 
       if ("error" in res)
         toast({
@@ -59,7 +58,7 @@ export const DetailsForm = ({
       return
     }
 
-    const res = await catchAsync(createForm(data))
+    const res = await createForm(data)
 
     if ("error" in res)
       toast({

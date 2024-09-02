@@ -4,7 +4,6 @@ import { Save } from "lucide-react"
 import { updateFormContent } from "@/actions/form"
 import { useDesigner } from "@/hooks/use-designer"
 import { toast } from "@/hooks/use-toast"
-import { catchAsync } from "@/lib/utils"
 
 import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
@@ -14,7 +13,7 @@ export const SaveFormButton = ({ formId }: Readonly<{ formId: number }>) => {
   const [loading, startTransition] = useTransition()
 
   const updateForm = async () => {
-    const res = await catchAsync(updateFormContent(formId, elements))
+    const res = await updateFormContent(formId, elements)
     if ("error" in res)
       toast({
         title: "Error",

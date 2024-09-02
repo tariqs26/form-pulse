@@ -5,7 +5,6 @@ import { Loader, MousePointerClick } from "lucide-react"
 
 import { submitForm } from "@/actions/form"
 import { toast } from "@/hooks/use-toast"
-import { catchAsync } from "@/lib/utils"
 import { type FormElementInstance, formElements } from "@/types/form-builder"
 
 import { FormPreviewContainer } from "../form-preview-container"
@@ -52,7 +51,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
       return
     }
 
-    const res = await catchAsync(submitForm(formShareId, formValues.current))
+    const res = await submitForm(formShareId, formValues.current)
 
     if ("error" in res)
       toast({

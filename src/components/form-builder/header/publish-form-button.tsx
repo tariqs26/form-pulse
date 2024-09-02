@@ -4,7 +4,6 @@ import { ArrowUpToLine } from "lucide-react"
 
 import { publishForm } from "@/actions/form"
 import { toast } from "@/hooks/use-toast"
-import { catchAsync } from "@/lib/utils"
 
 import {
   AlertDialog,
@@ -25,7 +24,7 @@ export const PublishFormButton = ({ formId }: Readonly<{ formId: number }>) => {
   const router = useRouter()
 
   const publish = async () => {
-    const res = await catchAsync(publishForm(formId))
+    const res = await publishForm(formId)
 
     if ("error" in res)
       toast({

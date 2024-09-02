@@ -1,6 +1,5 @@
 import { z } from "zod"
 import { getFormById } from "@/actions/form"
-import { catchAsync } from "@/lib/utils"
 import { FormBuilder } from "@/components/form-builder/form-builder"
 import { FormError } from "@/components/form-error"
 
@@ -15,7 +14,7 @@ export default async function BuilderPage({
 
   if (error) return <FormError error="Invalid form ID" status={400} />
 
-  const form = await catchAsync(getFormById(data))
+  const form = await getFormById(data)
 
   if ("error" in form) return <FormError {...form} />
 
