@@ -6,6 +6,7 @@ import { z } from "zod"
 
 import { getFormWithSubmissions } from "@/actions/form"
 import type { Field, FormElementInstance } from "@/types/form-builder"
+import { inputFields } from "@/types/form-builder"
 
 import { ShareLink } from "@/components/form-details/share-link"
 import { VisitButton } from "@/components/form-details/visit-button"
@@ -85,13 +86,11 @@ export default async function DetailsPage({
   )
 }
 
-async function SubmissionsTable({
-  form,
-}: {
-  form: Form & {
-    formSubmissions: FormSubmission[]
-  }
-}) {
+type SubmissionsTableProps = Readonly<{
+  form: Form & { formSubmissions: FormSubmission[] }
+}>
+
+async function SubmissionsTable({ form }: SubmissionsTableProps) {
   const formElements = form.content as FormElementInstance[]
 
   type Column = {
@@ -107,22 +106,14 @@ async function SubmissionsTable({
 
   const columns: Column[] = []
 
-  for (const element of formElements) {
-    switch (element.type) {
-      case "text":
-      case "textarea":
-      case "number":
-      case "date":
-      case "select":
-      case "checkbox":
-        columns.push({
-          id: element.id,
-          label: element.extraAttributes?.label,
-          required: element.extraAttributes?.required,
-          type: element.type,
-        })
-    }
-  }
+  for (const element of formElements)
+    if (inputFields.some((field) => field === element.type))
+      columns.push({
+        id: element.id,
+        label: element.extraAttributes?.label,
+        required: element.extraAttributes?.required,
+        type: element.type,
+      })
 
   const rows: Row[] = form.formSubmissions.map((submission) => {
     const content = submission.content as Record<string, any>
