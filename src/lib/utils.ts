@@ -30,8 +30,6 @@ export const catchAsync = async <T>(
 
     const { data } = errorSchema.safeParse(error)
 
-    console.info("PARSED ERROR", data)
-
     if (data !== undefined) {
       if (
         data.code === "P2002" ||
