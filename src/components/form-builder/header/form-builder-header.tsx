@@ -11,7 +11,7 @@ export const FormBuilderHeader = (form: Readonly<Form>) => (
   <header className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-b-2 p-4">
     <div className="flex items-center truncate text-lg font-medium text-muted-foreground">
       <Link href="/dashboard" className="text-foreground hover:underline">
-        Forms
+        Dashboard
       </Link>
       <ChevronRight size={20} />
       {form.name}
