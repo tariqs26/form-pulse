@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useRef, useState, useTransition } from "react"
-import { Loader, MousePointerClick } from "lucide-react"
+import { MousePointerClick } from "lucide-react"
 
 import { submitForm } from "@/actions/form"
 import { toast } from "@/hooks/use-toast"
@@ -9,6 +9,7 @@ import { type FormElementInstance, formElements } from "@/types/form-builder"
 
 import { FormPreviewContainer } from "../form-preview-container"
 import { Button } from "../ui/button"
+import { Spinner } from "../ui/spinner"
 
 type FormSubmitProps = Readonly<{
   formContent: FormElementInstance[]
@@ -19,12 +20,10 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
   const formValues = useRef<Record<string, string>>({})
   const formErrors = useRef<Record<string, boolean>>({})
   const [key, setKey] = useState(new Date().getTime())
-
   const [submitted, setSubmitted] = useState(false)
-
   const [loading, startTransition] = useTransition()
 
-  const validateForm: () => boolean = useCallback(() => {
+  const validateForm = useCallback(() => {
     for (const field of formContent) {
       const currentValue = formValues.current[field.id] ?? ""
       const valid = formElements[field.type].validate(field, currentValue)
@@ -108,7 +107,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
           disabled={loading}
         >
           {loading ? (
-            <Loader className="animate-spin" />
+            <Spinner />
           ) : (
             <>
               <MousePointerClick className="mr-2 h-4 w-4" />
