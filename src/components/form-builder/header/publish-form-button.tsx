@@ -1,10 +1,10 @@
 import { useTransition } from "react"
 import { ArrowUpToLine } from "lucide-react"
+import type { Form } from "@prisma/client"
 
-import { publishForm } from "@/actions/form"
-import { useDesigner } from "@/hooks/use-designer"
+import { updateFormStatus } from "@/actions/form"
 import { toast } from "@/hooks/use-toast"
-import { inputFields } from "@/types/form-builder"
+import { type FormElementInstance, inputFields } from "@/types/form-builder"
 
 import {
   AlertDialog,
@@ -20,18 +20,20 @@ import {
 import { Button } from "../../ui/button"
 import { Spinner } from "../../ui/spinner"
 
-export const PublishFormButton = ({ formId }: Readonly<{ formId: number }>) => {
+export const PublishFormButton = ({
+  id,
+  content,
+}: Readonly<Pick<Form, "id" | "content">>) => {
   const [loading, startTransition] = useTransition()
-  const { elements } = useDesigner()
+
+  const hasInput = (content as FormElementInstance[]).some((element) =>
+    inputFields.some((field) => field === element.type)
+  )
 
   const publish = async () => {
-    const hasInput = elements.some((element) =>
-      inputFields.some((field) => field === element.type)
-    )
-
     const res = !hasInput
-      ? { error: "Form must have at least one input field to be published." }
-      : await publishForm(formId)
+      ? { error: "Form must have at least one input field to be published" }
+      : await updateFormStatus(id, "PUBLISHED")
 
     if ("error" in res)
       toast({

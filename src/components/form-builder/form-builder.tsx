@@ -27,7 +27,7 @@ export const FormBuilder = ({ form }: FormBuilderProps) => {
 
   const shareUrl = `${window.location.origin}/submit/${form.shareId}`
 
-  if (form.published)
+  if (form.status === "PUBLISHED")
     return <FormPublishedCard shareUrl={shareUrl} formId={form.id} />
 
   return (

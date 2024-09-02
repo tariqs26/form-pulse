@@ -17,12 +17,12 @@ export const FormBuilderHeader = (form: Readonly<Form>) => (
       {form.name}
     </div>
     <div className="flex flex-wrap items-center gap-2">
-      {!form.published && <EditFormDetailsDialog {...form} />}
+      {form.status === "DRAFT" && <EditFormDetailsDialog {...form} />}
       <PreviewDialogButton />
-      {!form.published && (
+      {form.status === "DRAFT" && (
         <>
           <SaveFormButton {...form} />
-          <PublishFormButton formId={form.id} />
+          <PublishFormButton {...form} />
         </>
       )}
     </div>

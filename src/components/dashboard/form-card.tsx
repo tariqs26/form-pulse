@@ -23,10 +23,12 @@ export const FormCard = (form: Readonly<Form>) => (
     <CardHeader className="pb-2">
       <CardTitle className="flex items-center justify-between gap-2">
         <span className="truncate">{form.name}</span>
-        {form.published ? (
+        {form.status === "PUBLISHED" ? (
           <Badge>Published</Badge>
+        ) : form.status === "DRAFT" ? (
+          <Badge variant="outline">Draft</Badge>
         ) : (
-          <Badge variant="secondary">Draft</Badge>
+          <Badge variant="secondary">Archived</Badge>
         )}
       </CardTitle>
     </CardHeader>
@@ -36,10 +38,10 @@ export const FormCard = (form: Readonly<Form>) => (
     <CardFooter
       className={cn(
         "flex items-center justify-end",
-        form.published && "justify-between"
+        form.status !== "DRAFT" && "justify-between"
       )}
     >
-      {form.published && (
+      {form.status !== "DRAFT" && (
         <section className="flex items-center gap-2">
           <CalendarRange className="text-muted-foreground" />
           {form.submissions}
@@ -51,15 +53,15 @@ export const FormCard = (form: Readonly<Form>) => (
         <Button
           asChild
           className="h-9 gap-2"
-          variant={form.published ? "default" : "secondary"}
+          variant={form.status === "DRAFT" ? "secondary" : "default"}
         >
-          {form.published ? (
-            <Link href={`/dashboard/details/${form.id}`}>
-              <View size={16} /> View
-            </Link>
-          ) : (
+          {form.status === "DRAFT" ? (
             <Link href={`/dashboard/builder/${form.id}`}>
               <Edit size={16} /> Edit
+            </Link>
+          ) : (
+            <Link href={`/dashboard/details/${form.id}`}>
+              <View size={16} /> View
             </Link>
           )}
         </Button>

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { currentUser } from "@clerk/nextjs"
+import type { FormStatus } from "@prisma/client"
 
 import db from "@/lib/db"
 import { catchAsync } from "@/lib/utils"
@@ -122,25 +123,30 @@ export const updateFormDetails = catchAsync(
   }
 )
 
-export const publishForm = catchAsync(async (id: number) => {
-  const user = await getUserOrThrow()
+export const updateFormStatus = catchAsync(
+  async (id: number, status: FormStatus) => {
+    const user = await getUserOrThrow()
 
-  await db.form.update({
-    where: { id, userId: user.id },
-    data: { published: true },
-  })
+    await db.form.update({
+      where: { id, userId: user.id },
+      data: { status },
+    })
 
-  revalidatePath(`/dashboard/builder/${id}`)
-  return {
-    title: "Success",
-    description: "Form published successfully",
+    revalidatePath(`/dashboard/builder/${id}`)
+    revalidatePath(`/dashboard/details/${id}`)
+    return {
+      title: "Success",
+      description: `Form ${
+        status === "PUBLISHED" ? "published" : "archived"
+      } successfully`,
+    }
   }
-})
+)
 
 export const submitForm = catchAsync(
   async (shareId: string, content: Record<string, any>) =>
     db.form.update({
-      where: { shareId, published: true },
+      where: { shareId, status: "PUBLISHED" },
       data: {
         submissions: { increment: 1 },
         formSubmissions: { create: { content } },
