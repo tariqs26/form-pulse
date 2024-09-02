@@ -8,9 +8,15 @@ export const generateId = () =>
   Math.floor(Math.random() * 1000000000).toString(16)
 
 const errorSchema = z.object({
+  code: z.string().optional(),
   name: z.string().optional(),
   message: z.string().optional(),
-  code: z.string().optional(),
+  meta: z
+    .object({
+      target: z.array(z.string()).optional(),
+      modelName: z.string().optional(),
+    })
+    .optional(),
 })
 
 export const catchAsync = async <T>(
@@ -26,6 +32,7 @@ export const catchAsync = async <T>(
 
     if (data !== undefined) {
       if (
+        data.code === "P2002" ||
         data.message?.includes(
           "Unique constraint failed on the fields: (`userId`,`name`)"
         )
