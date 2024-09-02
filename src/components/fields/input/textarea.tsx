@@ -33,7 +33,7 @@ import { Textarea } from "@/components/ui/textarea"
 const type: Field = "textarea"
 
 const extraAttributes = {
-  label: "Textarea",
+  label: "Textarea Field",
   placeHolder: "Value here...",
   helperText: "Helper text",
   required: false,
