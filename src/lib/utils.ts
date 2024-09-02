@@ -20,15 +20,17 @@ const errorSchema = z.object({
 })
 
 export const catchAsync = async <T>(
-  fn: Promise<T>
+  action: Promise<T>
 ): Promise<T | { error: string; status: number }> => {
   try {
-    return await fn
+    return await action
   } catch (error) {
     let message = "Something went wrong, please try again later"
     let status = 500
 
     const { data } = errorSchema.safeParse(error)
+
+    console.info("PARSED ERROR", data)
 
     if (data !== undefined) {
       if (
