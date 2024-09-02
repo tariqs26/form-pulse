@@ -11,20 +11,24 @@ import { spacerFormElement } from "@/components/fields/layout/spacer"
 import { subTitleFormElement } from "@/components/fields/layout/sub-title"
 import { titleFormElement } from "@/components/fields/layout/title"
 
-export type Field =
-  // Input
-  | "checkbox"
-  | "date"
-  | "number"
-  | "select"
-  | "text"
-  | "textarea"
-  // Layout
-  | "paragraph"
-  | "separator"
-  | "spacer"
-  | "subTitle"
-  | "title"
+export const inputFields = [
+  "checkbox",
+  "date",
+  "number",
+  "select",
+  "text",
+  "textarea",
+] as const
+
+export const layoutFields = [
+  "paragraph",
+  "separator",
+  "spacer",
+  "subTitle",
+  "title",
+] as const
+
+export type Field = (typeof inputFields | typeof layoutFields)[number]
 
 export type FormElementInstance = {
   id: string
