@@ -195,8 +195,9 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
                   className="gap-2"
                   type="button"
                   onClick={(e) => {
-                    e.preventDefault() // prevent form submission
-                    form.setValue("options", [...field.value, "New option"])
+                    form.setValue("options", [...field.value, "New option"], {
+                      shouldDirty: true,
+                    })
                   }}
                 >
                   <Plus className="h-4 w-4" /> Add
@@ -220,7 +221,6 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
                       size="icon"
                       type="button"
                       onClick={(e) => {
-                        e.preventDefault() // prevent form submission
                         const newOptions = [...field.value]
                         newOptions.splice(index, 1)
                         field.onChange(newOptions)
