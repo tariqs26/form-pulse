@@ -1,8 +1,7 @@
-import type { Metadata } from "next"
 import { Logo } from "@/components/logo"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Submit Form",
 }
 
