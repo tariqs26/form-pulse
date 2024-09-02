@@ -167,9 +167,15 @@ export const deleteFormSubmission = catchAsync(
   async (formId: number, id: number) => {
     const user = await getUserOrThrow()
 
-    await db.formSubmission.delete({
-      where: { id, formId, form: { userId: user.id } },
-    })
+    await db.$transaction([
+      db.formSubmission.delete({
+        where: { id, formId, form: { userId: user.id } },
+      }),
+      db.form.update({
+        where: { id: formId, userId: user.id },
+        data: { submissions: { decrement: 1 } },
+      }),
+    ])
 
     revalidatePath(`/dashboard/details/${formId}`)
     return { title: "Success", description: "Submission deleted successfully" }
