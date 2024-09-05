@@ -10,9 +10,9 @@ import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
   Field,
+  FormComponentProps,
   FormElement,
   FormElementInstance,
-  SubmitValue,
 } from "@/types/form-builder"
 
 import { Checkbox } from "@/components/ui/checkbox"
@@ -174,25 +174,15 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   )
 }
 
-function FormComponent({
-  elementInstance,
-  submitValue,
-  isInvalid,
-  defaultValue,
-}: Readonly<{
-  elementInstance: FormElementInstance
-  submitValue?: SubmitValue
-  isInvalid?: boolean
-  defaultValue?: string
-}>) {
-  const element = elementInstance as CustomInstance
+function FormComponent(props: FormComponentProps) {
+  const element = props.elementInstance as CustomInstance
 
-  const [value, setValue] = useState<boolean>(defaultValue === "true")
+  const [value, setValue] = useState<boolean>(props.defaultValue === "true")
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    setError(isInvalid === true)
-  }, [isInvalid])
+    setError(props.isInvalid === true)
+  }, [props.isInvalid])
 
   const { label, helperText, required } = element.extraAttributes
 
@@ -204,16 +194,17 @@ function FormComponent({
         id={id}
         checked={value}
         className={cn(error && "border-destructive")}
+        disabled={props.disabled}
         onCheckedChange={(checked) => {
           let value = false
           if (checked) value = true
 
           setValue(value)
-          if (!submitValue) return
+          if (!props.submitValue) return
           const stringValue = value.toString()
           const valid = checkboxFormElement.validate(element, stringValue)
           setError(!valid)
-          submitValue(element.id, stringValue)
+          props.submitValue(element.id, stringValue)
         }}
       />
       <div className="grid gap-1.5 leading-none">

@@ -10,9 +10,9 @@ import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
   Field,
+  FormComponentProps,
   FormElement,
   FormElementInstance,
-  SubmitValue,
 } from "@/types/form-builder"
 
 import { Button } from "@/components/ui/button"
@@ -271,25 +271,15 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   )
 }
 
-function FormComponent({
-  elementInstance,
-  submitValue,
-  isInvalid,
-  defaultValue,
-}: Readonly<{
-  elementInstance: FormElementInstance
-  submitValue?: SubmitValue
-  isInvalid?: boolean
-  defaultValue?: string
-}>) {
-  const element = elementInstance as CustomInstance
+function FormComponent(props: FormComponentProps) {
+  const element = props.elementInstance as CustomInstance
 
-  const [value, setValue] = useState(defaultValue ?? "")
+  const [value, setValue] = useState(props.defaultValue ?? "")
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    setError(isInvalid === true)
-  }, [isInvalid])
+    setError(props.isInvalid === true)
+  }, [props.isInvalid])
 
   const { label, helperText, required, placeHolder, options } =
     element.extraAttributes
@@ -302,12 +292,13 @@ function FormComponent({
       </Label>
       <Select
         defaultValue={value}
+        disabled={props.disabled}
         onValueChange={(value) => {
           setValue(value)
-          if (!submitValue) return
+          if (!props.submitValue) return
           const valid = selectFormElement.validate(element, value)
           setError(!valid)
-          submitValue(element.id, value)
+          props.submitValue(element.id, value)
         }}
       >
         <SelectTrigger className={cn("w-full", error && "border-destructive")}>

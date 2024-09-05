@@ -11,9 +11,9 @@ import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
   Field,
+  FormComponentProps,
   FormElement,
   FormElementInstance,
-  SubmitValue,
 } from "@/types/form-builder"
 
 import { Button } from "@/components/ui/button"
@@ -187,27 +187,17 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   )
 }
 
-function FormComponent({
-  elementInstance,
-  submitValue,
-  isInvalid,
-  defaultValue,
-}: Readonly<{
-  elementInstance: FormElementInstance
-  submitValue?: SubmitValue
-  isInvalid?: boolean
-  defaultValue?: string
-}>) {
-  const element = elementInstance as CustomInstance
+function FormComponent(props: FormComponentProps) {
+  const element = props.elementInstance as CustomInstance
 
   const [date, setDate] = useState<Date | undefined>(
-    defaultValue ? new Date(defaultValue) : undefined
+    props.defaultValue ? new Date(props.defaultValue) : undefined
   )
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    setError(isInvalid === true)
-  }, [isInvalid])
+    setError(props.isInvalid === true)
+  }, [props.isInvalid])
 
   const { label, helperText, required } = element.extraAttributes
 
@@ -218,7 +208,7 @@ function FormComponent({
         {required && "*"}
       </Label>
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild disabled={props.disabled}>
           <Button
             variant="outline"
             className={cn(
@@ -237,12 +227,12 @@ function FormComponent({
             selected={date}
             onSelect={(date) => {
               setDate(date)
-              if (!submitValue) return
+              if (!props.submitValue) return
 
               const value = date?.toUTCString() ?? ""
               const validate = dateFormElement.validate(element, value)
               setError(!validate)
-              submitValue(element.id, value)
+              props.submitValue(element.id, value)
             }}
             initialFocus
           />

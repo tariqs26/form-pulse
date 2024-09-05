@@ -10,9 +10,9 @@ import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
   Field,
+  FormComponentProps,
   FormElement,
   FormElementInstance,
-  SubmitValue,
 } from "@/types/form-builder"
 
 import {
@@ -192,25 +192,15 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   )
 }
 
-function FormComponent({
-  elementInstance,
-  submitValue,
-  isInvalid,
-  defaultValue,
-}: Readonly<{
-  elementInstance: FormElementInstance
-  submitValue?: SubmitValue
-  isInvalid?: boolean
-  defaultValue?: string
-}>) {
-  const element = elementInstance as CustomInstance
+function FormComponent(props: FormComponentProps) {
+  const element = props.elementInstance as CustomInstance
 
-  const [value, setValue] = useState(defaultValue ?? "")
+  const [value, setValue] = useState(props.defaultValue ?? "")
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    setError(isInvalid === true)
-  }, [isInvalid])
+    setError(props.isInvalid === true)
+  }, [props.isInvalid])
 
   const { label, helperText, required, placeHolder } = element.extraAttributes
 
@@ -221,14 +211,15 @@ function FormComponent({
         {required && "*"}
       </Label>
       <Input
+        disabled={props.disabled}
         placeholder={placeHolder}
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => {
-          if (!submitValue) return
+          if (!props.submitValue) return
           const valid = textFormElement.validate(element, value)
           setError(!valid)
           if (!valid) return
-          submitValue(element.id, value)
+          props.submitValue(element.id, value)
         }}
         value={value}
         className={cn(
