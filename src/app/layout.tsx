@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
-import { ClerkProvider } from "@clerk/nextjs"
 
+import { AuthProvider } from "@/components/auth-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { siteConfig } from "@/config/site"
@@ -21,21 +21,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <NextTopLoader />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <NextTopLoader />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>{children}</AuthProvider>
+
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }

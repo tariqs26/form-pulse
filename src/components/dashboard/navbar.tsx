@@ -7,7 +7,7 @@ export const Navbar = () => (
     <Logo />
     <section className="flex items-center gap-4">
       <ThemeSwitcher />
-      <UserButton afterSignOutUrl="/sign-in" />
+      <UserButton />
     </section>
   </nav>
 )

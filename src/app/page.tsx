@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { currentUser } from "@clerk/nextjs"
+import { SignedIn, SignedOut } from "@clerk/nextjs"
 import { AreaChart, FormInput, Replace } from "lucide-react"
 
 import { Logo } from "@/components/logo"
@@ -9,12 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 
-export default async function Page() {
-  const user = await currentUser()
-
+export default function Page() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar user={user} />
+      <Navbar />
       <main className="container flex flex-grow flex-col justify-center gap-12 py-10">
         <Hero />
         <Features />
@@ -24,22 +22,21 @@ export default async function Page() {
   )
 }
 
-const Navbar = ({
-  user,
-}: Readonly<{ user: Awaited<ReturnType<typeof currentUser>> }>) => (
+const Navbar = () => (
   <nav className="flex items-center justify-between border-b p-4">
     <Logo />
     <div className="flex items-center gap-2">
       <ThemeSwitcher />
-      {user ? (
+      <SignedIn>
         <Button asChild>
           <Link href="/dashboard">Dashboard</Link>
         </Button>
-      ) : (
+      </SignedIn>
+      <SignedOut>
         <Button asChild>
           <Link href="/sign-in">Sign In</Link>
         </Button>
-      )}
+      </SignedOut>
     </div>
   </nav>
 )

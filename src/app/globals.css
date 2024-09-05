@@ -85,50 +85,6 @@
   }
 }
 
-@layer components {
-  .clerk-card {
-    @apply border-border bg-card;
-  }
-
-  .clerk-card .cl-headerTitle {
-    @apply text-foreground;
-  }
-
-  .clerk-card
-    :is(
-      .cl-headerSubtitle,
-      .cl-dividerText,
-      .cl-formFieldInfoText,
-      .cl-footerActionText
-    ) {
-    @apply text-muted-foreground;
-  }
-
-  .clerk-card .cl-alertText {
-    @apply text-foreground;
-  }
-
-  .clerk-card .cl-socialButtonsBlockButton {
-    @apply bg-secondary text-secondary-foreground ring-border hover:bg-secondary/80;
-  }
-
-  .clerk-card .cl-dividerLine {
-    @apply bg-border;
-  }
-
-  .clerk-card .cl-formFieldLabel {
-    @apply text-foreground;
-  }
-
-  .clerk-card .cl-formFieldInput {
-    @apply border-border bg-transparent text-foreground;
-  }
-
-  .clerk-card .cl-internal-b3fm6y {
-    @apply hidden;
-  }
-}
-
 @layer utilities {
   .logo-gradient {
     @apply bg-gradient-to-r from-indigo-500 to-cyan-500;
