@@ -2,6 +2,7 @@ import Link from "next/link"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 import { AreaChart, FormInput, Replace } from "lucide-react"
 
+import { siteConfig } from "@/config/site"
 import { Logo } from "@/components/logo"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
@@ -51,7 +52,7 @@ const Hero = () => (
         <br />
         Experience with
         <br />
-        <span className="text-ring">FormPulse</span>
+        <span className="text-ring">{siteConfig.title}</span>
       </h1>
       <p className="mt-4 text-lg font-medium text-muted-foreground">
         Effortlessly create, customize, and analyze forms with our intuitive
@@ -79,7 +80,7 @@ const Hero = () => (
 )
 
 const Features = () => (
-  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
     <FeatureCard
       title="Drag-and-Drop Editor"
       description="Craft beautiful forms with our user-friendly drag-and-drop editor."
@@ -113,7 +114,7 @@ const FeatureCard = ({ title, description, icon }: FeatureCardProps) => (
 )
 
 const Footer = () => (
-  <footer className="flex border-t p-4 text-muted-foreground">
-    {new Date().getFullYear()} FormPulse. All rights reserved.
+  <footer className="flex justify-end border-t p-4 text-muted-foreground">
+    &copy; {new Date().getFullYear()} {siteConfig.title}.
   </footer>
 )
