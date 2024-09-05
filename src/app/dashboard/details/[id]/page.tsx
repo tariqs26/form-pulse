@@ -5,7 +5,11 @@ import { LayoutDashboard } from "lucide-react"
 import { z } from "zod"
 
 import { getFormWithSubmissions } from "@/actions/form"
-import type { Field, FormElementInstance } from "@/types/form-builder"
+import type {
+  Field,
+  FormElementInstance,
+  UserFormSubmission,
+} from "@/types/form-builder"
 import { inputFields } from "@/types/form-builder"
 
 import { ShareLink } from "@/components/form-details/share-link"
@@ -23,7 +27,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { StatsCards } from "../../page"
-import { DeleteSubmissionButton } from "./delete-submission-button"
+import { RowActions } from "./row-actions"
 
 export const metadata = {
   title: "Form Details",
@@ -100,10 +104,6 @@ async function SubmissionsTable({ form }: SubmissionsTableProps) {
     type: Field
   }
 
-  type Row = {
-    content: { [key: string]: string }
-  } & Omit<FormSubmission, "content">
-
   const columns: Column[] = []
 
   for (const element of formElements)
@@ -115,10 +115,10 @@ async function SubmissionsTable({ form }: SubmissionsTableProps) {
         type: element.type,
       })
 
-  const rows: Row[] = form.formSubmissions.map((submission) => {
-    const content = submission.content as Record<string, any>
-    return { ...submission, content } as Row
-  })
+  const rows: UserFormSubmission[] = form.formSubmissions.map((submission) => ({
+    ...submission,
+    content: submission.content as Record<string, any>,
+  }))
 
   return (
     <div className="rounded-md border">
@@ -129,7 +129,7 @@ async function SubmissionsTable({ form }: SubmissionsTableProps) {
               <TableHead key={column.id}>{column.label}</TableHead>
             ))}
             <TableHead className="text-right">Submitted</TableHead>
-            <TableHead className="w-[68px] text-right text-muted-foreground">
+            <TableHead className="w-[90px] text-right text-muted-foreground">
               Actions
             </TableHead>
           </TableRow>
@@ -150,7 +150,7 @@ async function SubmissionsTable({ form }: SubmissionsTableProps) {
                 })}
               </TableCell>
               <TableCell className="flex justify-end">
-                <DeleteSubmissionButton {...row} />
+                <RowActions submission={row} elements={formElements} />
               </TableCell>
             </TableRow>
           ))}
@@ -160,13 +160,14 @@ async function SubmissionsTable({ form }: SubmissionsTableProps) {
   )
 }
 
-type RowCellProps = Readonly<{ type: Field; value: string }>
+type RowCellProps = Readonly<{ type: Field; value?: string }>
 
 const RowCell = ({ type, value }: RowCellProps) => {
   let node: React.ReactNode = value
 
   switch (type) {
     case "date": {
+      if (!value) break
       const date = new Date(value).toLocaleDateString()
       node = <Badge variant="outline">{format(date, "dd/MM/yyyyy")}</Badge>
       break
