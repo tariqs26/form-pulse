@@ -23,7 +23,7 @@ Full-stack web app for creating and sharing forms, built with Next.js, TypeScrip
 | [Prisma](https://www.prisma.io/)              | ORM                        |
 | [PostgreSQL](https://www.postgresql.org/)     | Database                   |
 | [Tailwind CSS](https://tailwindcss.com/)      | CSS framework              |
-| [Shadcn/ui]( https://ui.shadcn.com/)          | UI components              |
+| [Shadcn/ui](https://ui.shadcn.com/)           | UI components              |
 
 ## Setup
 
@@ -43,8 +43,9 @@ CLERK_SECRET_KEY=
 # Clerk Custom Routing
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
 # Prisma with Vercel Postgres
 POSTGRES_PRISMA_URL=
