@@ -1,3 +1,5 @@
+import type { FormSubmission } from "@prisma/client"
+
 import { checkboxFormElement } from "@/components/fields/input/checkbox"
 import { dateFormElement } from "@/components/fields/input/date"
 import { numberFormElement } from "@/components/fields/input/number"
@@ -36,7 +38,13 @@ export type FormElementInstance = {
   extraAttributes?: Record<string, any>
 }
 
-export type SubmitValue = (key: string, value: string) => void
+export type FormComponentProps = Readonly<{
+  elementInstance: FormElementInstance
+  submitValue?: (key: string, value: string) => void
+  defaultValue?: string
+  disabled?: boolean
+  isInvalid?: boolean
+}>
 
 export type FormElement = {
   type: Field
@@ -44,14 +52,13 @@ export type FormElement = {
   designerButton: { icon: React.ElementType; label: string }
   designerComponent: React.FC<FormElementInstance>
   propertiesComponent: React.FC<FormElementInstance>
-  formComponent: React.FC<{
-    elementInstance: FormElementInstance
-    submitValue?: SubmitValue
-    defaultValue?: string
-    isInvalid?: boolean
-  }>
+  formComponent: React.FC<FormComponentProps>
   validate(formElement: FormElementInstance, currentValue: string): boolean
 }
+
+export type UserFormSubmission = {
+  content: { [key: string]: string | undefined }
+} & Omit<FormSubmission, "content">
 
 export const formElements: Record<Field, FormElement> = {
   paragraph: paragraphFormElement,
