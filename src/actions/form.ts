@@ -12,7 +12,7 @@ import type { FormElementInstance } from "@/types/form-builder"
 const NotAuthenticatedError = Error("User not authenticated")
 
 export const createForm = catchAsync(async (data: FormData) => {
-  const { userId } = auth()
+  const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
   const form = await db.form.create({ data: { ...data, userId } })
@@ -26,7 +26,7 @@ export const createForm = catchAsync(async (data: FormData) => {
 })
 
 export const getUserFormStats = async () => {
-  const { userId } = auth()
+  const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
   const { _sum } = await db.form.aggregate({
@@ -49,7 +49,7 @@ export const getUserFormStats = async () => {
 }
 
 export const getForms = async () => {
-  const { userId } = auth()
+  const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
   return db.form.findMany({
@@ -59,7 +59,7 @@ export const getForms = async () => {
 }
 
 export const getFormById = catchAsync(async (id: number) => {
-  const { userId } = auth()
+  const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
   return db.form.findUniqueOrThrow({ where: { id, userId } })
@@ -76,7 +76,7 @@ export const getFormContentByShareId = catchAsync(async (shareId: string) => {
 })
 
 export const getFormWithSubmissions = catchAsync(async (id: number) => {
-  const { userId } = auth()
+  const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
   return db.form.findUniqueOrThrow({
@@ -87,7 +87,7 @@ export const getFormWithSubmissions = catchAsync(async (id: number) => {
 
 export const updateFormContent = catchAsync(
   async (id: number, content: FormElementInstance[]) => {
-    const { userId } = auth()
+    const { userId } = await auth()
     if (!userId) throw NotAuthenticatedError
 
     await db.form.update({ where: { id, userId }, data: { content } })
@@ -102,7 +102,7 @@ export const updateFormContent = catchAsync(
 
 export const updateFormDetails = catchAsync(
   async (id: number, data: Pick<FormData, "name" | "description">) => {
-    const { userId } = auth()
+    const { userId } = await auth()
     if (!userId) throw NotAuthenticatedError
 
     await db.form.update({ where: { id, userId }, data })
@@ -117,7 +117,7 @@ export const updateFormDetails = catchAsync(
 
 export const updateFormStatus = catchAsync(
   async (id: number, status: FormStatus) => {
-    const { userId } = auth()
+    const { userId } = await auth()
     if (!userId) throw NotAuthenticatedError
 
     await db.form.update({
@@ -148,7 +148,7 @@ export const submitForm = catchAsync(
 )
 
 export const deleteForm = catchAsync(async (id: number) => {
-  const { userId } = auth()
+  const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
   await db.form.delete({ where: { id, userId } })
@@ -159,7 +159,7 @@ export const deleteForm = catchAsync(async (id: number) => {
 
 export const deleteFormSubmission = catchAsync(
   async (formId: number, id: number) => {
-    const { userId } = auth()
+    const { userId } = await auth()
     if (!userId) throw NotAuthenticatedError
 
     await db.$transaction([
