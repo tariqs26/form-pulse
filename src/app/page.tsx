@@ -80,7 +80,7 @@ const Hero = () => (
 )
 
 const Features = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
     <FeatureCard
       title="Drag-and-Drop Editor"
       description="Craft beautiful forms with our user-friendly drag-and-drop editor."
