@@ -20,8 +20,8 @@ export const ShareLink = ({ shareId }: ShareLinkProps) => {
       <Input value={shareUrl} readOnly />
       <Button
         className="min-w-44"
-        onClick={() => {
-          navigator.clipboard.writeText(shareUrl)
+        onClick={async () => {
+          await navigator.clipboard.writeText(shareUrl)
           toast({
             title: "Copied",
             description: "Link copied to clipboard.",

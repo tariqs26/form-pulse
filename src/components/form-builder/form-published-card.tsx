@@ -35,8 +35,8 @@ export const FormPublishedCard = ({
           <Input readOnly value={shareUrl} className="w-full" />
           <Button
             className="mt-2 w-full"
-            onClick={() => {
-              navigator.clipboard.writeText(shareUrl)
+            onClick={async () => {
+              await navigator.clipboard.writeText(shareUrl)
               toast({
                 title: "Success",
                 description: "Link copied to clipboard",
