@@ -52,7 +52,7 @@ POSTGRES_PRISMA_URL=
 POSTGRES_URL_NON_POOLING=
 ```
 
-## Commands
+## Available Commands
 
 | Command          | Description                                   |
 | ---------------- | --------------------------------------------- |
