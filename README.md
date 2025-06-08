@@ -7,11 +7,11 @@ Full-stack web app for creating and sharing forms, built with Next.js, TypeScrip
 ## Features
 
 - **Drag-and-Drop Form Builder:**
-  - Layout fields: paragraph, title, sub-title, spacer, separator,
-  - Input fields: text, number, select, date, checkbox, textarea
-- **Share Forms:** Generate a unique URL for easy sharing.
-- **View Responses:** Access form submissions in a tabular format.
-- **Analytics:** Track form views and submissions.
+  - **Layout fields:** Title, subtitle, paragraph, spacer, separator
+  - **Input fields:** Text, number, select, date, checkbox, textarea
+- **Share Forms:** Generate a unique URL for easy sharing
+- **View Responses:** Access form submissions in a tabular format
+- **Analytics:** Track form views and submissions
 
 ## Technologies
 
@@ -27,30 +27,46 @@ Full-stack web app for creating and sharing forms, built with Next.js, TypeScrip
 
 ## Setup
 
-### Installation
+1. **Prerequisites:**
 
-```bash
-npm install
-```
+   - Node.js (v18 or later)
+   - PostgreSQL database
+   - [Clerk](https://clerk.dev/) account
 
-### Environment Variables
+2. **Clone the repository:**
 
-```bash
-# Clerk
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
+   ```bash
+   git clone https://github.com/tariqs26/form-pulse.git
+   cd form-pulse
+   ```
 
-# Clerk Custom Routing
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+3. **Install dependencies:**
 
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+   ```bash
+   npm i
+   ```
 
-# Prisma with Vercel Postgres
-POSTGRES_PRISMA_URL=
-POSTGRES_URL_NON_POOLING=
-```
+4. **Setup environment variables:**
+
+   Create a `.env` file in the root directory, with the following variables:
+
+   ```bash
+   # Clerk
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY=
+   CLERK_WEBHOOK_SIGNING_SECRET=
+
+   # Clerk Custom Routing
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+   # Prisma with Vercel Postgres
+   POSTGRES_PRISMA_URL=
+   POSTGRES_URL_NON_POOLING=
+   ```
 
 ## Available Commands
 
