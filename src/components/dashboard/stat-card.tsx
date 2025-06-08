@@ -10,7 +10,7 @@ type StatCardProps = Readonly<{
     value: string | number | undefined
     className: string
   }
-  loading: boolean
+  loading?: boolean
 }>
 
 export const StatCard = ({ stat, loading }: StatCardProps) => (
