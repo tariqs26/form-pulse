@@ -19,9 +19,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form"
-import { Input } from "../../ui/input"
-import { Label } from "../../ui/label"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 const type: Field = "title"
 
@@ -70,10 +70,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   })
 
   function applyChanges(data: Properties) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: data,
-    })
+    updateElement(element.id, { ...element, extraAttributes: data })
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {

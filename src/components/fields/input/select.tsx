@@ -109,10 +109,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   })
 
   function applyChanges(data: Properties) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: data,
-    })
+    updateElement(element.id, { ...element, extraAttributes: data })
     form.reset(data)
 
     toast({
@@ -194,7 +191,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
                   variant="outline"
                   className="gap-2"
                   type="button"
-                  onClick={(e) => {
+                  onClick={() => {
                     form.setValue("options", [...field.value, "New option"], {
                       shouldDirty: true,
                     })
@@ -220,7 +217,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
                       variant="ghost"
                       size="icon"
                       type="button"
-                      onClick={(e) => {
+                      onClick={() => {
                         const newOptions = [...field.value]
                         newOptions.splice(index, 1)
                         field.onChange(newOptions)

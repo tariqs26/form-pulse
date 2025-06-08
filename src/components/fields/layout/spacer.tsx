@@ -70,14 +70,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   })
 
   function applyChanges(data: Properties) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: data,
-    })
-  }
-
-  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") e.currentTarget.blur()
+    updateElement(element.id, { ...element, extraAttributes: data })
   }
 
   return (

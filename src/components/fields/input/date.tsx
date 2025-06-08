@@ -105,10 +105,7 @@ function PropertiesComponent(elementInstance: Readonly<FormElementInstance>) {
   })
 
   function applyChanges(data: Properties) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: data,
-    })
+    updateElement(element.id, { ...element, extraAttributes: data })
   }
 
   function onKeyDown(
