@@ -1,11 +1,12 @@
+import { isNotFoundError } from "next/dist/client/components/not-found"
+import { isRedirectError } from "next/dist/client/components/redirect"
 import { Prisma } from "@prisma/client"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
-export const generateId = () =>
-  Math.floor(Math.random() * 1000000000).toString(16)
+export const generateId = () => Math.floor(Math.random() * 1e12).toString(16)
 
 export const catchAsync =
   <Parameters extends unknown[], Output>(
@@ -17,6 +18,8 @@ export const catchAsync =
     try {
       return await action(...args)
     } catch (error) {
+      if (isRedirectError(error) || isNotFoundError(error)) throw error
+
       console.error(error)
 
       let message = "Something went wrong, please try again later"
