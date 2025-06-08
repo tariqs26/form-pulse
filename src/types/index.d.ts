@@ -1,1 +1,1 @@
-type LayoutProps = Readonly<React.PropsWithChildren>
+type LayoutProps<P = unknown> = Readonly<React.PropsWithChildren<P>>
