@@ -9,9 +9,7 @@ export const AuthProvider = ({ children }: LayoutProps) => {
 
   return (
     <ClerkProvider
-      appearance={{
-        baseTheme: resolvedTheme === "dark" ? dark : undefined,
-      }}
+      appearance={{ baseTheme: resolvedTheme === "dark" ? dark : undefined }}
     >
       {children}
     </ClerkProvider>

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
 
-import { AuthProvider } from "@/components/auth-provider"
+import { AuthProvider } from "@/components/providers/auth-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { siteConfig } from "@/config/site"
