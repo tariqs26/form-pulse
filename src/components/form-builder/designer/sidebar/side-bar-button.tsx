@@ -9,10 +9,7 @@ export const SideBarButton = ({ formElement }: SideBarButtonProps) => {
   const { label, icon: Icon } = formElement.designerButton
   const draggable = useDraggable({
     id: `designer-btn-${formElement.type}`,
-    data: {
-      type: formElement.type,
-      isDesignerButton: true,
-    },
+    data: { type: formElement.type, isDesignerButton: true },
   })
 
   return (
