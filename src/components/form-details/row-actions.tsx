@@ -26,11 +26,7 @@ export const RowActions = ({ elements, submission }: RowActionProps) => {
     const res = await deleteFormSubmission(submission.formId, submission.id)
 
     if ("error" in res)
-      toast({
-        title: "Error",
-        description: res.error,
-        variant: "destructive",
-      })
+      toast({ title: "Error", description: res.error, variant: "destructive" })
     else toast(res)
   }
 
