@@ -6,8 +6,8 @@ import { updateFormContent } from "@/actions/form"
 import { useDesigner } from "@/hooks/use-designer"
 import { toast } from "@/hooks/use-toast"
 
-import { Button } from "../../ui/button"
-import { Spinner } from "../../ui/spinner"
+import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 
 export const SaveFormButton = ({ id }: Readonly<Pick<Form, "id">>) => {
   const { elements } = useDesigner()
