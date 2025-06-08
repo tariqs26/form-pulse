@@ -5,13 +5,10 @@ import { FormSubmit } from "@/components/submit/form-submit"
 
 type Props = Readonly<{ params: { formShareId: string } }>
 
+const link = { href: "/", text: "Back to home" }
+
 export default async function SubmitPage({ params }: Props) {
   const { data, error } = z.string().uuid().safeParse(params.formShareId)
-
-  const link = {
-    href: "/",
-    text: "Back to home",
-  }
 
   if (error)
     return (
