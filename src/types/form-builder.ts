@@ -56,9 +56,9 @@ export type FormElement = {
   validate(formElement: FormElementInstance, currentValue: string): boolean
 }
 
-export type UserFormSubmission = {
+export type UserFormSubmission = Omit<FormSubmission, "content"> & {
   content: { [key: string]: string | undefined }
-} & Omit<FormSubmission, "content">
+}
 
 export const formElements: Record<Field, FormElement> = {
   paragraph: paragraphFormElement,
