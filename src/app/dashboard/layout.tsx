@@ -1,9 +1,7 @@
 import { Navbar } from "@/components/dashboard/navbar"
 import { DesignerProvider } from "@/components/providers/designer-provider"
 
-export const metadata = {
-  title: "Dashboard",
-}
+export const metadata = { title: "Dashboard" }
 
 export default function DashboardLayout({ children }: LayoutProps) {
   return (

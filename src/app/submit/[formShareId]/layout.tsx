@@ -1,9 +1,7 @@
 import { Logo } from "@/components/logo"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
-export const metadata = {
-  title: "Submit Form",
-}
+export const metadata = { title: "Submit Form" }
 
 export default function SubmitLayout({ children }: LayoutProps) {
   return (
