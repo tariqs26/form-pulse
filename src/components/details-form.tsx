@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/hooks/use-toast"
-import { Spinner } from "../ui/spinner"
+import { Spinner } from "./ui/spinner"
 
 export const DetailsForm = ({
   defaultValues,

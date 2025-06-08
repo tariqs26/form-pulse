@@ -4,7 +4,7 @@ import { useState } from "react"
 import type { Form } from "@prisma/client"
 import { Edit } from "lucide-react"
 
-import { DetailsForm } from "@/components/forms/details-form"
+import { DetailsForm } from "@/components/details-form"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,

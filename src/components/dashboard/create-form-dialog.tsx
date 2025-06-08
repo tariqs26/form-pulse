@@ -1,5 +1,5 @@
 import { FilePlus } from "lucide-react"
-import { DetailsForm } from "../forms/details-form"
+import { DetailsForm } from "../details-form"
 import { Button } from "../ui/button"
 import {
   Dialog,
