@@ -5,9 +5,6 @@ import { useDesigner } from "@/hooks/use-designer"
 import { formElements, type Field } from "@/types/form-builder"
 import { SideBarButtonDragOverlay } from "./designer/sidebar/side-bar-button"
 
-/**
- * This component is responsible for rendering the drag overlay of the currently dragged item.
- */
 export const DragOverlayWrapper = () => {
   const { elements } = useDesigner()
   const [draggedItem, setDraggedItem] = useState<Active | null>(null)
@@ -39,6 +36,7 @@ export const DragOverlayWrapper = () => {
   if (isDesignerElement) {
     const elementId = draggedItem.data?.current?.elementId
     const element = elements.find((element) => element.id === elementId)
+
     if (!element) node = <div>Element not found</div>
     else {
       const DesignerElementComponent =

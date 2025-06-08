@@ -28,7 +28,6 @@ export const Designer = () => {
       const isDroppingDesignerButtonOverDesignerDropArea =
         isDesignerButton && isDroppingOverDesignerDropArea
 
-      // Case 1
       if (isDroppingDesignerButtonOverDesignerDropArea) {
         const type = active.data?.current?.type as Field
         const newElement = formElements[type].construct(generateId())
