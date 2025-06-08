@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react"
 import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import { type FormElementInstance, formElements } from "@/types/form-builder"
-import { Button } from "../../ui/button"
+import { Button } from "@/components/ui/button"
 
 export const DesignerElementWrapper = (
   element: Readonly<FormElementInstance>
@@ -14,33 +14,21 @@ export const DesignerElementWrapper = (
 
   const [isMouseOver, setIsMouseOver] = useState(false)
 
-  const sharedData = {
-    type: element.type,
-    elementId: element.id,
-  }
+  const sharedData = { type: element.type, elementId: element.id }
 
   const topHalf = useDroppable({
     id: `${element.id}-top`,
-    data: {
-      isTopHalfDesignerElement: true,
-      ...sharedData,
-    },
+    data: { isTopHalfDesignerElement: true, ...sharedData },
   })
 
   const bottomHalf = useDroppable({
     id: `${element.id}-bottom`,
-    data: {
-      isBottomHalfDesignerElement: true,
-      ...sharedData,
-    },
+    data: { isBottomHalfDesignerElement: true, ...sharedData },
   })
 
   const draggable = useDraggable({
     id: `${element.id}-drag-handler`,
-    data: {
-      isDesignerElement: true,
-      ...sharedData,
-    },
+    data: { isDesignerElement: true, ...sharedData },
   })
 
   if (draggable.isDragging) return null
