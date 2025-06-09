@@ -7,9 +7,9 @@ import {
   type UserFormSubmission,
 } from "@/types/form-builder"
 
-import { FormPreviewContainer } from "@/components/form-preview-container"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { FormPreviewContainer } from "./form-preview-container"
+import { Button } from "./ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
 
 export type FormPreviewDialogProps = Readonly<{
   elements: FormElementInstance[]

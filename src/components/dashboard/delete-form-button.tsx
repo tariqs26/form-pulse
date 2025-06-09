@@ -4,8 +4,8 @@ import { useTransition } from "react"
 import { Trash2 } from "lucide-react"
 
 import { deleteForm } from "@/actions/form"
-import { toast } from "@/hooks/use-toast"
 
+import { toast } from "@/hooks/use-toast"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,9 +16,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Spinner } from "@/components/ui/spinner"
+} from "../ui/alert-dialog"
+import { Button } from "../ui/button"
+import { Spinner } from "../ui/spinner"
 
 export const DeleteFormButton = ({ formId }: Readonly<{ formId: number }>) => {
   const [loading, startTransition] = useTransition()

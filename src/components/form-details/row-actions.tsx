@@ -9,10 +9,10 @@ import type {
   UserFormSubmission,
 } from "@/types/form-builder"
 
-import { FormPreviewDialog } from "@/components/form-preview-dialog"
-import { Button } from "@/components/ui/button"
-import { Spinner } from "@/components/ui/spinner"
 import { toast } from "@/hooks/use-toast"
+import { FormPreviewDialog } from "../form-preview-dialog"
+import { Button } from "../ui/button"
+import { Spinner } from "../ui/spinner"
 
 export type RowActionProps = Readonly<{
   elements: FormElementInstance[]

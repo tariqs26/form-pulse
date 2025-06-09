@@ -8,8 +8,8 @@ import type {
 } from "@/types/form-builder"
 import { inputFields } from "@/types/form-builder"
 
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "../ui/badge"
+import { Checkbox } from "../ui/checkbox"
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "../ui/table"
 import { RowActions } from "./row-actions"
 
 type SubmissionsTableProps = Readonly<{
