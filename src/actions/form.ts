@@ -50,11 +50,14 @@ export const getForms = async () => {
   return db.form.findMany({ where: { userId }, orderBy: { updatedAt: "desc" } })
 }
 
-export const getFormById = catchAsync(async (id: number) => {
+export const getFormById = catchAsync(async (id: string) => {
   const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
-  return db.form.findUniqueOrThrow({ where: { id, userId } })
+  const { data, error } = z.coerce.number().safeParse(id)
+  if (error) return { status: 400, error: "Invalid form ID" }
+
+  return db.form.findUniqueOrThrow({ where: { id: data, userId } })
 })
 
 export const getFormContentByShareId = catchAsync(async (shareId: string) => {
@@ -67,12 +70,16 @@ export const getFormContentByShareId = catchAsync(async (shareId: string) => {
   return form.content as FormElementInstance[]
 })
 
-export const getFormWithSubmissions = catchAsync(async (id: number) => {
+export const getFormWithSubmissions = catchAsync(async (id: string) => {
   const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
+  const { data, error } = z.coerce.number().safeParse(id)
+
+  if (error) return { status: 400, error: "Invalid form ID" }
+
   return db.form.findUniqueOrThrow({
-    where: { id, userId },
+    where: { id: data, userId },
     include: { formSubmissions: true },
   })
 })

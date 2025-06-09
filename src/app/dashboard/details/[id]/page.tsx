@@ -1,6 +1,5 @@
 import { LayoutDashboard } from "lucide-react"
 import Link from "next/link"
-import { z } from "zod"
 
 import { getFormWithSubmissions } from "@/actions/form"
 
@@ -16,11 +15,7 @@ export const metadata = { title: "Form Details" }
 export default async function DetailsPage({
   params,
 }: Readonly<{ params: { id: string } }>) {
-  const { data, error } = z.coerce.number().safeParse(params.id)
-
-  if (error) return <FormError error="Invalid form ID" status={400} />
-
-  const form = await getFormWithSubmissions(data)
+  const form = await getFormWithSubmissions(params.id)
 
   if ("error" in form) return <FormError {...form} />
 
