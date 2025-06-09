@@ -8,7 +8,8 @@ import type { Form as DbForm } from "@prisma/client"
 import { createForm, updateFormDetails } from "@/actions/form"
 import { type FormData, formSchema } from "@/schemas/form"
 
-import { Button } from "@/components/ui/button"
+import { toast } from "@/hooks/use-toast"
+import { Button } from "./ui/button"
 import {
   Form,
   FormControl,
@@ -16,24 +17,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/hooks/use-toast"
+} from "./ui/form"
+import { Input } from "./ui/input"
 import { Spinner } from "./ui/spinner"
+import { Textarea } from "./ui/textarea"
+
+type DetailsFromProps =
+  | { defaultValues: Readonly<DbForm>; closeModal: () => void }
+  | { defaultValues?: never; closeModal?: never }
 
 export const DetailsForm = ({
   defaultValues,
   closeModal,
-}:
-  | {
-      defaultValues: Readonly<DbForm>
-      closeModal: () => void
-    }
-  | {
-      defaultValues?: never
-      closeModal?: never
-    }) => {
+}: DetailsFromProps) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues,
