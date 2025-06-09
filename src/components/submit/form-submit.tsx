@@ -13,10 +13,10 @@ import { Spinner } from "../ui/spinner"
 
 type FormSubmitProps = Readonly<{
   formContent: FormElementInstance[]
-  formShareId: string
+  shareId: string
 }>
 
-export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
+export const FormSubmit = ({ formContent, shareId }: FormSubmitProps) => {
   const formValues = useRef<Record<string, string>>({})
   const formErrors = useRef<Record<string, boolean>>({})
   const [key, setKey] = useState(new Date().getTime())
@@ -49,7 +49,7 @@ export const FormSubmit = ({ formContent, formShareId }: FormSubmitProps) => {
       return
     }
 
-    const res = await submitForm(formShareId, formValues.current)
+    const res = await submitForm(shareId, formValues.current)
 
     if ("error" in res)
       toast({

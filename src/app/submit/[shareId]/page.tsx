@@ -11,5 +11,5 @@ export default async function SubmitPage({
 
   if ("error" in formContent) return <FormError link={link} {...formContent} />
 
-  return <FormSubmit formContent={formContent} formShareId={params.shareId} />
+  return <FormSubmit formContent={formContent} shareId={params.shareId} />
 }
