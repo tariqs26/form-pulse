@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs/server"
 import type { FormStatus } from "@prisma/client"
+import { z } from "zod"
 
 import db from "@/lib/db"
 import { catchAsync } from "@/lib/utils"
@@ -122,14 +123,19 @@ export const updateFormStatus = catchAsync(
 )
 
 export const submitForm = catchAsync(
-  async (shareId: string, content: Record<string, any>) =>
-    db.form.update({
-      where: { shareId, status: "PUBLISHED" },
+  async (shareId: string, content: Record<string, any>) => {
+    const { data, error } = z.string().uuid().safeParse(shareId)
+
+    if (error) return { status: 400, error: "Invalid form share link" }
+
+    return db.form.update({
+      where: { shareId: data, status: "PUBLISHED" },
       data: {
         submissions: { increment: 1 },
         formSubmissions: { create: { content } },
       },
     })
+  }
 )
 
 export const deleteForm = catchAsync(async (id: number) => {
