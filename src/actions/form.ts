@@ -61,8 +61,11 @@ export const getFormById = catchAsync(async (id: string) => {
 })
 
 export const getFormContentByShareId = catchAsync(async (shareId: string) => {
+  const { data, error } = z.string().uuid().safeParse(shareId)
+  if (error) return { status: 400, error: "Invalid form share link" }
+
   const form = await db.form.update({
-    where: { shareId },
+    where: { shareId: data },
     select: { content: true },
     data: { visits: { increment: 1 } },
   })
@@ -75,7 +78,6 @@ export const getFormWithSubmissions = catchAsync(async (id: string) => {
   if (!userId) throw NotAuthenticatedError
 
   const { data, error } = z.coerce.number().safeParse(id)
-
   if (error) return { status: 400, error: "Invalid form ID" }
 
   return db.form.findUniqueOrThrow({
@@ -132,7 +134,6 @@ export const updateFormStatus = catchAsync(
 export const submitForm = catchAsync(
   async (shareId: string, content: Record<string, any>) => {
     const { data, error } = z.string().uuid().safeParse(shareId)
-
     if (error) return { status: 400, error: "Invalid form share link" }
 
     return db.form.update({
