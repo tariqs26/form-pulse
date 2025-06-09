@@ -31,7 +31,7 @@ type Column = {
   type: Field
 }
 
-export async function SubmissionsTable({ form }: SubmissionsTableProps) {
+export const SubmissionsTable = ({ form }: SubmissionsTableProps) => {
   const formElements = form.content as FormElementInstance[]
 
   const columns: Column[] = []
