@@ -36,26 +36,17 @@ export const getUserFormStats = async () => {
 
   const visits = _sum.visits || 0
   const submissions = _sum.submissions || 0
-
   const submissionRate = visits ? (submissions / visits) * 100 : 0
   const bounceRate = 100 - submissionRate
 
-  return {
-    visits,
-    submissions,
-    submissionRate,
-    bounceRate,
-  }
+  return { visits, submissions, submissionRate, bounceRate }
 }
 
 export const getForms = async () => {
   const { userId } = await auth()
   if (!userId) throw NotAuthenticatedError
 
-  return db.form.findMany({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  })
+  return db.form.findMany({ where: { userId }, orderBy: { updatedAt: "desc" } })
 }
 
 export const getFormById = catchAsync(async (id: number) => {
@@ -93,10 +84,7 @@ export const updateFormContent = catchAsync(
     await db.form.update({ where: { id, userId }, data: { content } })
 
     revalidatePath(`/dashboard/builder/${id}`)
-    return {
-      title: "Success",
-      description: "Form saved successfully",
-    }
+    return { title: "Success", description: "Form saved successfully" }
   }
 )
 
@@ -120,10 +108,7 @@ export const updateFormStatus = catchAsync(
     const { userId } = await auth()
     if (!userId) throw NotAuthenticatedError
 
-    await db.form.update({
-      where: { id, userId },
-      data: { status },
-    })
+    await db.form.update({ where: { id, userId }, data: { status } })
 
     revalidatePath(`/dashboard/builder/${id}`)
     revalidatePath(`/dashboard/details/${id}`)
@@ -163,9 +148,7 @@ export const deleteFormSubmission = catchAsync(
     if (!userId) throw NotAuthenticatedError
 
     await db.$transaction([
-      db.formSubmission.delete({
-        where: { id, formId, form: { userId } },
-      }),
+      db.formSubmission.delete({ where: { id, formId, form: { userId } } }),
       db.form.update({
         where: { id: formId, userId },
         data: { submissions: { decrement: 1 } },
