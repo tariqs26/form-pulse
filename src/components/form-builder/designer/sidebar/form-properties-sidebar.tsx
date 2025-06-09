@@ -1,6 +1,6 @@
 import { X } from "lucide-react"
-import { useDesigner } from "@/hooks/use-designer"
 import { formElements } from "@/types/form-builder"
+import { useDesigner } from "@/hooks/use-designer"
 import { Button } from "@/components/ui/button"
 
 export const FormPropertiesSidebar = () => {

@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ListChecks, Plus, X } from "lucide-react"
 import { z } from "zod"
 
-import { useDesigner } from "@/hooks/use-designer"
 import { cn } from "@/lib/utils"
 import type {
   Field,
@@ -15,6 +14,8 @@ import type {
   FormElementInstance,
 } from "@/types/form-builder"
 
+import { useDesigner } from "@/hooks/use-designer"
+import { toast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -36,7 +37,6 @@ import {
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
-import { toast } from "@/hooks/use-toast"
 
 const type: Field = "select"
 
