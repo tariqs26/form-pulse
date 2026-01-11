@@ -22,15 +22,11 @@ export const inputFields = [
   "textarea",
 ] as const
 
-export const layoutFields = [
-  "paragraph",
-  "separator",
-  "spacer",
-  "subTitle",
-  "title",
-] as const
+type InputField = (typeof inputFields)[number]
 
-export type Field = (typeof inputFields | typeof layoutFields)[number]
+type LayoutField = "paragraph" | "separator" | "spacer" | "subTitle" | "title"
+
+export type Field = InputField | LayoutField
 
 export type FormElementInstance = {
   id: string
