@@ -1,5 +1,5 @@
-import { isNotFoundError } from "next/dist/client/components/not-found"
-import { isRedirectError } from "next/dist/client/components/redirect"
+import { isHTTPAccessFallbackError } from "next/dist/client/components/http-access-fallback/http-access-fallback"
+import { isRedirectError } from "next/dist/client/components/redirect-error"
 import { Prisma } from "@prisma/client"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -18,7 +18,8 @@ export const catchAsync =
     try {
       return await action(...args)
     } catch (error) {
-      if (isRedirectError(error) || isNotFoundError(error)) throw error
+      if (isHTTPAccessFallbackError(error) || isRedirectError(error))
+        throw error
 
       console.error(error)
 
