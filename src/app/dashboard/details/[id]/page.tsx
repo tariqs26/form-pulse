@@ -12,9 +12,10 @@ import { Button } from "@/components/ui/button"
 
 export const metadata = { title: "Form Details" }
 
-export default async function DetailsPage({
-  params,
-}: Readonly<{ params: { id: string } }>) {
+export default async function DetailsPage(
+  props: Readonly<{ params: Promise<{ id: string }> }>
+) {
+  const params = await props.params
   const form = await getFormWithSubmissions(params.id)
 
   if ("error" in form) return <FormError {...form} />
