@@ -14,7 +14,18 @@
     "jsx": "preserve",
     "incremental": true,
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"] },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitThis": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
