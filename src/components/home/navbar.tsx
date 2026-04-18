@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { SignedIn, SignedOut } from "@clerk/nextjs"
+import { Show } from "@clerk/nextjs"
 
 import { Logo } from "../logo"
 import { ThemeSwitcher } from "../theme-switcher"
@@ -10,16 +10,16 @@ export const Navbar = () => (
     <Logo />
     <div className="flex items-center gap-2">
       <ThemeSwitcher />
-      <SignedIn>
+      <Show when="signed-in">
         <Button asChild>
           <Link href="/dashboard">Dashboard</Link>
         </Button>
-      </SignedIn>
-      <SignedOut>
+      </Show>
+      <Show when="signed-out">
         <Button asChild>
           <Link href="/sign-in">Sign In</Link>
         </Button>
-      </SignedOut>
+      </Show>
     </div>
   </nav>
 )
