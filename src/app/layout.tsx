@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.title,
     url: siteConfig.metadataBase,
-    images: ["/opengraph-image.jpg"],
   },
 }
 
@@ -37,7 +36,6 @@ export default function RootLayout({ children }: LayoutProps) {
           disableTransitionOnChange
         >
           <AuthProvider>{children}</AuthProvider>
-
           <Toaster />
         </ThemeProvider>
       </body>
